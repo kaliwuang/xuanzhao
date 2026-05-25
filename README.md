@@ -91,19 +91,15 @@
 ## 快速安装
 
 ```bash
-# 1. 克隆
-git clone https://github.com/[your-username]/xuanzhao.git
+git clone https://github.com/kaliwuang/xuanzhao.git
 cd xuanzhao
 
 # 2. 安装依赖
 pip install lunar-python sxtwl najia kinliuren kintaiyi iztro-py pyswisseph
 npm install -g tokscale
 
-# 3. 安装视角 skill
-bash scripts/install-perspectives.sh
-
-# 4. 复制 SKILL.md 到 Hermes
-cp SKILL.md ~/.hermes/skills/xuanxue/xuanzhao/
+# 3. 一键安装
+bash install.sh
 ```
 
 ## 使用示例

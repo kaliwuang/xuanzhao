@@ -349,7 +349,9 @@ class Perspective(ABC):
                 break
         
         dm_wx = dm.get("wuxing", "?")
-        dm_str = f"{dm.get('gan','?')}{dm_wx}"
+        dm_str = f["dm_str"]
+        # get gan from raw data for the prefix
+        dm_gan_raw = a.get("raw_bazi", {}).get("day_master", {}).get("gan", "?")
         strength = dm.get("strength", "?")
         
         p1 = f"{prefix}日主{dm_str}，{strength}格局。五行{f['strongest']}旺而{f['weakest']}弱，{'冲合并见' if f['chong'] and f['he'] else '有冲无合' if f['chong'] else '有合无冲' if f['he'] else '无特殊冲合'}。调候用神{f['yongshen_str']}，{'得力' if f['th'].get('yongshen') else '偏弱'}。"

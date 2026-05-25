@@ -702,6 +702,12 @@ def main():
     p_demo = sub.add_parser("demo", help="生成示例报告")
     p_demo.add_argument("--output", default=None, help="输出文件路径")
 
+    # debate
+    p_debate = sub.add_parser("debate", help="108玄学人物辩论")
+    p_debate.add_argument("--birth", default="2005-06-09 11:50", help="出生时间")
+    p_debate.add_argument("--location", default="呼和浩特", help="出生地点")
+    p_debate.add_argument("--gender", default="男", help="性别")
+
     args = parser.parse_args()
 
     if not args.command:
@@ -745,6 +751,66 @@ def main():
             with open(args.output, 'w', encoding='utf-8') as f:
                 f.write(report)
             print(f"\n✅ 已保存到 {args.output}")
+        return
+
+    if args.command == "debate":
+        birth = args.birth
+        location = args.location
+        gender = args.gender
+        print(f"🔄 正在分析 {birth} {location}...")
+        destiny = analyzer.analyze(birth, location, gender)
+        if "error" in destiny:
+            print(f"❌ {destiny['error']}")
+            return
+        print(f"✅ 命盘分析完成，召集中外108位玄学人物...")
+        try:
+            from debate_engine import generate_debate, select_debaters
+            from perspectives_engine import get_all_analytics
+            analytics = get_all_analytics(destiny)
+            debaters = select_debaters(per_faction=2)
+            print(f"✅ 选定{len(debaters)}位辩论代表...")
+            result = generate_debate(destiny, analytics)
+            
+            # 输出辩论
+            print("\n" + "=" * 60)
+            print(f"  玄学辩论会：{result['topic']}")
+            print("=" * 60)
+            
+            # 参辩人员
+            print(f"\n📋 参辩方阵（{len(result['participants'])}人）：")
+            fac_groups = {}
+            for p in result["participants"]:
+                fac_groups.setdefault(p["faction_name"], []).append(p["name"])
+            for fn, names in fac_groups.items():
+                print(f"  【{fn}】{'、'.join(names)}")
+            
+            # 第一轮
+            for r in result["rounds"]:
+                print(f"\n{'─' * 50}")
+                print(f"  {r['phase']}")
+                print(f"{'─' * 50}")
+                if "speeches" in r:
+                    for s in r["speeches"]:
+                        print(f"\n【{s['faction']}】{s['name']}（{s['title']}）:")
+                        for para in s["text"].split("\n\n"):
+                            print(f"  {para.strip()}")
+                            print()
+                if "exchanges" in r:
+                    for e in r["exchanges"]:
+                        print(f"\n⚡ {e['label']}")
+                        print(f"  {e['challenger']} → {e['target']}: {e['text']}")
+                        print(f"  {e['challenger']} ← {e['target']}: {e['rebuttal']}")
+            
+            # 综述
+            print(f"\n{'═' * 50}")
+            print(f"  辩论综述")
+            print(f"{'═' * 50}")
+            print(f"\n{result['final_summary']}")
+            
+        except Exception as e:
+            import traceback
+            print(f"❌ 辩论引擎异常: {e}")
+            traceback.print_exc()
         return
 
     # analyze or predict

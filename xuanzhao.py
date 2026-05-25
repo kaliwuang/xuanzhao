@@ -24,7 +24,7 @@ except ImportError:
 # ========================
 # 引擎版本
 # ========================
-VERSION = "1.2.5"
+VERSION = "1.3.0"
 
 # ========================
 # 八字排盘模块
@@ -702,7 +702,7 @@ def main():
         all_deep = DEEP_ENGINE.list() if DEEP_OK else []
         all_shallow = pers_engine.list_all()
         print(f"\n📚 玄照视角库\n")
-        print(f"深度视角（20个核心——基于命盘数据计算）：")
+        print(f"深度视角（96个核心——含78模板生成）：")
         for p in all_deep:
             print(f"  🔴 {p['id']:30s} {p['name']} — {p['title']}")
         print()

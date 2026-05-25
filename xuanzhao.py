@@ -585,11 +585,20 @@ class ReportGenerator:
             if "score" in pdata:
                 lines.append(f"**综合评分：{pdata['score']}/100**　置信度：{int(pdata.get('confidence',0)*100)}%")
                 lines.append("")
-                lines.append(f"> {pdata.get('summary','')}")
+                
+                # 独白（新增——核心输出）
+                monologue = pdata.get("monologue", "")
+                if monologue:
+                    for para in monologue.split("\n\n"):
+                        lines.append(f"> {para.strip()}")
+                        lines.append("")
+                
+                lines.append(f"> _{pdata.get('summary','')}_")
                 lines.append("")
-                # 维度
+                
+                # 维度（折叠在细节后）
                 for d in pdata.get("dimensions", []):
-                    bar = "█" * (d["score"] // 10) + "░" * (10 - d["score"] // 10)
+                    bar = "█" * int(d["score"] // 10) + "░" * int(10 - d["score"] // 10)
                     lines.append(f"- **{d['name']}**　{d['score']}/100　`{bar}`")
                     lines.append(f"  _{d['detail']}_")
                     lines.append("")

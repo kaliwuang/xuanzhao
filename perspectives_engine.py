@@ -162,6 +162,73 @@ def check_combinations(bazi: dict) -> list:
     return result
 
 
+
+
+def _fmt_bazi_data(a: dict) -> dict:
+    """从 analytics 中提取格式化后的八字关键数据，供视角独白引用"""
+    wx = a.get("wuxing", {})
+    dm = a.get("daymaster", {})
+    ts = a.get("tenshen", {})
+    combos = a.get("combinations", [])
+    dayun = a.get("dayun_phase", {})
+    th = a.get("tiaohou", {})
+    features = a.get("features", [])
+    mm = a.get("multi_metaphysics", {})
+    
+    # 五行排序
+    wx_sorted = sorted(wx.items(), key=lambda x: -x[1])
+    strongest = wx_sorted[0][0] if wx_sorted else "?"
+    weakest = wx_sorted[-1][0] if len(wx_sorted) > 1 else "?"
+    
+    # 冲刑合简写
+    chong = [c for c in combos if "冲" in c]
+    he = [c for c in combos if "合" in c]
+    
+    # 用神
+    ys = th.get("yongshen", "")
+    yongshen_str = f"《{ys}》" if ys else "不明"
+    
+    # 日主
+    dm_wx = dm.get("wuxing", "?")
+    dm_gan = a.get("raw_bazi", {}).get("day_master", {}).get("gan", "?")
+    dm_str = f"{dm_gan}{dm_wx}"
+    
+    # 大运
+    if dayun and dayun.get("ganzhi"):
+        dayun_str = f"{dayun['ganzhi']}运（{dayun.get('start','?')}-{dayun.get('end','?')}）第{dayun.get('year_index','?')}年"
+    else:
+        dayun_str = "大运尚未启动"
+    
+    # 七术引用
+    liuyao = mm.get("liuyao", {})
+    liuren = mm.get("liuren", {})
+    qimen = mm.get("qimen", {})
+    astrology = mm.get("astrology", {})
+    
+    liuyao_str = f"六爻得《{liuyao.get('hexagram','?')}》卦" if liuyao and "error" not in liuyao and liuyao.get("hexagram") else ""
+    liuren_str = f"大六壬{liuren.get('day','?')}日课" if liuren and "error" not in liuren else ""
+    
+    # 占星关键行星
+    planet_refs = []
+    if astrology and "error" not in astrology:
+        planets = astrology.get("planets", {})
+        for pname in ["太阳", "月亮", "水星", "金星", "火星", "木星", "土星"]:
+            if pname in planets:
+                p = planets[pname]
+                planet_refs.append(f"{pname}在{p['sign']}{p['degree']}°")
+    
+    return {
+        "wx": wx, "dm": dm, "ts": ts, "combos": combos,
+        "dayun": dayun, "th": th, "features": features,
+        "strongest": strongest, "weakest": weakest,
+        "yongshen_str": yongshen_str, "dm_str": dm_str, "dm_wx": dm_wx,
+        "dayun_str": dayun_str,
+        "liuyao_str": liuyao_str, "liuren_str": liuren_str,
+        "planet_refs": planet_refs[:3],  # 最多3个行星
+        "chong": chong, "he": he,
+        "mm": mm,
+    }
+
 def calc_daymaster_rating(bazi: dict) -> dict:
     """评断日主强弱"""
     wuxing = calc_wuxing_distribution(bazi)
@@ -203,8 +270,8 @@ def get_all_analytics(destiny: dict) -> dict:
     features = destiny.get("features", [])
     tiaohou = destiny.get("tiaohou", {})
     dayun = bazi.get("dayun", [])
-    
-    return {
+
+    result = {
         "wuxing": calc_wuxing_distribution(bazi),
         "tenshen": calc_tenshen_strength(bazi),
         "dayun_phase": check_dayun_phase(dayun),
@@ -213,7 +280,25 @@ def get_all_analytics(destiny: dict) -> dict:
         "features": features,
         "tiaohou": tiaohou,
         "raw_bazi": bazi,
+        "multi_metaphysics": {},
     }
+
+    # 集成七术
+    try:
+        from multi_metaphysics import get_metaphysics
+        meta = get_metaphysics(
+            destiny.get("birth", ""),
+            destiny.get("location", ""),
+            destiny.get("gender", "男"),
+        )
+        # 只保留非八字部分
+        for k in ["liuyao", "liuren", "qimen", "taiyi", "astrology"]:
+            if k in meta and isinstance(meta[k], dict) and "error" not in meta[k]:
+                result["multi_metaphysics"][k] = meta[k]
+    except Exception:
+        pass
+
+    return result
 
 
 # ==========================================
@@ -235,6 +320,49 @@ class Perspective(ABC):
     def analyze(self, data: dict, analytics: dict) -> dict:
         """返回分析结果字典"""
         ...
+    
+    def _build_monologue(self, a: dict) -> str:
+        """默认独白生成器——子类可覆盖以提供更个性化的口吻"""
+        f = _fmt_bazi_data(a)
+        combos = a.get("combinations", [])
+        dm = a.get("daymaster", {})
+        
+        # 从视角名称判断风格前缀
+        name_style = {
+            "老子": "观此命盘，如观流水。",
+            "王阳明": "格物致知，此命可格。",
+            "斯多葛": "控制二分法看此命——",
+            "克劳利": "以意志法则审视此命盘——",
+            "弗洛伊德": "让我潜入潜意识的深海。",
+            "萨满": "灵眼初开，观此命之灵魂能量——",
+            "尼采": "用锤子检验此命盘——",
+            "巴菲特": "用价值投资的眼光看这个命局——",
+            "巴菲特": "用价值投资的眼光看这个命局——",
+            "赫尔墨斯": "上下呼应——此命暗合赫尔墨斯七原则。",
+            "张一鸣": "用算法思维拆解这个命局——",
+        }
+        
+        prefix = "待我详观此命——"
+        for k, v in name_style.items():
+            if k in self.name:
+                prefix = v
+                break
+        
+        dm_wx = dm.get("wuxing", "?")
+        dm_str = f"{dm.get('gan','?')}{dm_wx}"
+        strength = dm.get("strength", "?")
+        
+        p1 = f"{prefix}日主{dm_str}，{strength}格局。五行{f['strongest']}旺而{f['weakest']}弱，{'冲合并见' if f['chong'] and f['he'] else '有冲无合' if f['chong'] else '有合无冲' if f['he'] else '无特殊冲合'}。调候用神{f['yongshen_str']}，{'得力' if f['th'].get('yongshen') else '偏弱'}。"
+        
+        p2 = ""
+        if f["dayun"].get("ganzhi"):
+            p2 = f"当前{f['dayun_str']}，{'运势助身' if f['dayun'].get('gan_wuxing','') == dm_wx or f['dayun'].get('zhi_wuxing','') == dm_wx else '运势平缓，蓄力待发'}。"
+        
+        p3 = ""
+        if f["liuyao_str"]:
+            p3 = f"此外，{f['liuyao_str']}，卦象在此可作为辅助印证。"
+        
+        return f"{p1}\n\n{p2}\n\n{p3}"
 
 
 # ==========================================
@@ -245,7 +373,47 @@ class ZhugeLiang(Perspective):
     name = "诸葛亮"
     title = "隆中对全局推演"
     
+    def _build_monologue(self, a: dict) -> str:
+        f = _fmt_bazi_data(a)
+        liuyao = f.get("liuyao_str", "")
+        planets = "; ".join(f.get("planet_refs", []))
+        
+        p1 = (
+            f"臣观此命盘，如临隆中论天下大势。日主{f['dm_str']}坐于{f['dm_wx']}，"
+            f"五行之中{f['strongest']}气最盛、{f['weakest']}气最弱，"
+            f"恰似曹孙刘三方之势——各有根基，各有不足。"
+            f"调候用神{f['yongshen_str']}，此乃天时，如借得东风便有成事之基。"
+        )
+        
+        chong_text = ""
+        if f["chong"]:
+            chong_text = (
+                f"然观其命局有{f['chong'][0]}，此事非坦途。"
+                "冲者，荆州之争也——不可不争，不可恋战。"
+                "先取荆州为家、再图益州成业，此臣之策。"
+            )
+        else:
+            chong_text = "命局无冲，根基稳固，如成都已定，可徐徐图之。"
+        
+        dayun_text = ""
+        if f["dayun"].get("ganzhi"):
+            d = f["dayun"]
+            dayun_text = (
+                f"当前{f['dayun_str']}，{'所行与日主同气，此乃借势之时' if d.get('gan_wuxing','')==f['dm_wx'] or d.get('zhi_wuxing','')==f['dm_wx'] else '此运非帮身之运，当以守为主、以逸待劳'}。"
+            )
+        else:
+            dayun_text = "大运未动，如隆中未出——当务之急是等待时机。"
+        
+        mm_text = ""
+        if f["liuyao_str"]:
+            mm_text = f"兼观{f['liuyao_str']}，{'与命盘相合，多算者胜' if '合' in f['liuyao_str'] else '卦象提醒——此命不可轻举妄动'}。"
+        if planets:
+            mm_text += f" 西学观星亦有印证：{planets}。天象地命，合而观之。"
+        
+        return f"{p1}\n\n{chong_text}\n\n{dayun_text}{' ' + mm_text if mm_text else ''}"
+    
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         features = a["features"]
@@ -332,6 +500,7 @@ class ZhugeLiang(Perspective):
         
         return {
             "score": score,
+            "monologue": self._build_monologue(a),
             "confidence": 0.75,
             "summary": f"此命{'格局清晰' if score > 65 else '格局待定'}，{'宜借势布局' if score > 60 else '宜积蓄守势'}。{'多算胜少算' if any('冲' in c for c in combos) else '顺势而为即可'}",
             "dimensions": dimensions,
@@ -349,7 +518,36 @@ class YuanTiangang(Perspective):
     name = "袁天罡"
     title = "骨相推命运分段"
     
+    def _build_monologue(self, a: dict) -> str:
+        f = _fmt_bazi_data(a)
+        dm = a["daymaster"]
+        
+        p1 = (
+            f"老夫以骨相法推此命。日主{f['dm_str']}，{dm.get('strength','?')}之格。"
+            f"五行{f['strongest']}旺而{f['weakest']}弱，"
+            f"此乃{'烈焰外显' if f['strongest'] == '火' else '刚锐外露' if f['strongest'] == '金' else '内秀其中' if f['strongest'] in ('水','木') else '厚德载物'}之相。"
+        )
+        
+        dayun_text = ""
+        if f["dayun"].get("ganzhi"):
+            d = f["dayun"]
+            y = d.get("year_index", 0)
+            seg_quality = "黄金期" if 2 <= y <= 5 else "初入期" if y <= 2 else "尾段期"
+            dayun_text = (
+                f"当前行{f['dayun_str']}，正值此运{seg_quality}。"
+                f"{f['dayun_str'].split('运')[0]}气{'助身，顺风顺水' if d.get('gan_wuxing','')==f['dm_wx'] else '非助身之气，需谨慎行事'}。"
+            )
+        else:
+            dayun_text = "大运尚未开启，如璞玉未琢。少年之运，奠基为重。"
+        
+        mm_text = ""
+        if f["liuyao_str"]:
+            mm_text = f" 老夫再观{f['liuyao_str']}卦象，{'与骨相相合' if '合' in str(f['combos']) else '以卦象印证骨相之论'}。"
+        
+        return f"{p1}\n\n{dayun_text}{mm_text}"
+    
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         dayun = a["dayun_phase"]
@@ -430,6 +628,7 @@ class YuanTiangang(Perspective):
         
         return {
             "score": score,
+            "monologue": self._build_monologue(a),
             "confidence": 0.8,
             "summary": f"此命{dayun_segments[0] if dayun_segments else '大运未详'}，{'青年发力' if dm.get('strength') in ('中和','身强') else '中年转运'}格局",
             "dimensions": dimensions,
@@ -447,7 +646,42 @@ class Feynman(Perspective):
     name = "费曼"
     title = "简化核心机制"
     
+
+    def _build_monologue(self, a: dict) -> str:
+        f = _fmt_bazi_data(a)
+        dm = a["daymaster"]
+        features = a.get("features", [])
+        
+        core = ""
+        if "子午冲" in str(features) or "午子冲" in str(features):
+            core = "这个命的核心矛盾就一个：吸收和表达在打架。子午冲——水和火在你身体里来回窜，一边想安静地吸收，一边想冲出去表达。"
+        else:
+            core = f"说人话：这是一个「{dm.get('wuxing','?')}」气质的命。最强的五行是「{f['strongest']}」，最弱的是「{f['weakest']}」。就这么简单。"
+        
+        balance = ""
+        wx_vals = sorted(f['wx'].values(), reverse=True)
+        if len(wx_vals) >= 2 and wx_vals[0] - wx_vals[-1] > 40:
+            balance = f"五个维度极度不均衡——就像一个人在实验室花十年研究一个课题。极端不是坏事，看你用在哪。"
+        elif len(wx_vals) >= 2 and wx_vals[0] - wx_vals[-1] < 20:
+            balance = "五行分布很均衡——这让你很难被归类，但好处是能适应各种环境。"
+        else:
+            balance = "五行有偏但不极端——算是中性性格，能专注但不能偏执。"
+        
+        dayun_p = ""
+        if f["dayun"].get("ganzhi"):
+            d = f["dayun"]
+            if d.get('gan_wuxing','') == dm.get('wuxing','') or d.get('zhi_wuxing','') == dm.get('wuxing',''):
+                dayun_p = f"当前{f['dayun_str']}，这个运在帮忙——适合把之前学的东西用出来。别浪费。"
+            else:
+                dayun_p = f"当前{f['dayun_str']}，运势不算助身——意味着你在逆风局里，赢面小但学到的东西多。"
+        
+        mm_p = ""
+        if f["liuyao_str"]:
+            mm_p = f"顺便说，{f['liuyao_str']}——卦象和八字说的是同一件事。"
+        
+        return f"{core}\n\n{balance}\n\n{dayun_p}{' ' + mm_p if mm_p else ''}"
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         features = a["features"]
@@ -519,6 +753,7 @@ class Feynman(Perspective):
         
         return {
             "score": score,
+            "monologue": self._build_monologue(a),
             "confidence": 0.7,
             "summary": f"简化后：这是一个「{dm.get('wuxing','?')}」命局。{'核心矛盾明确' if core_issues else '命局相对简洁'}。{strongest_wx}过旺，{weakest_wx}不足。",
             "dimensions": dimensions,
@@ -536,7 +771,47 @@ class Jung(Perspective):
     name = "荣格"
     title = "阴影整合与个体化"
     
+
+    def _build_monologue(self, a: dict) -> str:
+        f = _fmt_bazi_data(a)
+        dm = a["daymaster"]
+        ts = a["tenshen"]
+        
+        # 面具与阴影：最强五行=面具，最弱=阴影
+        mask = f['strongest']
+        shadow = f['weakest']
+        
+        mask_desc = {
+            "木": "发散、生长、向上——这个人格面具让你看起来永远在追逐新目标",
+            "火": "热烈、表达、照亮——你的面具是表演者，总在向外释放能量",
+            "土": "厚重、承载、稳定——你展示给世界的是一座山",
+            "金": "锐利、决定、边界——你的面具是法官，爱下判断",
+            "水": "流动、渗透、适应——你的面具是变色龙，与环境融为一体",
+        }
+        shadow_desc = {
+            "木": "你没有活出来的内在是一棵沉寂的树——需要被看见、被承认才能生长",
+            "火": "你压抑的火苗在梦里燃烧——愤怒、热情、原始的创造力被关在笼子里",
+            "土": "你拒绝承认自己对稳定和安全的需要——假装飘忽，其实渴望扎根",
+            "金": "被你压抑的那部分想要斩断——它需要说'不'",
+            "水": "你内在的暗河在涌动——情绪和直觉远比你以为的强大",
+        }
+        
+        mask_text = mask_desc.get(mask, f"面具是「{mask}」")
+        shadow_text = shadow_desc.get(shadow, f"阴影是「{shadow}」")
+        
+        chong_text = ""
+        if f["chong"]:
+            chong_text = f"再看看これらの冲象——{f['chong'][0]}。这不是坏事，是自性的邀请：只有通过冲突，你才能整合对立面。个体化的道路从来都不是平坦的。"
+        else:
+            chong_text = f"命局无冲——整合的道路不是通过外部冲突，而是通过内在觉察开始的。"
+        
+        mm_text = ""
+        if f["liuyao_str"]:
+            mm_text = f" {f['liuyao_str']}——卦象与原型意象的呼应绝非巧合。"
+        
+        return f"让我用分析心理学的方式来看这个命盘。\n\n{mask_text}。{shadow_text}。这个人的个体化课题就在面具与阴影之间——不是在两者之间选择，而是在对立中找到超越。\n\n{chong_text}{mm_text}"
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         features = a["features"]
@@ -608,6 +883,7 @@ class Jung(Perspective):
         
         return {
             "score": score,
+            "monologue": self._build_monologue(a),
             "confidence": 0.7,
             "summary": f"人格面具「{dm_wx}」。核心功课：整合阴影「{shadow}」。{'命局冲象=加速个体化' if any('冲' in c for c in a['combinations']) else '个体化需主动探索'}。",
             "dimensions": dimensions,
@@ -625,7 +901,47 @@ class Munger(Perspective):
     name = "芒格"
     title = "逆向思维多元模型"
     
+
+    def _build_monologue(self, a: dict) -> str:
+        f = _fmt_bazi_data(a)
+        dm = a["daymaster"]
+        ts = a["tenshen"]
+        
+        # 芒格式：先看坑
+        pitfalls = []
+        if not f['th'].get('yongshen'):
+            pitfalls.append("调候用神不显——容易在不适合自己的方向上死磕")
+        if f["chong"]:
+            pitfalls.append(f"{f['chong'][0]}——内耗是最大成本，得花时间处理内在矛盾")
+        if ts.get("财星", 0) == 0 and ts.get("食伤", 0) == 0:
+            pitfalls.append("财星食伤皆不显——对市场/外部环境的感知力偏弱")
+        if dm.get("strength") == "身弱" and ts.get("印星", 0) == 0:
+            pitfalls.append("身弱无印——'自我'的边界不够清晰，容易被外界带偏")
+        
+        if pitfalls:
+            p1 = f"逆向思考：先不看这个命局能做什么，先看它容易在哪摔跤。我发现了{len(pitfalls)}个潜在陷阱："
+            for p in pitfalls:
+                p1 += f"\n- {p}"
+        else:
+            p1 = "逆向检查没有发现明显陷阱——命局结构合理，但这本身也是一种风险：没有明显问题的人往往对问题缺乏警觉。"
+        
+        p2 = ""
+        if ts.get("印星", 0) >= 1:
+            p2 = f"好在印星显现有{ts['印星']}处——学习能力是你的护城河。芒格说的'多学科思维模型'，印星就是你的工具箱。"
+        else:
+            p2 = "印星不显——缺少天然的'学习习惯'。这不是致命伤，但意味着你需要刻意建立知识框架。"
+        
+        p3 = ""
+        if f["dayun"].get("ganzhi"):
+            d = f["dayun"]
+            if d.get('gan_wuxing','') == dm.get('wuxing','') or d.get('zhi_wuxing','') == dm.get('wuxing',''):
+                p3 = f"当前{f['dayun_str']}——这个运帮身，是少犯错、多积累的好时机。芒格说一辈子只需做对几次关键决策就够了。"
+            else:
+                p3 = f"当前{f['dayun_str']}——运势不帮身，更要慢下来少犯错。记住：不做什么比做什么重要。"
+        
+        return f"{p1}\n\n{p2}\n\n{p3}"
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         features = a["features"]
@@ -700,6 +1016,7 @@ class Munger(Perspective):
         
         return {
             "score": score,
+            "monologue": self._build_monologue(a),
             "confidence": 0.75,
             "summary": f"芒格式分析：先看坑——发现{len(pitfalls)}个潜在陷阱。{'命局明智' if len(pitfalls) <= 1 else '需谨慎行'}。{'学习特质突出' if ts.get('印星',0) >= 2 else '建议建立系统学习框架'}。",
             "dimensions": dimensions,
@@ -717,7 +1034,31 @@ class Taleb(Perspective):
     name = "Taleb"
     title = "反脆弱与黑天鹅"
     
+
+    def _build_monologue(self, a: dict) -> str:
+        f = _fmt_bazi_data(a)
+        dm = a["daymaster"]
+        ts = a["tenshen"]
+        
+        p1 = f"用反脆弱思维来压力测试这个命盘。日主{f['dm_str']}，五行{f['strongest']}最旺、{f['weakest']}最弱。这告诉我两件事：一是你有明确的脆弱面——{f['weakest']}的不足是你的阿喀琉斯之踵；二是你的抗压机制——{f['strongest']}是你的冗余储备。"
+        
+        chong_taleb = ""
+        if f["chong"]:
+            chong_taleb = f"命局有{f['chong'][0]}——我喜欢这个。冲象意味着系统在波动中可能实现跃迁。大多数人害怕不确定性，但反脆弱系统的特点恰恰是：越冲击，越强大。"
+        else:
+            chong_taleb = "命局无冲——稳定是好的，但稳定也是一种脆弱。因为没有经过压力测试的系统，你不知道它什么时候会突然崩溃。"
+        
+        strategy = ""
+        if ts.get("七杀", 0) >= 1 or ts.get("官杀", 0) >= 1:
+            strategy = "七杀透干——你的命局自带压力测试仪。过度补偿策略：在七杀所代表的领域主动加码，让压力成为你的训练场。"
+        elif ts.get("印星", 0) >= 2:
+            strategy = "印星厚重——你有足够的缓冲区。但注意：缓冲区不是护城河，真正的反脆弱来自从错误中获利，而不是躲在安全区。"
+        else:
+            strategy = "中庸之局——没有突出优势，也没有致命弱点。在这种情况下，巴菲特的建议反而更有用：用冗余对抗黑天鹅。"
+        
+        return f"{p1}\n\n{chong_taleb}\n\n{strategy}"
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         combos = a["combinations"]
@@ -794,6 +1135,7 @@ class Taleb(Perspective):
         
         return {
             "score": score,
+            "monologue": self._build_monologue(a),
             "confidence": 0.7,
             "summary": f"反脆弱评分{score}分。{'有从波动中获利的潜力' if score > 60 else '更适应稳定环境'}。{'七杀透干=高压测试通过' if '七杀' in ss.get('time','') else '反脆弱训练不足'}。",
             "dimensions": dimensions,
@@ -812,6 +1154,7 @@ class Naval(Perspective):
     title = "长期主义与杠杆"
     
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         ts = a["tenshen"]
@@ -876,6 +1219,7 @@ class Naval(Perspective):
         
         return {
             "score": score,
+            "monologue": self._build_monologue(a),
             "confidence": 0.65,
             "summary": f"长期主义评分{score}分。{'印星有力=学习类特定知识' if ts.get('印星',0) >= 2 else '需先建立深度专长'}。{'有杠杆直觉' if ts.get('财星',0) >= 1 else '杠杆是选修课'}。",
             "dimensions": dimensions,
@@ -893,7 +1237,43 @@ class Laozi(Perspective):
     name = "老子"
     title = "道法自然"
     
+
+    def _build_monologue(self, a: dict) -> str:
+        f = _fmt_bazi_data(a)
+        dm = a["daymaster"]
+        
+        natural = ""
+        if f['th'].get('yongshen'):
+            ys_wx = ''
+            ys_char = f['th']['yongshen'][0] if f['th']['yongshen'] else ''
+            for k, v in {'甲':'木','乙':'木','丙':'火','丁':'火','戊':'土','己':'土','庚':'金','辛':'金','壬':'水','癸':'水'}.items():
+                if ys_char == k:
+                    ys_wx = v
+                    break
+            if ys_wx and f['wx'].get(ys_wx, 0) > 20:
+                natural = f"调候用神{f['yongshen_str']}，此乃大道在身。{ys_wx}气充盈，不刻意而为，自然顺势。老子曰'上善若水'——{ys_wx == '水' and '此命天然近道' or f'虽非水，但{ys_wx}气已足，顺其自然即可'}。"
+            else:
+                natural = f"调候用神{f['yongshen_str']}虽有，但力量{ys_wx and f['wx'].get(ys_wx, 0) > 10 and '不充' or '偏弱'}——老子会说：'为学日益，为道日损'，当下最重要的是减法而非加法。"
+        else:
+            natural = "用神不明——老子会摇头：'五色令人目盲'，现在你面前的路太多，反而是最大的问题。"
+        
+        water_approach = ""
+        if f['wx'].get('水', 0) >= 20:
+            water_approach = f"水性为{f['wx']['水']}%——此命有近道之资。水不争而利万物，不争就是最好的争。在人生的多数场景中，柔软比刚硬更有力量。"
+        else:
+            water_approach = f"水性仅{f['wx'].get('水', 0)}%——刚多柔少。老子提醒：'天下之至柔，驰骋天下之至坚'。学会柔软是此生的功课。"
+        
+        dayun_p = ""
+        if f["dayun"].get("ganzhi"):
+            d = f["dayun"]
+            if d.get('gan_wuxing','') == '水' or d.get('zhi_wuxing','') == '水':
+                dayun_p = f"当前{f['dayun_str']}——此运带水，正是修炼'不争之德'的好时期。"
+            else:
+                dayun_p = f"当前{f['dayun_str']}——此运{'' if d.get('gan_wuxing','') == f['dm_wx'] else '非助身'}，老子说'反者道之动'——低谷期反而是在积蓄力量。"
+        
+        return f"观此命盘，如观流水。\n\n{natural}\n\n{water_approach}\n\n{dayun_p}"
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         combos = a["combinations"]
@@ -961,6 +1341,7 @@ class Laozi(Perspective):
         
         return {
             "score": score,
+            "monologue": self._build_monologue(a),
             "confidence": 0.7,
             "summary": f"道法自然评分{score}分。{'用神得力=顺势而为' if th.get('yongshen') and wx.get(_GAN_WUXING.get(th['yongshen'][0] if th['yongshen'] else '',''), 0) > 20 else '需寻找上善若水的路径'}。",
             "dimensions": dimensions,
@@ -979,6 +1360,7 @@ class WangYangming(Perspective):
     title = "知行合一"
     
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         ts = a["tenshen"]
@@ -1029,6 +1411,7 @@ class WangYangming(Perspective):
         
         return {
             "score": score,
+            "monologue": self._build_monologue(a),
             "confidence": 0.7,
             "summary": f"知行合一评分{score}分。{'知行基本平衡' if gap < 20 else '知大于行' if knowledge > action else '行大于知'}。",
             "dimensions": dimensions,
@@ -1047,6 +1430,7 @@ class Stoic(Perspective):
     title = "控制二分法"
     
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         ts = a["tenshen"]
@@ -1109,6 +1493,7 @@ class Stoic(Perspective):
         
         return {
             "score": score,
+            "monologue": self._build_monologue(a),
             "confidence": 0.65,
             "summary": f"控制二分法评分{score}分。{'可控>不可控' if controllable > uncontrollable else '需重新识别控制的边界'}。{'七杀=逆境磨炼' if '七杀' in str(a['raw_bazi'].get('shishen',{})) else '建议主动制造适度挑战'}。",
             "dimensions": dimensions,
@@ -1127,6 +1512,7 @@ class Crowley(Perspective):
     title = "泰勒玛意志法则"
     
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         ts = a["tenshen"]
@@ -1192,6 +1578,7 @@ class Crowley(Perspective):
         
         return {
             "score": score,
+            "monologue": self._build_monologue(a),
             "confidence": 0.55,
             "summary": f"意志法则评分{score}分。{'七杀透干=强大意志' if '七杀' in ss.get('time','') else '意志力适中'}。{'水火' + ('平衡' if abs(wx.get('水',0)-wx.get('火',0)) < 15 else '失衡')}。",
             "dimensions": dimensions,
@@ -1210,6 +1597,7 @@ class Shaman(Perspective):
     title = "灵魂旅行与能量"
     
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         ts = a["tenshen"]
@@ -1281,6 +1669,7 @@ class Shaman(Perspective):
         
         return {
             "score": score,
+            "monologue": self._build_monologue(a),
             "confidence": 0.5,
             "summary": f"萨满视角评分{score}分。力量动物：{power_animal}。{'灵性天赋突出' if wx.get('水',0) >= 25 else '灵性需后天开发'}。",
             "dimensions": dimensions,
@@ -1294,7 +1683,53 @@ class SunTzu(Perspective):
     name = "孙子"
     title = "知己知彼五事七计"
 
+
+    def _build_monologue(self, a: dict) -> str:
+        f = _fmt_bazi_data(a)
+        dm = a["daymaster"]
+        ts = a["tenshen"]
+        combos = a["combinations"]
+        
+        # 五事评估
+        ys_ok = '到位' if f['th'].get('yongshen') else '未显'
+        dy_ok = (f['dayun'].get('ganzhi') and 
+                 (f['dayun'].get('gan_wuxing','')==f['dm_wx'] or f['dayun'].get('zhi_wuxing','')==f['dm_wx']))
+        dao = f"道：调候用神{ys_ok}，方向{'已明' if f['th'].get('yongshen') else '待定'}"
+        tian = f"天：当前{'运势可借' if dy_ok else '宜待时而动'}"
+        
+        wx_vals = sorted(f['wx'].values(), reverse=True)
+        if len(wx_vals) >= 2 and wx_vals[0] - wx_vals[-1] < 30:
+            di = "地：五行均衡，攻守兼备，适应多线作战"
+        else:
+            di = f"地：五行偏枯，{f['strongest']}过旺而{f['weakest']}不足——环境选择决定成败"
+        
+        has_bi = ts.get('比劫',0) >= 1
+        has_guan = ts.get('官杀',0) >= 1
+        if has_bi and has_guan:
+            general = "将：比劫官杀俱全，可为大将"
+        elif has_bi or has_guan:
+            general = "将：有统兵之资，尚需磨炼"
+        else:
+            general = "将：统兵之力待磨炼，宜先为副手"
+        rule = f"法：{'纪律为本' if ts.get('印星',0)>=1 else '纪律柔性，需以战养战'}"
+        
+        p1 = f"用孙子五事七计来推演此命。\n\n{dao}。\n{tian}。\n{di}。\n{general}。\n{rule}。"
+        
+        strategy = ""
+        if f["chong"]:
+            strategy = f"命局有冲——兵法云：'先为不可胜，以待敌之可胜'。当前宜守不宜攻，让矛盾消耗对手而不是消耗自己。"
+        elif ts.get("食伤", 0) >= 2:
+            strategy = "食伤旺而出奇——'以正合，以奇胜'是你的天然打法。"
+        else:
+            strategy = "五事之中无一短板，也无突出长板——当以'不战而屈人之兵'为最高原则。"
+        
+        mm_text = ""
+        if f["liuyao_str"]:
+            mm_text = f" {f['liuyao_str']}——卦象与兵法的契合，不是巧合。"
+        
+        return f"{p1}\n\n{strategy}\n\n{mm_text}" if mm_text else f"{p1}\n\n{strategy}"
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         ts = a["tenshen"]
@@ -1367,7 +1802,7 @@ class SunTzu(Perspective):
             advice.append("食伤旺——适合以奇胜，出奇制胜是你的优势打法")
 
         return {
-            "score": score, "confidence": 0.7,
+            "score": score, "monologue": self._build_monologue(a), "confidence": 0.7,
             "summary": f"五事评分{score}分。{'可战' if score >= 60 else '宜守'}之势。{'知彼知己' if ts.get('财星',0)>=1 or ts.get('食伤',0)>=1 else '先修内功再出击'}。",
             "dimensions": dimensions,
             "key_insights": insights or ["五事综合评价，宜结合具体问题深入分析"],
@@ -1384,6 +1819,7 @@ class GuiGuZi(Perspective):
     title = "捭阖之道攻心为上"
 
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         ts = a["tenshen"]
@@ -1450,7 +1886,7 @@ class GuiGuZi(Perspective):
             advice.append("水性偏弱——可以刻意练习倾听，水主智也主柔")
 
         return {
-            "score": score, "confidence": 0.65,
+            "score": score, "monologue": self._build_monologue(a), "confidence": 0.65,
             "summary": f"捭阖评分{score}分。{style}。{'洞察力敏锐' if wx.get('水',0)>=20 else '说服力可后天培养'}。",
             "dimensions": dimensions,
             "key_insights": insights or ["捭阖之道需结合具体场景应用"],
@@ -1467,6 +1903,7 @@ class LiuBowen(Perspective):
     title = "天人合一微兆预警"
 
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         combos = a["combinations"]
@@ -1547,7 +1984,7 @@ class LiuBowen(Perspective):
             advice.append("冲局如大潮——提前半年准备而非临时应对")
 
         return {
-            "score": score, "confidence": 0.6,
+            "score": score, "monologue": self._build_monologue(a), "confidence": 0.6,
             "summary": f"微兆预警评分{score}分。识别{signal_count}个信号。{'水木有灵' if wx.get('水',0)>=20 and wx.get('木',0)>=20 else '感应通道一般'}。",
             "dimensions": dimensions,
             "key_insights": insights or ["目前命局没有突出的大信号，小信号需要细心捕捉"],
@@ -1564,6 +2001,7 @@ class Freud(Perspective):
     title = "潜意识与本能冲动"
 
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         ts = a["tenshen"]
@@ -1646,7 +2084,7 @@ class Freud(Perspective):
             advice.append("你的力比多能量适合创造性工作——写作、艺术、研究都可以成为升华的出口")
 
         return {
-            "score": score, "confidence": 0.6,
+            "score": score, "monologue": self._build_monologue(a), "confidence": 0.6,
             "summary": f"潜意识评分{score}分。{'内心世界丰富' if hidden_count >= 4 else '潜意识相对平静'}。{'有创造性升华通道' if ts.get('食伤',0)>=1 and wx.get('水',0)>=20 else '压抑需要出口'}。",
             "dimensions": dimensions,
             "key_insights": insights or ["弗洛伊德视角更适用于有具体心理困扰的场景"],
@@ -1663,6 +2101,7 @@ class Nietzsche(Perspective):
     title = "权力意志重估一切"
 
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         ts = a["tenshen"]
@@ -1745,7 +2184,7 @@ class Nietzsche(Perspective):
             advice.append("水性深——适合在思想的深渊中探索，'当你凝视深渊，深渊也凝视着你'")
 
         return {
-            "score": score, "confidence": 0.65,
+            "score": score, "monologue": self._build_monologue(a), "confidence": 0.65,
             "summary": f"权力意志评分{score}分。{ubermensch}。{'酒神VS日神' + ('——酒神更强' if ts.get('食伤',0)>=1 and wx.get('水',0)>=20 else '——日神为主')}。",
             "dimensions": dimensions,
             "key_insights": insights or ["尼采视角更适合有存在性困惑或面临价值抉择的场景"],
@@ -1762,6 +2201,7 @@ class Buffett(Perspective):
     title = "价值投资安全边际"
 
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         ts = a["tenshen"]
@@ -1845,7 +2285,7 @@ class Buffett(Perspective):
         advice.append("最重要的投资是投资自己——印星=自我教育是最好的长期资产")
 
         return {
-            "score": score, "confidence": 0.65,
+            "score": score, "monologue": self._build_monologue(a), "confidence": 0.65,
             "summary": f"价值投资评分{score}分。{valuation}。{'护城河' + ('已形成' if ts.get('财星',0)>=1 and ts.get('印星',0)>=1 else '待建立')}。",
             "dimensions": dimensions,
             "key_insights": insights or ["巴菲特视角更适合财富管理方面的具体问题"],
@@ -1862,6 +2302,7 @@ class Hermes(Perspective):
     title = "七原则如其在上"
 
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         ts = a["tenshen"]
@@ -1932,7 +2373,7 @@ class Hermes(Perspective):
         advice.append("观察最近生活中的'巧合'——赫尔墨斯认为同步性是有意义的")
 
         return {
-            "score": score, "confidence": 0.55,
+            "score": score, "monologue": self._build_monologue(a), "confidence": 0.55,
             "summary": f"七原则评分{score}分。{'天地人三才对应良好' if len(wx_vals)>=2 and wx_vals[0]-wx_vals[-1]<20 else '对应关系有待调和'}。{'阴阳' + ('平衡' if abs(wx.get('水',0)-wx.get('火',0)) < 15 else '有偏')}。",
             "dimensions": dimensions,
             "key_insights": insights or ["赫尔墨斯视角更偏向哲学诠释，是对其他视角的补充"],
@@ -1949,6 +2390,7 @@ class ZhangYiming(Perspective):
     title = "认知迭代信息效率"
 
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         ts = a["tenshen"]
@@ -2021,7 +2463,7 @@ class ZhangYiming(Perspective):
             advice.append("你的商业模式底色：做那些可以被复利的事——知识产品、数字资产")
 
         return {
-            "score": score, "confidence": 0.6,
+            "score": score, "monologue": self._build_monologue(a), "confidence": 0.6,
             "summary": f"认知迭代评分{score}分。{'信息飞轮已启动' if ts.get('印星',0)>=1 and ts.get('食伤',0)>=1 else '需建立信息循环'}。{'长期主义底色' if ts.get('财星',0)>=1 and ts.get('印星',0)>=1 else '短期导向'}。",
             "dimensions": dimensions,
             "key_insights": insights or ["张一鸣视角更适合职业发展和认知成长方面的具体问题"],
@@ -2049,6 +2491,7 @@ class TemplatePerspective(Perspective):
         return self._cfg["title"]
 
     def analyze(self, data: dict, a: dict) -> dict:
+        f = _fmt_bazi_data(a)
         wx = a["wuxing"]
         dm = a["daymaster"]
         ts = a["tenshen"]
@@ -2121,6 +2564,7 @@ class TemplatePerspective(Perspective):
 
         return {
             "score": score,
+            "monologue": self._build_monologue(a),
             "confidence": c.get("confidence", 0.55),
             "summary": c.get("summary_high", "").format(**self._fmt(a)) if score >= 60
                        else c.get("summary_low", "").format(**self._fmt(a)),

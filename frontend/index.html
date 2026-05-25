@@ -297,10 +297,10 @@ footer {
 
 </div>
 
-<footer>玄照 · XuanZhao v1.1 — MIT License</footer>
+<footer>玄照 · XuanZhao v1.2 — 深度视角引擎 · MIT License</footer>
 
 <script>
-// === Demo Data ===
+// === Demo Data (v1.2 深度视角格式) ===
 const DEMO = {
   "bazi": {
     "bazi": {"year":"乙酉","month":"壬午","day":"甲子","time":"庚午"},
@@ -336,13 +336,70 @@ const DEMO = {
     },
     "ascendant": 12.5
   },
-  "perspectives": [
-    {"id":"zhuge","name":"诸葛亮","title":"隆中对全局推演","models":["全局推演法：从整体格局出发","借势而为：利用对手力量达成目标","以逸待劳：不利局面保存实力"],"insight":"此命局的核心是'子午冲'——这是天生的张力结构。甲木日主生于午月，火旺木焚。但子水为根，午火为用，冲而不散反而形成动态平衡。建议：不要追求稳定，在动荡中反而能发挥最大优势。"},
-    {"id":"yuantg","name":"袁天罡","title":"骨相推命运分段","models":["命运分段论：少年看骨，中年看气，晚年看神","大运国运联动"],"insight":"己卯大运(2026-2035)是转折期。卯木帮身，是甲木的'根'。这两年有震荡，但站稳后就将进入上升通道。中年运势优于少年。"},
-    {"id":"feynman","name":"费曼","title":"简化核心机制","models":["第一性原理：回到最基本","费曼学习法：简单即理解"],"insight":"把这个命局简化到最本质：甲木是'生长'，子水是'滋养'，午火是'表达'。子午冲=滋养和表达在打架。解法不是二选一，而是找到'边吸收边输出'的模式。"},
-    {"id":"jung","name":"荣格","title":"集体无意识与阴影","models":["个体化：成为完整的自己","阴影整合：接纳黑暗面"],"insight":"七杀透干是你人格面具下的阴影力量。表面温和(甲木)，内在有极强的控制和竞争欲(庚金七杀)。整合这条路——承认自己的野心，比伪装谦逊更有力量。"},
-    {"id":"munger","name":"芒格","title":"多元思维模型","models":["逆向思维：避开阻碍","心理模型网格：跨学科决策"],"insight":"这一年(丙午)双午冲子，核心矛盾激化。芒格会建议：1)不要逆势决策 2)扩充信息来源 3)在己卯运期间积累跨领域认知，这才是你最大的护城河。"}
-  ],
+  "perspectives": {
+    "zhuge-liang": {
+      "id":"zhuge-liang","name":"诸葛亮","title":"隆中对全局推演",
+      "score":80,"confidence":0.75,
+      "summary":"此命格局清晰，宜借势布局。多算胜少算",
+      "dimensions":[
+        {"name":"格局视野","score":85,"detail":"五行极差——多极均衡，全局视野开阔"},
+        {"name":"借势能力","score":75,"detail":"调候用神得力，大运相助"},
+        {"name":"风险管理","score":60,"detail":"命局有冲，需多算一层风险"},
+        {"name":"持久力","score":80,"detail":"日主木占比25%，生扶五行共XX%"}
+      ],
+      "key_insights":["命局核心矛盾在子午相冲——水火交战，以逸待劳是最好的策略"],
+      "warnings":["冲局如战场——决策需谨慎"],
+      "advice":["全局视野评分80分——借势布局","建议采用以逸待劳策略"]
+    },
+    "feynman": {
+      "id":"feynman","name":"费曼","title":"简化核心机制",
+      "score":75,"confidence":0.70,
+      "summary":"简化后：木命局。核心矛盾明确。",
+      "dimensions":[
+        {"name":"核心矛盾清晰度","score":70,"detail":"可识别1个核心矛盾"},
+        {"name":"抽象思维能力","score":65,"detail":"印星一般"},
+        {"name":"自我诚实度","score":70,"detail":"自我认知相对清晰"}
+      ],
+      "key_insights":["核心问题就是吸收与表达的根本矛盾"],
+      "warnings":[],"advice":["第一性原理练习：不断追问为什么"]
+    },
+    "jung": {
+      "id":"jung","name":"荣格","title":"阴影整合与个体化",
+      "score":80,"confidence":0.70,
+      "summary":"人格面具「木」。核心功课：整合阴影「土」。",
+      "dimensions":[
+        {"name":"阴影整合度","score":75,"detail":"命局有冲=整合契机"},
+        {"name":"个体化进程","score":55,"detail":"内省能力一般"},
+        {"name":"原型能量","score":66,"detail":"当前原型：探索者"}
+      ],
+      "key_insights":["人格面具是木，阴影土才是未活出的潜能"],
+      "warnings":[],"advice":["试着发展你的阴影土"]
+    },
+    "munger": {
+      "id":"munger","name":"芒格","title":"逆向思维多元模型",
+      "score":75,"confidence":0.75,
+      "summary":"芒格式分析：发现0个陷阱。命局明智。",
+      "dimensions":[
+        {"name":"逆向思维力","score":50,"detail":"命局无明显陷阱"},
+        {"name":"跨学科学习力","score":55,"detail":"印星1个"},
+        {"name":"情绪管理","score":60,"detail":"情绪相对稳定"}
+      ],
+      "key_insights":["命局无明显典型陷阱"],
+      "warnings":[],"advice":["先避开错误再做对的事"]
+    },
+    "yuan-tiangang": {
+      "id":"yuan-tiangang","name":"袁天罡","title":"骨相推命运分段",
+      "score":80,"confidence":0.80,
+      "summary":"此命辛巳运，青年发力格局",
+      "dimensions":[
+        {"name":"先天骨相","score":65,"detail":"八字中和格局"},
+        {"name":"中年气运","score":50,"detail":"当前己卯运，平运"},
+        {"name":"晚年修为","score":70,"detail":"当前积累充足"}
+      ],
+      "key_insights":["当前处于己卯运关键期"],
+      "warnings":[],"advice":["抓紧做木五行相关的事"]
+    }
+  },
   "birth": "2005-06-09 11:50",
   "location": "呼和浩特"
 };
@@ -353,6 +410,13 @@ const WUXING_CLASS = {木:'w',火:'f',土:'e',金:'m',水:'a'};
 function getWuxing(gan) {
   const map = {甲:'木',乙:'木',丙:'火',丁:'火',戊:'土',己:'土',庚:'金',辛:'金',壬:'水',癸:'水'};
   return map[gan] || '?';
+}
+
+function parsePerspectives(data) {
+  // API returns dict, convert to sorted array by score desc
+  const ps = data.perspectives || {};
+  if (Array.isArray(ps)) return ps; // already array (old format)
+  return Object.values(ps).sort((a,b) => (b.score || 0) - (a.score || 0));
 }
 
 function renderBazi(data) {
@@ -400,20 +464,39 @@ function renderDayun(data) {
   });
 }
 
-let chartPersp = null;
-function renderCharts(data) {
-  const persps = data.perspectives || [];
+function calcWuxing(data) {
+  // Count from four pillars
+  const b = data.bazi.bazi;
+  const counts = {木:0,火:0,土:0,金:0,水:0};
+  const gans = [b.year[0], b.month[0], b.day[0], b.time[0]];
+  const zhis = [b.year[1], b.month[1], b.day[1], b.time[1]];
+  gans.forEach(g => { const w = getWuxing(g); if (w !== '?' && counts[w] !== undefined) counts[w]++; });
+  zhis.forEach(z => {
+    const map = {寅:'木',卯:'木',巳:'火',午:'火',辰:'土',戌:'土',丑:'土',未:'土',申:'金',酉:'金',亥:'水',子:'水'};
+    if (map[z]) counts[map[z]]++;
+  });
+  const total = Object.values(counts).reduce((a,b)=>a+b, 0);
+  if (total === 0) return {木:25,火:25,土:25,金:25,水:25};
+  const pct = {};
+  Object.keys(counts).forEach(k => { pct[k] = Math.round(counts[k] / total * 100); });
+  return pct;
+}
 
-  // Perspective radar
+let chartPersp = null;
+let chartWx = null;
+function renderCharts(data) {
+  const perspectives = parsePerspectives(data);
+
+  // Perspective radar — use real scores
   const ctx1 = document.getElementById('chartPersp').getContext('2d');
   if (chartPersp) chartPersp.destroy();
   chartPersp = new Chart(ctx1, {
     type: 'radar',
     data: {
-      labels: persps.map(p => p.name),
+      labels: perspectives.map(p => p.name || p.id),
       datasets: [{
-        label: '置信度',
-        data: persps.map((_,i) => Math.round(60 + Math.random() * 35)),
+        label: '评分',
+        data: perspectives.map(p => p.score || 50),
         backgroundColor: 'rgba(124, 92, 191, 0.2)',
         borderColor: '#7c5cbf',
         borderWidth: 2,
@@ -423,18 +506,23 @@ function renderCharts(data) {
     options: {
       responsive: true, maintainAspectRatio: false,
       scales: { r: { min: 0, max: 100, ticks: { stepSize: 25, color: '#888' }, grid: { color: '#2a2a4a' } } },
-      plugins: { legend: { labels: { color: '#e0e0f0' } } }
+      plugins: {
+        legend: { labels: { color: '#e0e0f0' } },
+        title: { display: true, text: '多视角评分', color: '#e0e0f0', font: {size: 14} }
+      }
     }
   });
 
-  // Wuxing bar
+  // Wuxing — calculate from real data
+  const wuxing = calcWuxing(data);
   const ctx2 = document.getElementById('chartWuxing').getContext('2d');
-  new Chart(ctx2, {
+  if (chartWx) chartWx.destroy();
+  chartWx = new Chart(ctx2, {
     type: 'doughnut',
     data: {
       labels: ['木', '火', '土', '金', '水'],
       datasets: [{
-        data: [25, 30, 10, 15, 20],
+        data: [wuxing['木'], wuxing['火'], wuxing['土'], wuxing['金'], wuxing['水']],
         backgroundColor: ['#40b060','#e87040','#c09050','#c0c0d0','#4080e8'],
         borderWidth: 0,
       }]
@@ -452,14 +540,57 @@ function renderCharts(data) {
 function renderPerspectives(data) {
   const grid = document.getElementById('perspGrid');
   grid.innerHTML = '';
-  (data.perspectives || []).forEach(p => {
+  const perspectives = parsePerspectives(data);
+
+  perspectives.forEach(p => {
     const card = document.createElement('div');
     card.className = 'persp-card';
-    card.innerHTML = `
-      <h3>${p.name} <small>${p.title}</small></h3>
-      ${(p.models || []).map(m => `<div class="model">▸ ${m}</div>`).join('')}
-      ${p.insight ? `<div class="prompt">"${p.insight}"</div>` : ''}
-    `;
+
+    let html = `<h3>${p.name} <small>${p.title}</small></h3>`;
+
+    // Deep perspective (has score)
+    if (p.score !== undefined) {
+      const conf = Math.round((p.confidence || 0.5) * 100);
+      html += `<div style="margin:0.5rem 0;display:flex;gap:1rem;align-items:center;">
+        <span style="font-size:1.5rem;font-weight:700;color:${p.score >= 70 ? '#40b060' : p.score >= 50 ? '#c8a45c' : '#e87040'}">${p.score}</span>
+        <span style="font-size:0.75rem;color:var(--text-dim);">/100 · 置信度 ${conf}%</span>
+      </div>`;
+
+      if (p.summary) {
+        html += `<div style="font-size:0.85rem;color:var(--accent2);font-style:italic;margin-bottom:0.5rem;background:var(--surface2);padding:0.4rem 0.6rem;border-radius:6px;">${p.summary}</div>`;
+      }
+
+      // Dimensions
+      (p.dimensions || []).forEach(d => {
+        const bar = '█'.repeat(Math.floor(d.score / 10)) + '░'.repeat(10 - Math.floor(d.score / 10));
+        html += `<div class="model"><strong>${d.name}</strong> ${d.score}/100<br><span style="font-family:monospace;font-size:0.7rem;color:var(--accent);">${bar}</span><br><span style="font-size:0.75rem;color:var(--text-dim);">${d.detail}</span></div>`;
+      });
+
+      // Insights
+      if (p.key_insights && p.key_insights.length > 0) {
+        html += `<div style="margin-top:0.5rem;padding:0.3rem 0;border-top:1px solid var(--border);">`;
+        p.key_insights.forEach(s => { html += `<div style="font-size:0.8rem;color:var(--text);padding:0.15rem 0;">🔍 ${s}</div>`; });
+        html += `</div>`;
+      }
+
+      // Warnings
+      if (p.warnings && p.warnings.length > 0) {
+        p.warnings.forEach(s => { html += `<div style="font-size:0.8rem;color:#e87040;padding:0.15rem 0;">⚠ ${s}</div>`; });
+      }
+
+      // Advice
+      if (p.advice && p.advice.length > 0) {
+        html += `<div style="margin-top:0.3rem;">`;
+        p.advice.forEach(a => { html += `<div style="font-size:0.8rem;color:var(--accent);padding:0.1rem 0;">📌 ${a}</div>`; });
+        html += `</div>`;
+      }
+    } else {
+      // Shallow perspective (old format)
+      (p.models || []).forEach(m => { html += `<div class="model">▸ ${m}</div>`; });
+      if (p.prompt) { html += `<div class="prompt">"${p.prompt}"</div>`; }
+    }
+
+    card.innerHTML = html;
     grid.appendChild(card);
   });
 }
@@ -482,15 +613,12 @@ function runAnalysis() {
   const time = document.getElementById('birthTime').value;
   const loc = document.getElementById('location').value;
   const gender = document.getElementById('gender').value;
-
   const birthStr = `${date} ${time}`;
 
-  // Try API first
   fetch(`/api/analyze?birth=${encodeURIComponent(birthStr)}&location=${loc}&gender=${gender}`)
     .then(r => { if (!r.ok) throw new Error('API unavailable'); return r.json(); })
     .then(data => { displayResults(data); })
     .catch(() => {
-      // Fallback: run via demo with modified birth
       const demo = JSON.parse(JSON.stringify(DEMO));
       demo.birth = birthStr;
       demo.location = loc;
@@ -506,11 +634,7 @@ function loadDemo() {
   runAnalysis();
 }
 
-// Auto-load on page
-window.addEventListener('DOMContentLoaded', () => {
-  // Try API, fallback to demo
-  loadDemo();
-});
+window.addEventListener('DOMContentLoaded', loadDemo);
 </script>
 </body>
 </html>

@@ -13,10 +13,18 @@ import argparse, json, os, sys, re, math
 from datetime import datetime
 from typing import Optional
 
+# 深度视角引擎（12个核心视角基于实际命盘数据计算分析）
+try:
+    from perspectives_engine import DeepPerspectiveEngine
+    DEEP_ENGINE = DeepPerspectiveEngine()
+    DEEP_OK = True
+except ImportError:
+    DEEP_OK = False
+
 # ========================
 # 引擎版本
 # ========================
-VERSION = "1.0.0"
+VERSION = "1.2.0"
 
 # ========================
 # 八字排盘模块
@@ -467,6 +475,23 @@ class PerspectiveEngine:
             }
         return results
 
+    def deep_analyze(self, destiny_data: dict, deep_ids: list = None, shallow_count: int = 3) -> dict:
+        """深度分析：核心视角用计算引擎，其余用 prompt 模板"""
+        results = {}
+        if deep_ids is None:
+            deep_ids = list(DEEP_ENGINE._frameworks.keys()) if DEEP_OK else []
+        # 1. 深度视角
+        if DEEP_OK and deep_ids:
+            deep_results = DEEP_ENGINE.analyze(destiny_data, deep_ids)
+            results.update(deep_results)
+        # 2. 补充浅层视角
+        shallow_ids = [k for k in list(self.perspectives.keys())[:shallow_count]
+                      if k not in results]
+        if shallow_ids:
+            shallow = self.analyze(destiny_data, shallow_ids)
+            results.update(shallow)
+        return results
+
     def _destiny_summary(self, data: dict) -> str:
         parts = []
         bazi = data.get("bazi", {})
@@ -555,27 +580,66 @@ class ReportGenerator:
         for pid, pdata in perspectives.items():
             lines.append(f"### {pdata['perspective']} · {pdata['title']}")
             lines.append("")
-            lines.append(f"**心智模型：**")
-            for model in pdata.get("models", []):
-                lines.append(f"- {model}")
+
+            # 深度视角（有score和dimensions）
+            if "score" in pdata:
+                lines.append(f"**综合评分：{pdata['score']}/100**　置信度：{int(pdata.get('confidence',0)*100)}%")
+                lines.append("")
+                lines.append(f"> {pdata.get('summary','')}")
+                lines.append("")
+                # 维度
+                for d in pdata.get("dimensions", []):
+                    bar = "█" * (d["score"] // 10) + "░" * (10 - d["score"] // 10)
+                    lines.append(f"- **{d['name']}**　{d['score']}/100　`{bar}`")
+                    lines.append(f"  _{d['detail']}_")
+                    lines.append("")
+                # 洞察
+                insights = pdata.get("key_insights", [])
+                if insights:
+                    lines.append("**关键洞察：**")
+                    for ins in insights:
+                        lines.append(f"- 🔍 {ins}")
+                    lines.append("")
+                # 警告
+                warnings = pdata.get("warnings", [])
+                if warnings:
+                    lines.append("**风险预警：**")
+                    for w in warnings:
+                        lines.append(f"- ⚠ {w}")
+                    lines.append("")
+                # 建议
+                advice = pdata.get("advice", [])
+                if advice:
+                    lines.append("**行动建议：**")
+                    for a in advice:
+                        lines.append(f"- 📌 {a}")
+                    lines.append("")
+            else:
+                # 旧格式兼容
+                lines.append(f"**心智模型：**")
+                for model in pdata.get("models", []):
+                    lines.append(f"- {model}")
+                lines.append("")
+                lines.append(f"**命盘数据：**")
+                lines.append("```")
+                lines.append(pdata.get("context", ""))
+                lines.append("```")
+                lines.append("")
+
+        # 评分汇总
+        score_summary = []
+        for pid, pdata in perspectives.items():
+            if "score" in pdata:
+                score_summary.append(f"- {pdata['perspective']}: **{pdata['score']}/100**")
+        if score_summary:
+            lines.append("---")
+            lines.append("## 综合评分汇总")
             lines.append("")
-            lines.append(f"**命盘数据：**")
-            lines.append(f"```")
-            lines.append(pdata.get("context", ""))
-            lines.append(f"```")
+            lines.extend(score_summary)
             lines.append("")
 
         # 使用说明
         lines.append("---")
-        lines.append("## 完整预测")
-        lines.append("")
-        lines.append("以上为命盘数据和视角框架。如需完整 AI 智能预测报告，请运行：")
-        lines.append("")
-        lines.append("```bash")
-        lines.append(f"python xuanzhao.py predict --birth \"{destiny.get('birth','')}\" --api-key \"你的API Key\"")
-        lines.append("```")
-        lines.append("")
-        lines.append("或在 Hermes Agent 中加载 xuanzhao skill 执行全自动流程。")
 
         return "\n".join(lines)
 
@@ -635,10 +699,17 @@ def main():
     reporter = ReportGenerator()
 
     if args.command == "perspectives" and args.list:
-        print(f"\n📚 玄照视角库 (共{len(pers_engine.list_all())}个)\n")
-        for p in pers_engine.list_all():
-            print(f"  {p['id']:30s} {p['name']} — {p['title']}")
+        all_deep = DEEP_ENGINE.list() if DEEP_OK else []
+        all_shallow = pers_engine.list_all()
+        print(f"\n📚 玄照视角库\n")
+        print(f"深度视角（12个核心——基于命盘数据计算）：")
+        for p in all_deep:
+            print(f"  🔴 {p['id']:30s} {p['name']} — {p['title']}")
         print()
+        print(f"浅层视角（{len(all_shallow)}个——prompt模板）：")
+        for p in all_shallow:
+            print(f"  ⚪ {p['id']:30s} {p['name']} — {p['title']}")
+        print(f"\n总计：{len(all_deep)} 深度 + {len(all_shallow)} 浅层")
         return
 
     if args.command == "demo":
@@ -650,7 +721,10 @@ def main():
         if "error" in destiny:
             print(f"❌ {destiny['error']}")
             return
-        pers_result = pers_engine.analyze(destiny, list(pers_engine.perspectives.keys())[:5])
+        print(f"✅ 命盘分析完成，运行深度视角引擎...")
+        # 使用深度视角
+        deep_ids = list(DEEP_ENGINE._frameworks.keys())[:8] if DEEP_OK else None
+        pers_result = pers_engine.deep_analyze(destiny, deep_ids, shallow_count=0)
         report = reporter.generate(destiny, pers_result, "markdown")
         print(report)
         if args.output:
@@ -666,13 +740,14 @@ def main():
         print(f"❌ {destiny['error']}")
         return
 
-    # 视角选择
+    # 视角选择——优先使用深度视角
     if args.command == "predict" and args.perspectives != "auto":
         pids = [p.strip() for p in args.perspectives.split(",")]
+        pers_result = pers_engine.deep_analyze(destiny, pids, 0)
     else:
-        pids = list(pers_engine.perspectives.keys())[:5]
-
-    pers_result = pers_engine.analyze(destiny, pids)
+        # 默认：全部12个深度视角 + 3个浅层补充
+        deep_ids = list(DEEP_ENGINE._frameworks.keys())[:8] if DEEP_OK else None
+        pers_result = pers_engine.deep_analyze(destiny, deep_ids, shallow_count=3)
 
     if args.command == "predict" and args.api_key:
         # LLM 预测模式

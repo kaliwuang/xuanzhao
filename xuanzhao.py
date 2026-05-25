@@ -5,7 +5,7 @@
 
 用法:
   python xuanzhao.py analyze --birth "2005-06-09 11:50" --location "呼和浩特" --gender male
-  python xuanzhao.py predict --birth "2005-06-09 11:50" --location "呼和浩特" --gender male --api-key "sk-..."
+  python xuanzhao.py report --birth "2005-06-09 11:50" --location "呼和浩特" --gender male
   python xuanzhao.py perspectives --list
 """
 
@@ -24,7 +24,7 @@ except ImportError:
 # ========================
 # 引擎版本
 # ========================
-VERSION = "1.3.0"
+VERSION = "1.3.5"
 
 # ========================
 # 八字排盘模块
@@ -654,7 +654,7 @@ def main():
         epilog="""
 使用示例:
   python xuanzhao.py analyze --birth "2005-06-09 11:50" --location "呼和浩特" --gender male
-  python xuanzhao.py predict --birth "2005-06-09 11:50" --location "呼和浩特" --gender male --api-key "sk-..."
+  python xuanzhao.py report --birth "2005-06-09 11:50" --location "呼和浩特" --gender male
   python xuanzhao.py perspectives --list
   python xuanzhao.py demo
         """
@@ -670,15 +670,20 @@ def main():
     p_analyze.add_argument("--gender", default="男", help="性别 (男/女)")
     p_analyze.add_argument("--format", default="markdown", choices=["markdown","json"])
 
-    # predict
-    p_predict = sub.add_parser("predict", help="完整预测")
+    # report
+    p_report = sub.add_parser("report", help="AI解读报告（无需API Key）")
+    p_report.add_argument("--birth", required=True)
+    p_report.add_argument("--location", default="北京")
+    p_report.add_argument("--gender", default="男")
+    p_report.add_argument("--deep", type=int, default=12, help="使用前N个深度视角（默认12）")
+
+    # predict (alias for report, 不再需要API Key)
+    p_predict = sub.add_parser("predict", help="完整预测（同report，无需API Key）")
     p_predict.add_argument("--birth", required=True)
     p_predict.add_argument("--location", default="北京")
     p_predict.add_argument("--gender", default="男")
-    p_predict.add_argument("--api-key", help="OpenAI 兼容 API Key")
-    p_predict.add_argument("--api-url", default="https://api.openai.com/v1", help="API 地址")
-    p_predict.add_argument("--model", default="gpt-4o", help="模型名")
-    p_predict.add_argument("--perspectives", default="auto", help="视角ID列表(逗号分隔)或auto")
+    p_predict.add_argument("--api-key", help="[已弃用] 现在无需API Key")
+    p_predict.add_argument("--deep", type=int, default=12, help="使用前N个深度视角")
 
     # perspectives
     p_pers = sub.add_parser("perspectives", help="视角管理")
@@ -740,25 +745,34 @@ def main():
         print(f"❌ {destiny['error']}")
         return
 
-    # 视角选择——优先使用深度视角
-    if args.command == "predict" and args.perspectives != "auto":
-        pids = [p.strip() for p in args.perspectives.split(",")]
-        pers_result = pers_engine.deep_analyze(destiny, pids, 0)
-    else:
-        # 默认：全部12个深度视角 + 3个浅层补充
-        deep_ids = list(DEEP_ENGINE._frameworks.keys())[:12] if DEEP_OK else None
-        pers_result = pers_engine.deep_analyze(destiny, deep_ids, shallow_count=3)
+    # 视角选择
+    deep_count = 12
+    if args.command in ("report", "predict"):
+        deep_count = getattr(args, 'deep', 12)
+    
+    deep_ids = list(DEEP_ENGINE._frameworks.keys())[:deep_count] if DEEP_OK else None
+    pers_result = pers_engine.deep_analyze(destiny, deep_ids, shallow_count=0)
 
-    if args.command == "predict" and args.api_key:
-        # LLM 预测模式
-        print("🤖 调用 AI 生成预测报告...")
-        # TODO: 调用 LLM API
-        print("⚠️ LLM 预测模式需要实现，暂时使用本地引擎")
-        report = reporter.generate(destiny, pers_result, args.format)
+    if args.command in ("report", "predict"):
+        # AI 解读模式 — 输出完整数据供AI分析
+        output = {
+            "destiny": destiny,
+            "perspectives": pers_result,
+            "summary": {
+                "total_perspectives": len(pers_result),
+                "avg_score": round(sum(p.get("score", 0) for p in pers_result.values()) / max(len(pers_result), 1), 1),
+                "top_perspectives": sorted(
+                    [{"name": p.get("perspective", k), "score": p.get("score", 0)}
+                     for k, p in pers_result.items()],
+                    key=lambda x: x["score"], reverse=True
+                )[:5],
+            }
+        }
+        json_output = json.dumps(output, ensure_ascii=False, indent=2, default=str)
+        print(json_output)
     else:
         report = reporter.generate(destiny, pers_result, args.format)
-
-    print(report)
+        print(report)
 
 
 if __name__ == "__main__":

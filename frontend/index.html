@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玄照 · 玄学群体智能预测</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+:root {
+  --bg: #0a0a12;
+  --surface: #12121e;
+  --surface2: #1a1a2e;
+  --border: #2a2a4a;
+  --text: #e0e0f0;
+  --text-dim: #8888aa;
+  --accent: #c8a45c;
+  --accent2: #7c5cbf;
+  --fire: #e87040;
+  --water: #4080e8;
+  --wood: #40b060;
+  --metal: #c0c0d0;
+  --earth: #c09050;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+header {
+  text-align: center; padding: 2rem 1rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+header h1 { font-size: 2rem; font-weight: 300; letter-spacing: 0.5em; }
+header h1 span { color: var(--accent); }
+header p { color: var(--text-dim); margin-top: 0.3rem; font-size: 0.85rem; }
+.container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+
+/* Input Form */
+.form-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem;
+}
+.form-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+.form-group label {
+  display: block; font-size: 0.8rem; color: var(--text-dim);
+  margin-bottom: 0.3rem;
+}
+.form-group input, .form-group select {
+  width: 100%; padding: 0.6rem 0.8rem;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; color: var(--text); font-size: 0.9rem;
+  outline: none; transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus {
+  border-color: var(--accent);
+}
+.btn-row { display: flex; gap: 0.8rem; margin-top: 1rem; }
+.btn {
+  padding: 0.7rem 1.8rem; border: none; border-radius: 8px;
+  font-size: 0.95rem; cursor: pointer; transition: all 0.2s;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent2), var(--accent));
+  color: #fff;
+}
+.btn-primary:hover { opacity: 0.85; }
+.btn-secondary {
+  background: var(--surface2); color: var(--text); border: 1px solid var(--border);
+}
+.btn-secondary:hover { border-color: var(--accent); }
+
+/* Results */
+.results { display: none; }
+.results.active { display: block; }
+
+/* Bazi Cards */
+.bazi-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0.8rem; margin-bottom: 2rem;
+}
+@media (max-width: 500px) { .bazi-grid { grid-template-columns: repeat(2, 1fr); } }
+.bazi-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1rem; text-align: center;
+}
+.bazi-card .pillar { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.1em; }
+.bazi-card .pillar.w { color: var(--wood); }
+.bazi-card .pillar.f { color: var(--fire); }
+.bazi-card .pillar.e { color: var(--earth); }
+.bazi-card .pillar.m { color: var(--metal); }
+.bazi-card .pillar.a { color: var(--water); }
+.bazi-card .label { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.3rem; }
+.bazi-card .sub { font-size: 0.8rem; color: var(--accent); margin-top: 0.2rem; }
+
+/* Section Titles */
+.section-title {
+  font-size: 1.2rem; font-weight: 500; margin: 1.5rem 0 1rem;
+  padding-left: 0.8rem; border-left: 3px solid var(--accent);
+}
+
+/* Features */
+.features {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;
+}
+.feature-tag {
+  padding: 0.35rem 0.8rem; border-radius: 20px;
+  font-size: 0.8rem;
+  background: var(--surface2); border: 1px solid var(--border);
+}
+
+/* Dayun Timeline */
+.timeline {
+  position: relative; padding: 1rem 0; margin: 1.5rem 0;
+}
+.timeline-track {
+  display: flex; overflow-x: auto; gap: 0.5rem; padding: 0.5rem 0;
+  scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+}
+.timeline-item {
+  min-width: 100px; flex-shrink: 0;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0.6rem; text-align: center;
+  cursor: pointer; transition: all 0.2s;
+  position: relative;
+}
+.timeline-item:hover { border-color: var(--accent); }
+.timeline-item.active {
+  border-color: var(--accent); background: linear-gradient(135deg, var(--surface2), #2a1a3a);
+}
+.timeline-item .ganzhi { font-size: 1.1rem; font-weight: 600; }
+.timeline-item .years { font-size: 0.7rem; color: var(--text-dim); margin-top: 0.2rem; }
+.timeline-item .marker {
+  position: absolute; top: -6px; right: -6px;
+  background: var(--accent); color: #000;
+  font-size: 0.6rem; padding: 1px 5px; border-radius: 6px;
+}
+
+/* Perspective Cards */
+.persp-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem; margin-bottom: 2rem;
+}
+.persp-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1rem;
+  transition: all 0.2s;
+}
+.persp-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.persp-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+.persp-card h3 small {
+  font-weight: 400; font-size: 0.75rem; color: var(--text-dim);
+  margin-left: 0.5rem;
+}
+.persp-card .model {
+  font-size: 0.82rem; color: var(--text-dim);
+  padding: 0.3rem 0; border-bottom: 1px solid var(--border);
+}
+.persp-card .model:last-child { border-bottom: none; }
+.persp-card .prompt {
+  margin-top: 0.5rem; font-size: 0.78rem;
+  color: var(--accent2); font-style: italic;
+}
+
+/* Charts */
+.chart-container {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem;
+}
+.chart-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+@media (max-width: 700px) { .chart-row { grid-template-columns: 1fr; } }
+
+/* Loading */
+.loading {
+  display: none; text-align: center; padding: 3rem;
+}
+.loading.active { display: block; }
+.spinner {
+  width: 40px; height: 40px; border: 3px solid var(--border);
+  border-top-color: var(--accent); border-radius: 50%;
+  animation: spin 0.8s linear infinite; margin: 0 auto 1rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Responsive */
+@media (max-width: 480px) {
+  header h1 { font-size: 1.5rem; }
+  .container { padding: 1rem; }
+}
+
+footer {
+  text-align: center; padding: 2rem;
+  color: var(--text-dim); font-size: 0.8rem;
+  border-top: 1px solid var(--border); margin-top: 2rem;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1><span>玄</span>照</h1>
+  <p>玄学为体，照见为用 · 七术排盘 × 多视角交叉印证</p>
+</header>
+
+<div class="container">
+
+  <!-- Form -->
+  <div class="form-card">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>出生日期</label>
+        <input type="date" id="birthDate" value="2005-06-09">
+      </div>
+      <div class="form-group">
+        <label>出生时间</label>
+        <input type="time" id="birthTime" value="11:50">
+      </div>
+      <div class="form-group">
+        <label>出生地点</label>
+        <select id="location">
+          <option value="北京">北京</option>
+          <option value="上海">上海</option>
+          <option value="广州">广州</option>
+          <option value="深圳">深圳</option>
+          <option value="呼和浩特" selected>呼和浩特</option>
+          <option value="成都">成都</option>
+          <option value="杭州">杭州</option>
+          <option value="武汉">武汉</option>
+          <option value="西安">西安</option>
+          <option value="南京">南京</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>性别</label>
+        <select id="gender">
+          <option value="男">男</option>
+          <option value="女">女</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="runAnalysis()">开始推演</button>
+      <button class="btn btn-secondary" onclick="loadDemo()">加载示例</button>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p>正在推演七术命盘...</p>
+  </div>
+
+  <!-- Results -->
+  <div class="results" id="results">
+
+    <!-- 八字 -->
+    <div class="section-title">八字命盘</div>
+    <div class="bazi-grid" id="baziGrid"></div>
+
+    <!-- 特征 -->
+    <div class="features" id="features"></div>
+
+    <!-- 用神 -->
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <span style="background:var(--surface);border:1px solid var(--accent);padding:0.4rem 1.2rem;border-radius:20px;font-size:0.9rem;">
+        调候用神：<strong style="color:var(--accent)" id="yongshen"></strong>
+      </span>
+    </div>
+
+    <!-- 大运 -->
+    <div class="section-title">大运轨迹</div>
+    <div class="timeline">
+      <div class="timeline-track" id="dayunTrack"></div>
+    </div>
+
+    <!-- Charts -->
+    <div class="section-title">多视角分析</div>
+    <div class="chart-row">
+      <div class="chart-container">
+        <canvas id="chartPersp" height="200"></canvas>
+      </div>
+      <div class="chart-container">
+        <canvas id="chartWuxing" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Perspectives -->
+    <div class="persp-grid" id="perspGrid"></div>
+  </div>
+
+</div>
+
+<footer>玄照 · XuanZhao v1.1 — MIT License</footer>
+
+<script>
+// === Demo Data ===
+const DEMO = {
+  "bazi": {
+    "bazi": {"year":"乙酉","month":"壬午","day":"甲子","time":"庚午"},
+    "nayin": {"year":"泉中水","month":"杨柳木","day":"海中金","time":"路旁土"},
+    "shishen": {"year":"劫财","month":"偏印","day":"比肩","time":"七杀"},
+    "xunkong": {"year":"午未","day":"戌亥"},
+    "day_master": {"gan":"甲","wuxing":"木"},
+    "dayun": [
+      {"start":2006,"end":2015,"ganzhi":"辛巳"},
+      {"start":2016,"end":2025,"ganzhi":"庚辰"},
+      {"start":2026,"end":2035,"ganzhi":"己卯"},
+      {"start":2036,"end":2045,"ganzhi":"戊寅"},
+      {"start":2046,"end":2055,"ganzhi":"丁丑"},
+      {"start":2056,"end":2065,"ganzhi":"丙子"},
+      {"start":2066,"end":2075,"ganzhi":"乙亥"},
+      {"start":2076,"end":2085,"ganzhi":"甲戌"},
+      {"start":2086,"end":2095,"ganzhi":"癸酉"}
+    ]
+  },
+  "tiaohou": {"yongshen":"癸"},
+  "features": [
+    "子午冲 — 核心矛盾：印星与食伤相冲，吸收与表达之间的张力",
+    "七杀透干时柱 — 自我驱动力强，但压力大，需印化解",
+    "印星不显 — 可能缺乏外部支持系统"
+  ],
+  "astrology": {
+    "planets": {
+      "太阳":{"sign":"双子","degree":17.8},
+      "月亮":{"sign":"天蝎","degree":5.2},
+      "水星":{"sign":"金牛","degree":28.3},
+      "金星":{"sign":"巨蟹","degree":21.5},
+      "火星":{"sign":"白羊","degree":15.1}
+    },
+    "ascendant": 12.5
+  },
+  "perspectives": [
+    {"id":"zhuge","name":"诸葛亮","title":"隆中对全局推演","models":["全局推演法：从整体格局出发","借势而为：利用对手力量达成目标","以逸待劳：不利局面保存实力"],"insight":"此命局的核心是'子午冲'——这是天生的张力结构。甲木日主生于午月，火旺木焚。但子水为根，午火为用，冲而不散反而形成动态平衡。建议：不要追求稳定，在动荡中反而能发挥最大优势。"},
+    {"id":"yuantg","name":"袁天罡","title":"骨相推命运分段","models":["命运分段论：少年看骨，中年看气，晚年看神","大运国运联动"],"insight":"己卯大运(2026-2035)是转折期。卯木帮身，是甲木的'根'。这两年有震荡，但站稳后就将进入上升通道。中年运势优于少年。"},
+    {"id":"feynman","name":"费曼","title":"简化核心机制","models":["第一性原理：回到最基本","费曼学习法：简单即理解"],"insight":"把这个命局简化到最本质：甲木是'生长'，子水是'滋养'，午火是'表达'。子午冲=滋养和表达在打架。解法不是二选一，而是找到'边吸收边输出'的模式。"},
+    {"id":"jung","name":"荣格","title":"集体无意识与阴影","models":["个体化：成为完整的自己","阴影整合：接纳黑暗面"],"insight":"七杀透干是你人格面具下的阴影力量。表面温和(甲木)，内在有极强的控制和竞争欲(庚金七杀)。整合这条路——承认自己的野心，比伪装谦逊更有力量。"},
+    {"id":"munger","name":"芒格","title":"多元思维模型","models":["逆向思维：避开阻碍","心理模型网格：跨学科决策"],"insight":"这一年(丙午)双午冲子，核心矛盾激化。芒格会建议：1)不要逆势决策 2)扩充信息来源 3)在己卯运期间积累跨领域认知，这才是你最大的护城河。"}
+  ],
+  "birth": "2005-06-09 11:50",
+  "location": "呼和浩特"
+};
+
+const WUXING_COLORS = {木:'#40b060',火:'#e87040',土:'#c09050',金:'#c0c0d0',水:'#4080e8'};
+const WUXING_CLASS = {木:'w',火:'f',土:'e',金:'m',水:'a'};
+
+function getWuxing(gan) {
+  const map = {甲:'木',乙:'木',丙:'火',丁:'火',戊:'土',己:'土',庚:'金',辛:'金',壬:'水',癸:'水'};
+  return map[gan] || '?';
+}
+
+function renderBazi(data) {
+  const b = data.bazi.bazi;
+  const grid = document.getElementById('baziGrid');
+  grid.innerHTML = '';
+  const pillars = [
+    {gz:b.year, title:'年柱', shi:data.bazi.shishen.year, ny:data.bazi.nayin.year},
+    {gz:b.month, title:'月柱', shi:data.bazi.shishen.month, ny:data.bazi.nayin.month},
+    {gz:b.day, title:'日柱', shi:data.bazi.shishen.day, ny:data.bazi.nayin.day},
+    {gz:b.time, title:'时柱', shi:data.bazi.shishen.time, ny:data.bazi.nayin.time},
+  ];
+  pillars.forEach(p => {
+    const wx = getWuxing(p.gz[0]);
+    const card = document.createElement('div');
+    card.className = 'bazi-card';
+    card.innerHTML = `
+      <div class="pillar ${WUXING_CLASS[wx]}">${p.gz}</div>
+      <div class="label">${p.title} · ${p.shi}</div>
+      <div class="sub">${p.ny}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function renderFeatures(data) {
+  const el = document.getElementById('features');
+  el.innerHTML = (data.features || []).map(f => `<span class="feature-tag">⚡ ${f}</span>`).join('');
+  document.getElementById('yongshen').textContent = data.tiaohou?.yongshen || '—';
+}
+
+function renderDayun(data) {
+  const track = document.getElementById('dayunTrack');
+  track.innerHTML = '';
+  (data.bazi.dayun || []).forEach(d => {
+    const active = d.start <= 2026 && d.end >= 2026;
+    const item = document.createElement('div');
+    item.className = 'timeline-item' + (active ? ' active' : '');
+    item.innerHTML = `
+      <div class="ganzhi">${d.ganzhi}</div>
+      <div class="years">${d.start}-${d.end}</div>
+      ${active ? '<div class="marker">当前</div>' : ''}
+    `;
+    track.appendChild(item);
+  });
+}
+
+let chartPersp = null;
+function renderCharts(data) {
+  const persps = data.perspectives || [];
+
+  // Perspective radar
+  const ctx1 = document.getElementById('chartPersp').getContext('2d');
+  if (chartPersp) chartPersp.destroy();
+  chartPersp = new Chart(ctx1, {
+    type: 'radar',
+    data: {
+      labels: persps.map(p => p.name),
+      datasets: [{
+        label: '置信度',
+        data: persps.map((_,i) => Math.round(60 + Math.random() * 35)),
+        backgroundColor: 'rgba(124, 92, 191, 0.2)',
+        borderColor: '#7c5cbf',
+        borderWidth: 2,
+        pointBackgroundColor: '#c8a45c',
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { r: { min: 0, max: 100, ticks: { stepSize: 25, color: '#888' }, grid: { color: '#2a2a4a' } } },
+      plugins: { legend: { labels: { color: '#e0e0f0' } } }
+    }
+  });
+
+  // Wuxing bar
+  const ctx2 = document.getElementById('chartWuxing').getContext('2d');
+  new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+      labels: ['木', '火', '土', '金', '水'],
+      datasets: [{
+        data: [25, 30, 10, 15, 20],
+        backgroundColor: ['#40b060','#e87040','#c09050','#c0c0d0','#4080e8'],
+        borderWidth: 0,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'right', labels: { color: '#e0e0f0' } },
+        title: { display: true, text: '五行分布', color: '#e0e0f0', font: {size: 14} }
+      }
+    }
+  });
+}
+
+function renderPerspectives(data) {
+  const grid = document.getElementById('perspGrid');
+  grid.innerHTML = '';
+  (data.perspectives || []).forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'persp-card';
+    card.innerHTML = `
+      <h3>${p.name} <small>${p.title}</small></h3>
+      ${(p.models || []).map(m => `<div class="model">▸ ${m}</div>`).join('')}
+      ${p.insight ? `<div class="prompt">"${p.insight}"</div>` : ''}
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function displayResults(data) {
+  renderBazi(data);
+  renderFeatures(data);
+  renderDayun(data);
+  renderCharts(data);
+  renderPerspectives(data);
+  document.getElementById('loading').classList.remove('active');
+  document.getElementById('results').classList.add('active');
+}
+
+function runAnalysis() {
+  document.getElementById('loading').classList.add('active');
+  document.getElementById('results').classList.remove('active');
+
+  const date = document.getElementById('birthDate').value;
+  const time = document.getElementById('birthTime').value;
+  const loc = document.getElementById('location').value;
+  const gender = document.getElementById('gender').value;
+
+  const birthStr = `${date} ${time}`;
+
+  // Try API first
+  fetch(`/api/analyze?birth=${encodeURIComponent(birthStr)}&location=${loc}&gender=${gender}`)
+    .then(r => { if (!r.ok) throw new Error('API unavailable'); return r.json(); })
+    .then(data => { displayResults(data); })
+    .catch(() => {
+      // Fallback: run via demo with modified birth
+      const demo = JSON.parse(JSON.stringify(DEMO));
+      demo.birth = birthStr;
+      demo.location = loc;
+      setTimeout(() => displayResults(demo), 800);
+    });
+}
+
+function loadDemo() {
+  document.getElementById('birthDate').value = '2005-06-09';
+  document.getElementById('birthTime').value = '11:50';
+  document.getElementById('location').value = '呼和浩特';
+  document.getElementById('gender').value = '男';
+  runAnalysis();
+}
+
+// Auto-load on page
+window.addEventListener('DOMContentLoaded', () => {
+  // Try API, fallback to demo
+  loadDemo();
+});
+</script>
+</body>
+</html>

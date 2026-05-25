@@ -1287,6 +1287,745 @@ class Shaman(Perspective):
         }
 
 
+class SunTzu(Perspective):
+    name = "孙子"
+    title = "知己知彼五事七计"
+
+    def analyze(self, data: dict, a: dict) -> dict:
+        wx = a["wuxing"]
+        dm = a["daymaster"]
+        ts = a["tenshen"]
+        combos = a["combinations"]
+        dayun = a["dayun_phase"]
+
+        # 五事：道(方向)天(时机)地(环境)将(能力)法(纪律)
+        score = 50
+        # 道：用神到位
+        th = a["tiaohou"]
+        if th.get("yongshen"):
+            ys = _GAN_WUXING.get(th["yongshen"][0] if th["yongshen"] else "", "")
+            if ys and wx.get(ys, 0) > 20:
+                score += 15
+        # 天：大运配合
+        if dayun:
+            d_wx = dayun.get("gan_wuxing", "")
+            dm_wx = dm.get("wuxing", "")
+            if d_wx == dm_wx:
+                score += 10
+            elif d_wx in _WUXING_CYCLE.get(dm_wx, ""):
+                score += 5
+        # 地：五行均衡
+        wx_vals = sorted(wx.values(), reverse=True)
+        if len(wx_vals) >= 2 and wx_vals[0] - wx_vals[-1] < 30:
+            score += 10
+        # 将：比劫+官杀=领导力
+        if ts.get("比劫", 0) >= 1:
+            score += 5
+        if ts.get("官杀", 0) >= 1:
+            score += 5
+        # 法：印星=纪律
+        if ts.get("印星", 0) >= 1:
+            score += 5
+
+        score = max(10, min(95, score))
+
+        # 七计评估
+        seven_items = []
+        seven_items.append(f"道（方向）：{'用神' + th['yongshen'] + '到位，方向明确' if th.get('yongshen') and wx.get(_GAN_WUXING.get(th['yongshen'][0] if th['yongshen'] else '',''), 0) > 20 else '方向待定'}")
+        seven_items.append(f"天（时机）：{'当前' + dayun['ganzhi'] + '运助身' if dayun and (dayun.get('gan_wuxing','')==dm.get('wuxing','') or dayun.get('zhi_wuxing','')==dm.get('wuxing','')) else '大运势平，待时而动' if dayun else '天时未至'}")
+        seven_items.append(f"地（环境）：{'五行均衡，适应力强' if len(sorted(wx.values(), reverse=True)) >= 2 and sorted(wx.values(), reverse=True)[0]-sorted(wx.values(), reverse=True)[-1] < 30 else '五行偏枯，环境选择很重要'}")
+        seven_items.append(f"将（能力）：{'比劫官杀俱全，文武兼备' if ts.get('比劫',0)>=1 and ts.get('官杀',0)>=1 else '领导力'+('有' if ts.get('比劫',0)>=1 or ts.get('官杀',0)>=1 else '待锻炼')}")
+        seven_items.append(f"法（纪律）：{'有印星，能守规矩' if ts.get('印星',0)>=1 else '纪律性需要后天培养'}")
+
+        dimensions = [
+            {"name": "战略位置", "score": score,
+             "detail": f"五事评分{score}分——{'天时地利人和俱全' if score >= 70 else '有优势也有短板'}"},
+            {"name": "进攻能力", "score": min(100, 40 + 15*ts.get("官杀",0) + 10*int(dayun and (dayun.get('gan_wuxing','')==dm.get('wuxing','') or dayun.get('zhi_wuxing','')==dm.get('wuxing','')))),
+             "detail": f"{'七杀有力=进攻型' if ts.get('官杀',0)>=1 else '需加强出击力度'}"},
+            {"name": "防守能力", "score": min(100, 40 + 15*ts.get("印星",0) + 15*ts.get("比劫",0)),
+             "detail": f"{'比印有根=防守稳固' if ts.get('印星',0)>=1 or ts.get('比劫',0)>=1 else '防守薄弱，需建立防线'}"},
+            {"name": "知彼能力", "score": min(100, 30 + 15*ts.get("财星",0) + 15*ts.get("食伤",0)),
+             "detail": f"{'财食有透=容易洞察外部信息' if ts.get('财星',0)>=1 or ts.get('食伤',0)>=1 else '外部感知需提升'}"},
+        ]
+
+        insights = []
+        if any("冲" in c for c in combos):
+            insights.append("命局有冲——孙子会说'避实击虚'，不要在冲突中心硬碰硬，找对方的弱点打")
+        if ts.get("官杀", 0) >= 2 and ts.get("印星", 0) == 0:
+            insights.append("官杀重而无印——身陷重围之势，需要'先为不可胜以待敌之可胜'")
+
+        warnings = []
+        if ts.get("印星", 0) == 0 and ts.get("比劫", 0) == 0:
+            warnings.append("无印无比——孤军奋战，切记'不战而屈人之兵'才是上策")
+
+        advice = []
+        advice.append(f"孙子五事：{seven_items[0]}")
+        if ts.get("食伤", 0) >= 2:
+            advice.append("食伤旺——适合以奇胜，出奇制胜是你的优势打法")
+
+        return {
+            "score": score, "confidence": 0.7,
+            "summary": f"五事评分{score}分。{'可战' if score >= 60 else '宜守'}之势。{'知彼知己' if ts.get('财星',0)>=1 or ts.get('食伤',0)>=1 else '先修内功再出击'}。",
+            "dimensions": dimensions,
+            "key_insights": insights or ["五事综合评价，宜结合具体问题深入分析"],
+            "warnings": warnings or [], "advice": advice,
+        }
+
+
+# ==========================================
+# 视角十四：鬼谷子 · 捭阖之道
+# ==========================================
+
+class GuiGuZi(Perspective):
+    name = "鬼谷子"
+    title = "捭阖之道攻心为上"
+
+    def analyze(self, data: dict, a: dict) -> dict:
+        wx = a["wuxing"]
+        dm = a["daymaster"]
+        ts = a["tenshen"]
+
+        score = 50
+        dm_wx = dm.get("wuxing", "")
+
+        # 捭（开放）：食伤=表达能力
+        if ts.get("食伤", 0) >= 2:
+            score += 15
+        elif ts.get("食伤", 0) >= 1:
+            score += 8
+        # 阖（闭合）：印星=沉默观察
+        if ts.get("印星", 0) >= 2:
+            score += 15
+        elif ts.get("印星", 0) >= 1:
+            score += 8
+        # 飞箝（说服力）：财星=资源洞察
+        if ts.get("财星", 0) >= 1:
+            score += 10
+        # 反应术（洞察力）：水元素=感知
+        if wx.get("水", 0) >= 20:
+            score += 10
+        # 抵巇（抓裂缝）：有冲=有可以利用的矛盾
+        if any("冲" in c for c in a["combinations"]):
+            score += 5
+
+        score = max(10, min(95, score))
+
+        # 性格倾向判断
+        if ts.get("食伤", 0) >= ts.get("印星", 0):
+            style = "捭（开放型）——善于表达，需要学会闭嘴"
+        else:
+            style = "阖（内敛型）——善于观察，需要学会开口"
+
+        dimensions = [
+            {"name": "捭阖平衡",
+             "score": min(100, 50 + 10 * abs(ts.get("食伤",0) - ts.get("印星",0))),
+             "detail": style},
+            {"name": "洞察人心",
+             "score": min(100, 30 + 15 * ts.get("财星",0) + int(wx.get('水',0))),
+             "detail": f"{'水元素'+str(wx.get('水',0))+'%'+'=感知力' if wx.get('水',0)>=20 else '感知力一般'}，{'财星透出=对资源流动敏感' if ts.get('财星',0)>=1 else '资源洞察需要训练'}"},
+            {"name": "说服力",
+             "score": min(100, 40 + 15 * ts.get("食伤",0) + 10 * ts.get("财星",0)),
+             "detail": f"食伤{ts.get('食伤',0)}个+财星{ts.get('财星',0)}个——{'有说服他人的天然武器' if ts.get('食伤',0)+ts.get('财星',0)>=2 else '说服力来自信息优势'}"},
+            {"name": "随机应变",
+             "score": min(100, 50 + 10 * ts.get("食伤",0) - 5 * ts.get("印星",0)),
+             "detail": f"{'灵活性高' if ts.get('食伤',0)>ts.get('印星',0) else '稳定性强' if ts.get('印星',0)>ts.get('食伤',0) else '灵活与稳定均衡'}"},
+        ]
+
+        insights = []
+        if ts.get("食伤", 0) >= 1 and ts.get("印星", 0) >= 1:
+            insights.append("食伤印星兼备——天生的纵横家，既能说也能藏")
+        if wx.get("水", 0) >= 20:
+            insights.append(f"水性足({wx['水']}%)——鬼谷子会说你天生会'反应术'，善于从对方话中读信息")
+
+        warnings = []
+        if ts.get("印星", 0) >= 3 and ts.get("食伤", 0) == 0:
+            warnings.append("过阖不捭——容易把自己藏太深，别人看不透你也就无法信任你")
+
+        advice = []
+        advice.append(f"你的风格是{style}")
+        if wx.get("水", 0) < 15:
+            advice.append("水性偏弱——可以刻意练习倾听，水主智也主柔")
+
+        return {
+            "score": score, "confidence": 0.65,
+            "summary": f"捭阖评分{score}分。{style}。{'洞察力敏锐' if wx.get('水',0)>=20 else '说服力可后天培养'}。",
+            "dimensions": dimensions,
+            "key_insights": insights or ["捭阖之道需结合具体场景应用"],
+            "warnings": warnings or [], "advice": advice,
+        }
+
+
+# ==========================================
+# 视角十五：刘伯温 · 微兆预警
+# ==========================================
+
+class LiuBowen(Perspective):
+    name = "刘伯温"
+    title = "天人合一微兆预警"
+
+    def analyze(self, data: dict, a: dict) -> dict:
+        wx = a["wuxing"]
+        dm = a["daymaster"]
+        combos = a["combinations"]
+        ts = a["tenshen"]
+        dayun = a["dayun_phase"]
+
+        score = 50
+
+        # 微兆识别：天干地支的微妙组合
+        subtle_signals = []
+
+        # 天克地冲=大信号
+        for c in combos:
+            if "冲" in c:
+                subtle_signals.append(c)
+
+        # 害=隐藏矛盾
+        for c in combos:
+            if "害" in c:
+                subtle_signals.append(f"六害{c}——隐藏的矛盾")
+
+        # 空亡=机会与陷阱
+        xk = a["raw_bazi"].get("xunkong", {})
+        xk_info = f"年柱空亡{xk.get('year','?')}，日柱空亡{xk.get('day','?')}" if xk else ""
+
+        # 大运转换=关键节点
+        if dayun:
+            yi = dayun.get("year_index", 1)
+            if yi <= 2:
+                subtle_signals.append(f"刚入{dayun['ganzhi']}运（第{yi}年）——运势转换期，微兆最为关键")
+            elif yi >= 8:
+                subtle_signals.append(f"{dayun['ganzhi']}运末（第{yi}年）——准备迎接下一个大运的变化")
+
+        # 信号越多分越高
+        signal_count = len(subtle_signals)
+        if signal_count >= 3:
+            score += 20
+        elif signal_count >= 1:
+            score += 10
+
+        # 印星=留心观察
+        if ts.get("印星", 0) >= 2:
+            score += 10
+        # 水=洞察力
+        if wx.get("水", 0) >= 20:
+            score += 10
+        # 冲=变量
+        if any("冲" in c for c in combos):
+            score += 5
+
+        score = max(10, min(95, score))
+
+        dimensions = [
+            {"name": "微兆识别力",
+             "score": min(100, 40 + 15 * signal_count),
+             "detail": f"识别{signal_count}个潜在信号——{'机会藏在细节中' if signal_count >= 2 else '目前无明显异常信号'}"},
+            {"name": "天人感应",
+             "score": min(100, 40 + int(wx.get('水',0)) + 10 * ts.get("印星", 0)),
+             "detail": f"{'水元素'+str(wx.get('水',0))+'%'+'=感应通道开放' if wx.get('水',0)>=20 else '感应通道一般'}，{'印星=有内观能力' if ts.get('印星',0)>=1 else '内观能力需培养'}"},
+            {"name": "周期意识",
+             "score": min(100, 30 + (20 if dayun else 0) + 10 * int(dayun and dayun.get('year_index',1)<=2)),
+             "detail": f"当前{'在' + dayun['ganzhi'] + '运关键期' if dayun and dayun.get('year_index',1)<=2 else dayun['ganzhi']+'运' if dayun else '大运未详'}——{'刘伯温强调察微知著' if signal_count >= 2 else '运势平稳期'}"},
+        ]
+
+        insights = []
+        if subtle_signals:
+            insights.append(f"最值得关注的信号：{subtle_signals[0]}")
+        if xk_info:
+            insights.append(f"{xk_info}——空亡之处藏玄机，可能是意外之喜也可能是陷阱")
+
+        warnings = []
+        if any("害" in c for c in combos):
+            warnings.append("六害入局——小人暗算或内部矛盾，是最大的隐性风险")
+
+        advice = []
+        advice.append("训练观察微兆的习惯——每天记录三个被忽略的小事，慢慢就会看出规律")
+        if any("冲" in c for c in combos):
+            advice.append("冲局如大潮——提前半年准备而非临时应对")
+
+        return {
+            "score": score, "confidence": 0.6,
+            "summary": f"微兆预警评分{score}分。识别{signal_count}个信号。{'水木有灵' if wx.get('水',0)>=20 and wx.get('木',0)>=20 else '感应通道一般'}。",
+            "dimensions": dimensions,
+            "key_insights": insights or ["目前命局没有突出的大信号，小信号需要细心捕捉"],
+            "warnings": warnings or [], "advice": advice,
+        }
+
+
+# ==========================================
+# 视角十六：弗洛伊德 · 潜意识
+# ==========================================
+
+class Freud(Perspective):
+    name = "弗洛伊德"
+    title = "潜意识与本能冲动"
+
+    def analyze(self, data: dict, a: dict) -> dict:
+        wx = a["wuxing"]
+        dm = a["daymaster"]
+        ts = a["tenshen"]
+        hg = a["raw_bazi"].get("hidden_gans", {})
+        ss = a["raw_bazi"].get("shishen", {})
+
+        score = 50
+
+        # 本我（id）：藏干=隐藏的欲望
+        hidden_count = sum(len(v) if isinstance(v, list) else 1 for v in hg.values())
+        if hidden_count >= 4:
+            score += 15  # 藏干多=潜意识丰富
+        elif hidden_count >= 2:
+            score += 8
+
+        # 自我（ego）：日主=显意识
+        dm_wx = dm.get("wuxing", "")
+        if dm.get("strength") in ("身强", "中和"):
+            score += 10
+
+        # 超我（superego）：官杀=道德约束
+        if ts.get("官杀", 0) >= 2:
+            score += 10  # 道德感重
+        if ts.get("印星", 0) >= 2:
+            score += 5  # 教化
+
+        # 压抑：冲=内心冲突
+        if any("冲" in c for c in a["combinations"]):
+            score += 10
+        if any("害" in c for c in a["combinations"]):
+            score += 5
+
+        # 力比多：水旺=性/创造力
+        if wx.get("水", 0) >= 20:
+            score += 10
+
+        score = max(10, min(95, score))
+
+        # 防御机制识别
+        defenses = []
+        if ts.get("印星", 0) >= 2:
+            defenses.append("理智化——用思考隔离情感")
+        if ts.get("比劫", 0) >= 2:
+            defenses.append("投射——把自己不喜欢的特质归因于他人")
+        if "七杀" in ss.get("time", ""):
+            defenses.append("反向形成——表面的温和掩盖内在的攻击性")
+        if wx.get("水", 0) >= 25 and ts.get("食伤", 0) >= 2:
+            defenses.append("升华——创造性的出口")
+
+        dimensions = [
+            {"name": "潜意识丰富度",
+             "score": min(100, 30 + 15 * hidden_count),
+             "detail": f"藏干{hidden_count}个——{'内心世界丰富' if hidden_count >= 4 else '潜意识内容一般'}"},
+            {"name": "自我力量",
+             "score": min(100, 50 + 15 * int(dm.get('strength') in ('身强','中和'))),
+             "detail": f"日主{dm.get('strength','?')}——{'自我功能强健' if dm.get('strength') in ('身强','中和') else '自我边界较弱'}"},
+            {"name": "压抑程度",
+             "score": max(0, 50 - 10 * sum(1 for c in a['combinations'] if '冲' in c)),
+             "detail": f"{'有冲=内心冲突需要表达' if any('冲' in c for c in a['combinations']) else '内心相对平静'}"},
+            {"name": "升华潜力",
+             "score": min(100, 40 + 15 * ts.get("食伤",0) + 10 * (wx.get('水',0) >= 20)),
+             "detail": f"{'食伤+水=强大的创造性能量' if ts.get('食伤',0)>=1 and wx.get('水',0)>=20 else '创造力潜力需要释放'}"},
+        ]
+
+        insights = []
+        if hidden_count >= 4:
+            insights.append(f"藏干丰富（{hidden_count}个）——你的潜意识像冰山，海面下远比表面大")
+        if defenses:
+            insights.append(f"可能的防御机制：{defenses[0]}")
+        if "七杀" in ss.get("time", "") and wx.get("水", 0) >= 20:
+            insights.append("七杀透干+水旺——力比多能量强大，需要在创造性的活动中释放")
+
+        warnings = []
+        if ts.get("官杀", 0) >= 3 and ts.get("食伤", 0) == 0:
+            warnings.append("超我过强——道德约束压倒了本能，可能有强迫性人格倾向")
+
+        advice = []
+        advice.append("记录梦境——弗洛伊德认为梦是'通往潜意识的皇家大道'")
+        if wx.get("水", 0) >= 20 and ts.get("食伤", 0) >= 1:
+            advice.append("你的力比多能量适合创造性工作——写作、艺术、研究都可以成为升华的出口")
+
+        return {
+            "score": score, "confidence": 0.6,
+            "summary": f"潜意识评分{score}分。{'内心世界丰富' if hidden_count >= 4 else '潜意识相对平静'}。{'有创造性升华通道' if ts.get('食伤',0)>=1 and wx.get('水',0)>=20 else '压抑需要出口'}。",
+            "dimensions": dimensions,
+            "key_insights": insights or ["弗洛伊德视角更适用于有具体心理困扰的场景"],
+            "warnings": warnings or [], "advice": advice,
+        }
+
+
+# ==========================================
+# 视角十七：尼采 · 权力意志
+# ==========================================
+
+class Nietzsche(Perspective):
+    name = "尼采"
+    title = "权力意志重估一切"
+
+    def analyze(self, data: dict, a: dict) -> dict:
+        wx = a["wuxing"]
+        dm = a["daymaster"]
+        ts = a["tenshen"]
+        combos = a["combinations"]
+        ss = a["raw_bazi"].get("shishen", {})
+
+        score = 50
+
+        # 权力意志：七杀=斗志
+        if "七杀" in ss.get("time", ""):
+            score += 20
+        elif "七杀" in ss.get("month", ""):
+            score += 15
+        if ts.get("官杀", 0) >= 2:
+            score += 5
+
+        # 创造与毁灭：食伤=创造，官杀=破坏
+        if ts.get("食伤", 0) >= 2:
+            score += 10
+        if ts.get("官杀", 0) >= 2:
+            score += 5
+
+        # 重估一切：冲=打破旧秩序
+        if any("冲" in c for c in combos):
+            score += 10
+        if any("害" in c for c in combos):
+            score += 5
+
+        # 超人倾向：比劫=独立，印星=自我超越
+        if ts.get("比劫", 0) >= 1:
+            score += 5
+        if ts.get("印星", 0) >= 2:
+            score += 5
+
+        # 酒神精神：食伤+水=迷狂创造力
+        if ts.get("食伤", 0) >= 1 and wx.get("水", 0) >= 20:
+            score += 10
+
+        score = max(10, min(95, score))
+
+        # 超人评语
+        if score >= 75:
+            ubermensch = "超人潜力——不以常人的标准衡量自己"
+        elif score >= 50:
+            ubermensch = "凡人之上——有超越的欲望但还不够彻底"
+        else:
+            ubermensch = "骆驼阶段——还需要先背负传统才能成为狮子"
+
+        dimensions = [
+            {"name": "权力意志",
+             "score": min(100, 40 + 20 * int("七杀" in ss.get("time","") or "七杀" in ss.get("month",""))),
+             "detail": f"{'七杀透干=强大的权力意志' if '七杀' in ss.get('time','') or '七杀' in ss.get('month','') else '权力意志需激发'}"},
+            {"name": "日神与酒神",
+             "score": min(100, 40 + 15 * ts.get("食伤",0) + 10 * (wx.get('水',0) >= 20)),
+             "detail": f"{'酒神精神占优——直觉和创造力是主要力量' if ts.get('食伤',0)>=1 and wx.get('水',0)>=20 else '日神精神为主——理性和秩序是安全感来源'}"},
+            {"name": "超越等级",
+             "score": score,
+             "detail": ubermensch},
+        ]
+
+        insights = []
+        if "七杀" in ss.get("time", ""):
+            insights.append("七杀透干——尼采会说'成为你自己'不是温和的邀请，而是激烈的战斗")
+        if ts.get("食伤", 0) >= 2 and any("冲" in c for c in combos):
+            insights.append("食伤旺+有冲——你有砸碎旧价值的冲动，问题是用什么来取代")
+        if ts.get("印星", 0) >= 2 and ts.get("官杀", 0) >= 2:
+            insights.append("印与杀对峙——这是'骆驼'与'狮子'的角力，先服从再反抗的经典路径")
+
+        warnings = []
+        if ts.get("印星", 0) >= 3 and ts.get("食伤", 0) == 0:
+            warnings.append("过度理智化——尼采会提醒'太多的学问会扼杀行动的力量'")
+        if "七杀" in ss.get("time", "") and ts.get("印星", 0) == 0:
+            warnings.append("有毁灭倾向而无创造力——注意不要为了反抗而反抗")
+
+        advice = []
+        advice.append(f"你的超人阶段：{ubermensch}")
+        if ts.get("食伤", 0) >= 2:
+            advice.append("用创造代替抱怨——创造自己的价值体系比摧毁现有的更有力量")
+        if wx.get("水", 0) >= 25:
+            advice.append("水性深——适合在思想的深渊中探索，'当你凝视深渊，深渊也凝视着你'")
+
+        return {
+            "score": score, "confidence": 0.65,
+            "summary": f"权力意志评分{score}分。{ubermensch}。{'酒神VS日神' + ('——酒神更强' if ts.get('食伤',0)>=1 and wx.get('水',0)>=20 else '——日神为主')}。",
+            "dimensions": dimensions,
+            "key_insights": insights or ["尼采视角更适合有存在性困惑或面临价值抉择的场景"],
+            "warnings": warnings or [], "advice": advice,
+        }
+
+
+# ==========================================
+# 视角十八：巴菲特 · 价值投资
+# ==========================================
+
+class Buffett(Perspective):
+    name = "巴菲特"
+    title = "价值投资安全边际"
+
+    def analyze(self, data: dict, a: dict) -> dict:
+        wx = a["wuxing"]
+        dm = a["daymaster"]
+        ts = a["tenshen"]
+        dayun = a["dayun_phase"]
+
+        score = 50
+
+        # 内在价值（日主强度）
+        support = a["daymaster"]["support_ratio"]
+        if support >= 50:
+            score += 20  # 基本面扎实
+        elif support >= 35:
+            score += 10
+
+        # 安全边际（印星+比劫=保护层）
+        protection = ts.get("印星", 0) * 10 + ts.get("比劫", 0) * 10
+        if protection >= 30:
+            score += 15
+        elif protection >= 15:
+            score += 8
+
+        # 护城河（财星=持久竞争优势）
+        if ts.get("财星", 0) >= 1:
+            score += 10
+        if ts.get("印星", 0) >= 2:
+            score += 5  # 印星=可复用的知识
+
+        # 管理层（官杀=决断力）
+        if ts.get("官杀", 0) >= 1:
+            score += 5
+
+        # 周期判断（大运）
+        if dayun:
+            d_wx = dayun.get("gan_wuxing", "")
+            dm_wx = dm.get("wuxing", "")
+            if d_wx == dm_wx:
+                score += 10  # 顺周期
+            elif _WUXING_CONQUER.get(d_wx) == dm_wx:
+                score -= 5  # 逆周期
+
+        score = max(10, min(95, score))
+
+        # 价值判断
+        if score >= 70:
+            valuation = "低估——市场错了，现在是最好的买入时机"
+        elif score >= 50:
+            valuation = "合理估值——持有等待价值释放"
+        else:
+            valuation = "高估——需要更多安全边际"
+
+        dimensions = [
+            {"name": "内在价值",
+             "score": min(100, int(support)),
+             "detail": f"生扶力度{support}%——{'基本面扎实' if support >= 50 else '需要积累更多资本'}"},
+            {"name": "安全边际",
+             "score": min(100, 30 + protection),
+             "detail": f"{'保护充足' if protection >= 30 else '安全边际不足'}"},
+            {"name": "护城河",
+             "score": min(100, 30 + 20 * ts.get("财星",0) + 10 * ts.get("印星",0)),
+             "detail": f"{'财星+印星=有复利根基' if ts.get('财星',0)>=1 and ts.get('印星',0)>=1 else '护城河需要后天建立'}"},
+            {"name": "周期位置",
+             "score": min(100, 50 + (10 if dayun and (dayun.get('gan_wuxing','')==dm.get('wuxing','')) else 0) - (5 if dayun and (_WUXING_CONQUER.get(dayun.get('gan_wuxing',''))==dm.get('wuxing','')) else 0)),
+             "detail": f"当前{'顺周期' if dayun and (dayun.get('gan_wuxing','')==dm.get('wuxing','')) else '逆周期' if dayun and (_WUXING_CONQUER.get(dayun.get('gan_wuxing',''))==dm.get('wuxing','')) else '中性周期'}" if dayun else "周期判断需大运数据"
+            },
+        ]
+
+        insights = []
+        if support >= 50:
+            insights.append(f"基本面评分{support}%——巴菲特会说'价格是你支付的，价值是你得到的'")
+        if ts.get("印星", 0) >= 2:
+            insights.append(f"印星{ts.get('印星',0)}个=复利机器——知识是最佳投资标的")
+        if dayun and (dayun.get('gan_wuxing','') == dm.get('wuxing','')):
+            insights.append(f"当前{dayun['ganzhi']}运顺周期——是建立护城河的好时机")
+
+        warnings = []
+        if protection < 15:
+            warnings.append("安全边际不足——不要加杠杆，保持现金储备")
+
+        advice = []
+        advice.append(f"价值判断：{valuation}")
+        advice.append("最重要的投资是投资自己——印星=自我教育是最好的长期资产")
+
+        return {
+            "score": score, "confidence": 0.65,
+            "summary": f"价值投资评分{score}分。{valuation}。{'护城河' + ('已形成' if ts.get('财星',0)>=1 and ts.get('印星',0)>=1 else '待建立')}。",
+            "dimensions": dimensions,
+            "key_insights": insights or ["巴菲特视角更适合财富管理方面的具体问题"],
+            "warnings": warnings or [], "advice": advice,
+        }
+
+
+# ==========================================
+# 视角十九：赫尔墨斯 · 对应法则
+# ==========================================
+
+class Hermes(Perspective):
+    name = "赫尔墨斯"
+    title = "七原则如其在上"
+
+    def analyze(self, data: dict, a: dict) -> dict:
+        wx = a["wuxing"]
+        dm = a["daymaster"]
+        ts = a["tenshen"]
+        combos = a["combinations"]
+        th = a["tiaohou"]
+
+        score = 50
+
+        # 1. 心物对应（mentalism）：印星=思维覆盖现实
+        if ts.get("印星", 0) >= 2:
+            score += 10
+        # 2. 对应原则（correspondence）：五行平衡=宏观微观一致
+        wx_vals = sorted(wx.values(), reverse=True)
+        if len(wx_vals) >= 2 and wx_vals[0] - wx_vals[-1] < 20:
+            score += 15
+        # 3. 振动原则（vibration）：食伤=能量向外辐射
+        if ts.get("食伤", 0) >= 2:
+            score += 10
+        # 4. 极性原则（polarity）：冲=对立统一
+        if any("冲" in c for c in combos):
+            score += 10
+        # 5. 节奏原则（rhythm）：大运=生命节奏
+        if a["dayun_phase"]:
+            score += 10
+        # 6. 因果原则（causality）：用神=关键因素
+        if th.get("yongshen"):
+            score += 5
+        # 7. 性别原则（gender）：阴阳平衡
+        if wx.get("水", 0) >= 20 and wx.get("火", 0) >= 20:
+            score += 10
+
+        score = max(10, min(95, score))
+
+        # 七原则分析
+        principles = [
+            f"心物法则——{'印星有力=思维能量强' if ts.get('印星',0)>=2 else '心物连接一般'}",
+            f"对应法则——{'五行均衡=天地人三才对应良好' if len(wx_vals)>=2 and wx_vals[0]-wx_vals[-1]<20 else '五行偏枯=需要更多调和'}",
+            f"振动法则——{'食伤透干=能量向外辐射' if ts.get('食伤',0)>=1 else '能量内敛'}",
+            f"极性法则——{'有冲=对立统一的原动力' if any('冲' in c for c in combos) else '极性相对平衡'}",
+            f"节奏法则——{'大运流转=生命节奏清晰' if a['dayun_phase'] else '节奏待显化'}",
+            f"因果法则——{'用神明确=因果链条清晰' if th.get('yongshen') else '因果需探索'}",
+            f"性别法则——{'水火并存=阴阳俱足' if wx.get('水',0)>=20 and wx.get('火',0)>=20 else '阴阳有偏'}"
+        ]
+
+        dimensions = [
+            {"name": "七原则共振",
+             "score": score,
+             "detail": f"七原则中{sum(1 for p in [ts.get('印星',0)>=2, len(wx_vals)>=2 and wx_vals[0]-wx_vals[-1]<20, ts.get('食伤',0)>=2, any('冲' in c for c in combos), bool(a['dayun_phase']), bool(th.get('yongshen')), wx.get('水',0)>=20 and wx.get('火',0)>=20])}条活跃"},
+            {"name": "如其在上",
+             "score": min(100, 40 + 15 * ts.get("印星",0) + 15),
+             "detail": f"微观八字对应宏观人生——{'有良好的抽象对应能力' if ts.get('印星',0)>=2 else '对应关系需练习发现'}"},
+            {"name": "阴阳调和",
+             "score": min(100, 50 + int(abs(wx.get('水',0)-wx.get('火',0)) < 15) * 20),
+             "detail": f"水火差{abs(wx.get('水',0)-wx.get('火',0)):.0f}%——{'阴阳平衡' if abs(wx.get('水',0)-wx.get('火',0)) < 15 else '阴' + ('盛' if wx.get('水',0) > wx.get('火',0) else '弱') + '阳' + ('盛' if wx.get('火',0) > wx.get('水',0) else '弱')}"},
+        ]
+
+        insights = []
+        insights.append(f"七原则核心：{principles[1]}")
+        if ts.get("印星", 0) >= 2 and any("冲" in c for c in combos):
+            insights.append("心物法则+极性法则=你有通过改变思维来转化对立面的能力")
+
+        warnings = []
+        if abs(wx.get('水',0) - wx.get('火',0)) > 30:
+            warnings.append("阴阳偏颇——对应法则提醒你需要平衡生命中的对立力量")
+
+        advice = []
+        advice.append("如其在上，如其在下——你遇到的问题往往反映了更大的格局问题")
+        advice.append("观察最近生活中的'巧合'——赫尔墨斯认为同步性是有意义的")
+
+        return {
+            "score": score, "confidence": 0.55,
+            "summary": f"七原则评分{score}分。{'天地人三才对应良好' if len(wx_vals)>=2 and wx_vals[0]-wx_vals[-1]<20 else '对应关系有待调和'}。{'阴阳' + ('平衡' if abs(wx.get('水',0)-wx.get('火',0)) < 15 else '有偏')}。",
+            "dimensions": dimensions,
+            "key_insights": insights or ["赫尔墨斯视角更偏向哲学诠释，是对其他视角的补充"],
+            "warnings": warnings or [], "advice": advice,
+        }
+
+
+# ==========================================
+# 视角二十：张一鸣 · 认知迭代
+# ==========================================
+
+class ZhangYiming(Perspective):
+    name = "张一鸣"
+    title = "认知迭代信息效率"
+
+    def analyze(self, data: dict, a: dict) -> dict:
+        wx = a["wuxing"]
+        dm = a["daymaster"]
+        ts = a["tenshen"]
+        dayun = a["dayun_phase"]
+        combos = a["combinations"]
+
+        score = 50
+
+        # 信息处理能力（印星=吸收，食伤=输出）
+        absorb = ts.get("印星", 0) * 15
+        output = ts.get("食伤", 0) * 15
+        info_score = absorb + output
+        if info_score >= 40:
+            score += 20
+        elif info_score >= 20:
+            score += 10
+
+        # 延迟满足（财星+印星=长期思维）
+        if ts.get("财星", 0) >= 1 and ts.get("印星", 0) >= 1:
+            score += 15
+        elif ts.get("印星", 0) >= 2:
+            score += 10
+
+        # 认知迭代速度（有冲=认知冲突=迭代契机）
+        if any("冲" in c for c in combos):
+            score += 10
+
+        # 信息效率（木火=生长与表达）
+        if wx.get("木", 0) >= 20 and wx.get("火", 0) >= 20:
+            score += 10
+
+        # 大运节奏
+        if dayun and dayun.get("year_index", 1) <= 3:
+            score += 5  # 新运=加速器
+
+        score = max(10, min(95, score))
+
+        dimensions = [
+            {"name": "信息吸收力",
+             "score": min(100, 30 + absorb),
+             "detail": f"印星{ts.get('印星',0)}个={'信息输入能力强' if ts.get('印星',0)>=1 else '需建立稳定输入渠道'}"},
+            {"name": "信息输出力",
+             "score": min(100, 30 + output),
+             "detail": f"食伤{ts.get('食伤',0)}个={'善于表达和输出' if ts.get('食伤',0)>=1 else '输出能力可培养'}"},
+            {"name": "延迟满足",
+             "score": min(100, 30 + 20 * int(ts.get('财星',0)>=1 and ts.get('印星',0)>=1) + 10 * int(ts.get('印星',0)>=2)),
+             "detail": f"{'财印俱全=有长期主义的特质' if ts.get('财星',0)>=1 and ts.get('印星',0)>=1 else '延迟满足是需要刻意练习的'}"},
+            {"name": "认知跃迁概率",
+             "score": min(100, 40 + 15 * int(any('冲' in c for c in combos)) + 10 * int(wx.get('木',0)>=20 and wx.get('火',0)>=20)),
+             "detail": f"{'有冲=认知冲突=跃迁契机' if any('冲' in c for c in combos) else '认知迭代偏渐进式'}"},
+        ]
+
+        insights = []
+        if ts.get("印星", 0) >= 1 and ts.get("食伤", 0) >= 1:
+            insights.append(f"印食兼具——输入输出平衡，有信息飞轮的潜质")
+        if ts.get("财星", 0) >= 1 and ts.get("印星", 0) >= 1:
+            insights.append("财印皆有——张一鸣式'不做表面功夫'的底层算法")
+        if dayun and dayun.get("year_index", 1) <= 3:
+            insights.append(f"刚进入{dayun['ganzhi']}运——认知迭代速度应该乘2")
+
+        warnings = []
+        if ts.get("印星", 0) >= 3 and ts.get("食伤", 0) == 0:
+            warnings.append("信息过载风险——输入太多不输出会形成认知便秘")
+
+        advice = []
+        advice.append("建立信息筛选机制——输入质量决定输出质量")
+        if wx.get("火", 0) < 15:
+            advice.append("火弱——表达需要刻意练习，写作或演讲是认知迭代的加速器")
+        if ts.get("财星", 0) >= 1 and ts.get("印星", 0) >= 1:
+            advice.append("你的商业模式底色：做那些可以被复利的事——知识产品、数字资产")
+
+        return {
+            "score": score, "confidence": 0.6,
+            "summary": f"认知迭代评分{score}分。{'信息飞轮已启动' if ts.get('印星',0)>=1 and ts.get('食伤',0)>=1 else '需建立信息循环'}。{'长期主义底色' if ts.get('财星',0)>=1 and ts.get('印星',0)>=1 else '短期导向'}。",
+            "dimensions": dimensions,
+            "key_insights": insights or ["张一鸣视角更适合职业发展和认知成长方面的具体问题"],
+            "warnings": warnings or [], "advice": advice,
+        }
+
+
 # ==========================================
 # 引擎
 # ==========================================
@@ -1308,6 +2047,15 @@ class DeepPerspectiveEngine:
             "stoic": Stoic(),
             "crowley": Crowley(),
             "shaman": Shaman(),
+            # 新增（v1.2.5）：8个深度视角
+            "sun-tzu": SunTzu(),
+            "gui-gu-zi": GuiGuZi(),
+            "liu-bowen": LiuBowen(),
+            "freud": Freud(),
+            "nietzsche": Nietzsche(),
+            "buffett": Buffett(),
+            "hermes": Hermes(),
+            "zhang-yiming": ZhangYiming(),
         }
 
     def list(self) -> list:

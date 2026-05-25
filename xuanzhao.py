@@ -24,7 +24,7 @@ except ImportError:
 # ========================
 # 引擎版本
 # ========================
-VERSION = "1.2.0"
+VERSION = "1.2.5"
 
 # ========================
 # 八字排盘模块
@@ -702,7 +702,7 @@ def main():
         all_deep = DEEP_ENGINE.list() if DEEP_OK else []
         all_shallow = pers_engine.list_all()
         print(f"\n📚 玄照视角库\n")
-        print(f"深度视角（12个核心——基于命盘数据计算）：")
+        print(f"深度视角（20个核心——基于命盘数据计算）：")
         for p in all_deep:
             print(f"  🔴 {p['id']:30s} {p['name']} — {p['title']}")
         print()
@@ -723,7 +723,7 @@ def main():
             return
         print(f"✅ 命盘分析完成，运行深度视角引擎...")
         # 使用深度视角
-        deep_ids = list(DEEP_ENGINE._frameworks.keys())[:8] if DEEP_OK else None
+        deep_ids = list(DEEP_ENGINE._frameworks.keys())[:12] if DEEP_OK else None
         pers_result = pers_engine.deep_analyze(destiny, deep_ids, shallow_count=0)
         report = reporter.generate(destiny, pers_result, "markdown")
         print(report)
@@ -746,7 +746,7 @@ def main():
         pers_result = pers_engine.deep_analyze(destiny, pids, 0)
     else:
         # 默认：全部12个深度视角 + 3个浅层补充
-        deep_ids = list(DEEP_ENGINE._frameworks.keys())[:8] if DEEP_OK else None
+        deep_ids = list(DEEP_ENGINE._frameworks.keys())[:12] if DEEP_OK else None
         pers_result = pers_engine.deep_analyze(destiny, deep_ids, shallow_count=3)
 
     if args.command == "predict" and args.api_key:

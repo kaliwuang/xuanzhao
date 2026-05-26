@@ -3,7 +3,7 @@
 > 玄学为体，照见为用  
 > **七术排盘 × 40+ 视角交叉印证 = 新一代群体智能预测系统**
 
-玄照是一个玄学群体智能预测系统。输入出生信息，系统自动运行**八字**排盘，再喂给**诸葛亮、费曼、荣格、袁天罡、老子、孙子、弗洛伊德、尼采**等 108 个跨学科视角从不同角度分析命盘，输出综合预测数据。
+玄照是一个玄学群体智能预测系统。输入出生信息，系统自动运行**八字**排盘，再喂给**诸葛亮、费曼、荣格、袁天罡、老子、孙子、弗洛伊德、尼采**等 96 个跨学科视角从不同角度分析命盘，输出综合预测数据。
 
 **无需 API Key，纯本地计算。AI Agent 加载 SKILL.md 后直接使用。**
 
@@ -25,6 +25,23 @@ python xuanzhao.py demo --output my-report.md
 ```
 
 **无需 Hermes Agent，纯 CLI 可跑。**
+
+## 新增：七术互逆模块（bazi-reverse/）
+
+从八字四柱倒推出生时间，或从七术中任意一门回溯，然后排全七术做96视角群体辩论。
+
+```bash
+# 从八字倒推出生时间
+cd bazi-reverse
+python scripts/reverse_bazi.py -y 乙酉 -m 壬午 -d 甲子 -t 庚午 --json --brief
+# → 输出：2005-06-09 午时
+
+# 再送主引擎做96视角辩论
+cd ..
+python xuanzhao.py analyze --birth "2005-06-09 11:50" --location "呼和浩特" --gender male
+```
+
+详见 [bazi-reverse/README.md](bazi-reverse/README.md)。
 
 ## 实际输出预览
 

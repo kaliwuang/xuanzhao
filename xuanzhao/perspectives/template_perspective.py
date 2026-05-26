@@ -145,6 +145,99 @@ class TemplatePerspective(Perspective):
             "大运年": dayun.get("year_index", 1),
         }
 
+    def _build_monologue(self, a: dict) -> str:
+        """基于角色的思维框架动态生成独白"""
+        f = _fmt_bazi_data(a)
+        c = self._cfg
+        
+        name_prefix = c.get("name_prefix", "以我观之——")
+        framework = c.get("framework", "")
+        core_q = c.get("core_question", "")
+        style = c.get("monologue_style", "哲思")
+        quotes = c.get("quotes", [])
+        works = c.get("works", [])
+        dims = c.get("dimensions", [])
+        
+        # 维度评分
+        dim_lines = []
+        for dim in dims[:3]:
+            dim_score = 50
+            for comp in dim.get("components", []):
+                dim_score += self._get_nested(a, comp[0]) * comp[1]
+            dim_score = max(10, min(100, int(dim_score)))
+            mark = "上" if dim_score >= 70 else "中" if dim_score >= 50 else "下"
+            dim_lines.append(f"{dim['name']}（{dim_score}分·{mark}等）")
+        dim_str = "；".join(dim_lines)
+        
+        # 五行/十神数据
+        dm_str = f["dm_str"]
+        strongest = f["strongest"]
+        weakest = f["weakest"]
+        yongshen = f["yongshen_str"]
+        dayun_str = f["dayun_str"]
+        
+        # 根据风格生成不同结构的独白
+        if style == "君子风":
+            body = f"{name_prefix}此命{strongest}盛而{weakest}弱，{dim_str}。{'君子务本，本立而道生——此命根基在此。' if yongshen != '不明' else '修身俟命，无入而不自得。'} "
+            if core_q:
+                body += f"吾所问者：{core_q} "
+            if yongshen != "不明":
+                body += f"以{  yongshen}调之，合乎中道。"
+                
+        elif style == "斗志":
+            body = f"{name_prefix}此命{strongest}旺而{weakest}衰。{dim_str}。{'战则胜，守则固' if any('冲' in c2 for c2 in a.get('combinations',[])) else '当先自修而后谋人'}。"
+            if core_q:
+                body += f"先问：{core_q} "
+                
+        elif style == "谋略":
+            body = f"{name_prefix}观此命局之势——{strongest}盛为阳，{weakest}衰为阴。{dim_str}。{'以奇胜，以正合——谨防一冲之变' if any('冲' in c2 for c2 in a.get('combinations',[])) else '可徐徐图之'}。"
+            if core_q:
+                body += f"{core_q} 谋定而后动。"
+                
+        elif style == "哲思":
+            body = f"{name_prefix}此命{strongest}之形显，{weakest}之质隐。{dim_str}。{'矛盾乃推动命运之动力' if any('冲' in c2 for c2 in a.get('combinations',[])) else '命理之妙在于平衡'}。"
+            if core_q:
+                body += f" 我欲追问：{core_q}"
+                
+        elif style == "务实":
+            body = f"{name_prefix}此命{strongest}过{weakest}不及。{dim_str}。{'调候为急' if yongshen != '不明' else '当务之急是补弱扶倾'}。"
+            if core_q:
+                body += f" 实操之问：{core_q}"
+                
+        elif style == "预言":
+            body = f"{name_prefix}此天命之象已现——{strongest}气盛极，{weakest}气藏渊。{dim_str}。{'冲者变之始也' if any('冲' in c2 for c2 in a.get('combinations',[])) else '静者动之根也'}。"
+            if core_q:
+                body += f" 我观其兆：{core_q}"
+                
+        elif style == "狠劲":
+            body = f"{name_prefix}{dim_str}。{strongest}太盛则折，{weakest}太弱则废。{'以冰鉴之明，去芜存菁' if yongshen != '不明' else '先活下来再谈别的'}。"
+            
+        elif style == "激情":
+            body = f"{name_prefix}我看到的是——{strongest}在燃烧！{dim_str}。{'这团火，要么烧穿苍穹，要么焚尽自身' if any('冲' in c2 for c2 in a.get('combinations',[])) else '能量需要方向，否则只会照亮虚空'}。"
+
+        elif style == "远见":
+            body = f"{name_prefix}立足当下，望向十年后——{strongest}是当下的势，{weakest}是未来的机。{dim_str}。{'冲不可惧，惧在无备' if any('冲' in c2 for c2 in a.get('combinations',[])) else '慢就是快'}。"
+
+        elif style in ("天真", "诗意", "悲悯"):
+            body = f"{name_prefix}{dim_str}。{strongest}烈烈如火，{weakest}寂寂如空。{'然则，' + str(core_q) if core_q else ''}"
+            
+        else:  # 默认
+            body = f"{name_prefix}日主{dm_str}，五行{strongest}盛而{weakest}弱。{dim_str}。调候用神{yongshen}。"
+        
+        # 大运引用
+        if f["dayun"].get("ganzhi"):
+            body += f"\n\n当前{dayun_str}，顺势而为可也。"
+        
+        # 引用名言
+        if quotes:
+            body += f"\n\n如吾所言：「{quotes[0]}」"
+        
+        # 著作
+        if works:
+            body += f"\n\n详见{'、'.join(works[:2])}。"
+        
+        return body
+
 # 生成模板视角
 def _load_template_perspectives():
     result = {}

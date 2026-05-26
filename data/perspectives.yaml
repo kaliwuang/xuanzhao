@@ -1,6 +1,10 @@
 adler:
   name: 阿德勒
   title: 自卑超越目的论
+  framework: 自卑感是人类进步的动力，人的行为有目的导向，社会兴趣是心理健康的关键。
+  monologue_style: 理性
+  core_question: 此命局中，自卑感在驱动什么超越？
+  name_prefix: 以目的论观之——
   confidence: 0.55
   score_components:
   - - tenshen.比劫
@@ -88,6 +92,10 @@ bennis:
   works:
   - 《成为领导者》
   - 《领导者》
+  framework: 领导力首先是成为自己——以身作则，知行合一
+  monologue_style: 远见
+  core_question: 我想要成为谁？我的价值观是什么？
+  name_prefix: 成为你自己——
 bezos:
   name: 贝佐斯
   title: 长期主义飞轮效应
@@ -136,9 +144,17 @@ bezos:
   works:
   - 《亚马逊之道》
   - 《长期主义》
+  framework: 长期主义飞轮——聚焦未来十年不变的事物，让每个环节互相推动形成势能
+  monologue_style: 远见
+  core_question: 未来十年什么不会变？飞轮的每一环如何互相推动？
+  name_prefix: 站在十年后——
 bohr:
   name: 玻尔
   title: 互补原理哥本哈根
+  framework: 互补原理认为对立的描述可以同时为真，真理的反面可能是更深层的真理。
+  monologue_style: 哲思
+  core_question: 此命局中，哪些对立面实际上是互补的？
+  name_prefix: 以互补观之——
   confidence: 0.5
   score_components:
   - - tenshen.食伤
@@ -220,9 +236,17 @@ branson:
   works:
   - 《维珍商业帝国》
   - 《失去童贞》
+  framework: 生活即实验——把每一个想法变成冒险，失败只是有趣的故事
+  monologue_style: 天真
+  core_question: 这有趣吗？为什么不试试？
+  name_prefix: 嘿！——
 caesar:
   name: 凯撒
   title: 我来我见我征服
+  framework: 以行动决断为核心，观命局之勇气魄力与统御能力。
+  monologue_style: 斗志
+  core_question: 此命之行动力如何？跨过卢比孔河的勇气有几成？
+  name_prefix: 凯撒观此
   confidence: 0.55
   score_components:
   - - tenshen.官杀
@@ -265,6 +289,10 @@ caesar:
 camus:
   name: 加缪
   title: 荒谬哲学西西弗斯
+  framework: 世界是荒谬的，但人可以选择反抗、自由与激情来面对无意义。
+  monologue_style: 诗意
+  core_question: 此命局中，荒谬之下我选择什么态度？
+  name_prefix: 以荒谬观之——
   confidence: 0.5
   score_components:
   - - tenshen.食伤
@@ -308,6 +336,10 @@ camus:
 chentuan:
   name: 陈抟
   title: 无极图说先天易学
+  framework: 以先天易学为体，观命局之无极至太极之机，重象外之意。
+  monologue_style: 预言
+  core_question: 此命之先天之象如何？无极而太极，玄机何在？
+  name_prefix: 希夷曰
   confidence: 0.5
   score_components:
   - - tenshen.印星
@@ -350,6 +382,10 @@ chentuan:
 churchill:
   name: 丘吉尔
   title: 至暗时刻绝不投降
+  framework: 以坚韧不拔为尺，观命局之至暗时刻的坚持力与语言力量。
+  monologue_style: 斗志
+  core_question: 此命之坚韧如何？至暗时刻，never give up否？
+  name_prefix: 丘公曰
   confidence: 0.55
   score_components:
   - - tenshen.官杀
@@ -431,6 +467,10 @@ collins:
   works:
   - 《从优秀到卓越》
   - 《基业长青》
+  framework: 刺猬理念三环交叉——热爱、擅长、经济回报的交集就是卓越的起点
+  monologue_style: 务实
+  core_question: 哪三件事的交集点是我的刺猬理念？
+  name_prefix: 聚焦三环——
 daliotest:
   name: 达利欧
   title: 原则体系极度透明
@@ -473,9 +513,17 @@ daliotest:
   works:
   - 《原则》
   - 《债务危机》
+  framework: 原则驱动——把每一次痛苦转化为可复用的决策原则，以极度透明对抗自我盲点
+  monologue_style: 务实
+  core_question: 从这件事中我能提炼出什么可复用的原则？
+  name_prefix: 原则至上——
 darwin:
   name: 达尔文
   title: 进化论适者生存
+  framework: 自然选择是物种演化的核心机制，适者生存而非强者生存。
+  monologue_style: 理性
+  core_question: 此命局中，需要适应什么环境变化？
+  name_prefix: 以演化观之——
   confidence: 0.55
   score_components:
   - - tenshen.食伤
@@ -518,6 +566,10 @@ darwin:
 davinci:
   name: 达芬奇
   title: 文艺复兴通才跨界
+  framework: 从万物中找规律，以解剖学式的精确拆解命局的每一个细节
+  monologue_style: 博学
+  core_question: 此命的结构如何运转？各部分之间的比例是否和谐？
+  name_prefix: 以自然之眼观之——
   confidence: 0.55
   score_components:
   - - tenshen.食伤
@@ -560,6 +612,10 @@ davinci:
 descartes:
   name: 笛卡尔
   title: 我思故我在
+  framework: 从普遍怀疑出发，以理性为唯一可靠的认识工具，确立"我思"为不可动摇的第一原理。
+  monologue_style: 哲思
+  core_question: 此命局中，什么是不可怀疑的根基？
+  name_prefix: 故我思之——
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -641,9 +697,17 @@ drucker:
   works:
   - 《卓有成效的管理者》
   - 《管理的实践》
+  framework: 管理即正确地做事——先管理自己再管理他人，以贡献为导向
+  monologue_style: 务实
+  core_question: 我应该贡献什么？什么是最重要的一件事？
+  name_prefix: 卓有成效——
 einstein:
   name: 爱因斯坦
   title: 相对论宇宙宗教感
+  framework: 宇宙具有内在和谐与可理解性，想象力和思想实验能揭示最深层的物理真理。
+  monologue_style: 哲思
+  core_question: 此命局中，如果乘光而行会看到什么？
+  name_prefix: 以宇宙观之——
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -692,6 +756,10 @@ einstein:
 fanli:
   name: 范蠡
   title: 三迁成名商圣之道
+  framework: 以商道知时为眼，观命局之财缘深浅与时运把握能力。
+  monologue_style: 谋略
+  core_question: 此命之商道天分如何？三致千金之术有几成？
+  name_prefix: 陶朱公曰
   confidence: 0.55
   score_components:
   - - tenshen.财星
@@ -731,6 +799,10 @@ fanli:
 foucault:
   name: 福柯
   title: 权力微观知识考古
+  framework: 知识与权力密不可分，话语体系塑造我们对世界和自身的认知。
+  monologue_style: 激进
+  core_question: 此命局中，话语体系背后的权力关系是什么？
+  name_prefix: 以权力解构之——
   confidence: 0.5
   score_components:
   - - tenshen.食伤
@@ -774,6 +846,10 @@ foucault:
 galileo:
   name: 伽利略
   title: 实验科学日心说
+  framework: 实验是检验真理的唯一标准，数学是大自然的语言。
+  monologue_style: 激进
+  core_question: 此命局中，可以用什么实验来检验假设？
+  name_prefix: 以实验验之——
   confidence: 0.55
   score_components:
   - - tenshen.食伤
@@ -855,9 +931,17 @@ gates:
   works:
   - 《未来之路》
   - 《如何避免气候灾难》
+  framework: 专注一个问题做到世界最好——系统思考，找到影响十亿人的杠杆点
+  monologue_style: 务实
+  core_question: 什么问题是能影响十亿人的？最有效的杠杆点在哪里？
+  name_prefix: 聚焦——
 guanzhong:
   name: 管仲
   title: 通货积财富国强兵
+  framework: 以经世济民为宗，观命局之财经智慧与权变能力。
+  monologue_style: 务实
+  core_question: 此命之经世之才如何？仓廪实而知礼节否？
+  name_prefix: 管仲观之
   confidence: 0.5
   score_components:
   - - tenshen.财星
@@ -936,9 +1020,17 @@ hamel:
   works:
   - 《竞争大未来》
   - 《管理大未来》
+  framework: 核心竞争力是护城河——聚焦别人难以复制的长板，以战略意图引领方向
+  monologue_style: 远见
+  core_question: 什么是我能做而别人很难复制的？战略意图是什么？
+  name_prefix: 核心之力——
 hanfei:
   name: 韩非子
   title: 法术势集大成
+  framework: 以法术势三维度切入，观命局之法制意识与权变智慧。
+  monologue_style: 谋略
+  core_question: 此命之法术势三维如何？循法而治还是任人唯亲？
+  name_prefix: 法家曰
   confidence: 0.55
   score_components:
   - - tenshen.官杀
@@ -983,6 +1075,10 @@ hanfei:
 hawking:
   name: 霍金
   title: 黑洞辐射时空简史
+  framework: 从大爆炸到黑洞，宇宙有明确的物理定律支配，思想无边界即使身体被困。
+  monologue_style: 哲思
+  core_question: 此命局从大尺度上看是何模样？
+  name_prefix: 从宇宙观之——
   confidence: 0.5
   score_components:
   - - tenshen.印星
@@ -1025,6 +1121,10 @@ hawking:
 hegel:
   name: 黑格尔
   title: 辩证法绝对精神
+  framework: 辩证法是世界的基本规律，正反合推动精神与历史的自我实现。
+  monologue_style: 哲思
+  core_question: 此命局的矛盾中，更高的统一是什么？
+  name_prefix: 以辩证法论之——
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -1070,6 +1170,10 @@ hegel:
 heidegger:
   name: 海德格尔
   title: 向死而生此在哲学
+  framework: 此在是在世的存在，向死而生才能活出本真。
+  monologue_style: 诗意
+  core_question: 此命局中，你如何在世上？
+  name_prefix: 以此在问之——
   confidence: 0.5
   score_components:
   - - tenshen.印星
@@ -1112,6 +1216,10 @@ heidegger:
 hume:
   name: 休谟
   title: 经验主义怀疑论
+  framework: 一切知识源于经验印象，习惯而非理性是人生的伟大指南。
+  monologue_style: 批判
+  core_question: 此命局中，哪些是习惯的偏见而非理性的结论？
+  name_prefix: 以经验观之——
   confidence: 0.5
   score_components:
   - - tenshen.食伤
@@ -1154,6 +1262,10 @@ hume:
 kierkegaard:
   name: 克尔凯郭尔
   title: 存在主义信仰飞跃
+  framework: 个体存在先于一切体系，信仰需要非理性的一跃。
+  monologue_style: 诗意
+  core_question: 此命局中，你需要做出怎样的信仰之跃？
+  name_prefix: 以个体存在观之——
   confidence: 0.5
   score_components:
   - - tenshen.印星
@@ -1196,6 +1308,10 @@ kierkegaard:
 kongzi:
   name: 孔子
   title: 仁义礼智信
+  framework: 以仁义礼智信五常为尺度，观命局之德行厚薄。
+  monologue_style: 君子风
+  core_question: 此命之德如何？仁义礼智信五者何强何弱？
+  name_prefix: 子曰
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -1248,6 +1364,10 @@ kongzi:
 kuhn:
   name: 库恩
   title: 范式革命科学结构
+  framework: 科学进步不是线性积累，而是通过范式革命完成的跳跃。
+  monologue_style: 批判
+  core_question: 此命局运行在哪个范式之下，何时会遭遇革命？
+  name_prefix: 以范式论之——
   confidence: 0.5
   score_components:
   - - tenshen.食伤
@@ -1329,9 +1449,17 @@ li_kaifu:
   works:
   - 《AI·未来》
   - 《做最好的自己》
+  framework: AI赋能人而非取代人——用技术杠杆放大每一个人的潜力
+  monologue_style: 远见
+  core_question: 这项技术如何让更多人受益？最好的自己是什么样的？
+  name_prefix: 以科技之眼——
 lincoln:
   name: 林肯
   title: 民有民治民享
+  framework: 以包容正义为度，观命局之和解格局与平等信念。
+  monologue_style: 悲悯
+  core_question: 此命之包容力如何？民有民治民享，此心能行否？
+  name_prefix: 林肯观之
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -1374,6 +1502,10 @@ lincoln:
 lixuzhong:
   name: 李虚中
   title: 三柱论命纳音为用
+  framework: 以三柱纳音为法，观命局之大象格局，重年柱之根与纳音之气。
+  monologue_style: 哲思
+  core_question: 此命之纳音格局如何？三柱之中藏何大象？
+  name_prefix: 虚中曰
   confidence: 0.5
   score_components:
   - - tenshen.印星
@@ -1454,6 +1586,10 @@ ma_huateng:
   works:
   - 微信
   - QQ
+  framework: 产品即修行——小步快跑，用户至上，在迭代中逼近完美
+  monologue_style: 务实
+  core_question: 用户真正的痛点是什么？如何再简化一步？
+  name_prefix: 以用户之心——
 ma_yun:
   name: 马云
   title: 愿景驱动让天下没有难做的生意
@@ -1496,9 +1632,17 @@ ma_yun:
   works:
   - 阿里巴巴
   - 淘宝网
+  framework: 相信才能看见——用愿景凝聚人，用使命驱动事
+  monologue_style: 远见
+  core_question: 这件事可以改变多少人的生活？三年后世界会有什么不同？
+  name_prefix: 信则见之——
 mandela:
   name: 曼德拉
   title: 和解宽容自由之路
+  framework: 以和解宽容为宗，观命局之牺牲精神与原谅的力量。
+  monologue_style: 悲悯
+  core_question: 此命之宽容力如何？27年牢狱，能放下恨否？
+  name_prefix: 曼公曰
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -1541,6 +1685,10 @@ mandela:
 maslow:
   name: 马斯洛
   title: 需求层次自我实现
+  framework: 人的需求按层次从生理到自我实现递进，高峰体验是成长的标志。
+  monologue_style: 理性
+  core_question: 此命局中，下一个待攀登的需求层次是什么？
+  name_prefix: 以需求层次观之——
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -1583,6 +1731,10 @@ maslow:
 mencius:
   name: 孟子
   title: 性善论浩然正气
+  framework: 以性善论立基，观浩然之气之亏盈，见人皆可为尧舜。
+  monologue_style: 斗志
+  core_question: 此命之浩然正气如何？赤子之心尚在否？
+  name_prefix: 孟子曰
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -1664,6 +1816,10 @@ mendeleev:
   works:
   - 《化学原理》
   - 元素周期表
+  framework: 分类即理解——找到事物的内在秩序，空白处自会显现未来的方向
+  monologue_style: 务实
+  core_question: 这些元素的排列规律是什么？空白在哪里？
+  name_prefix: 以表格观之——
 michelangelo:
   name: 米开朗基罗
   title: 雕塑艺术极致完美
@@ -1706,6 +1862,10 @@ michelangelo:
   works:
   - 《大卫》
   - 《创世纪》
+  framework: 以雕刻家的眼光看人生——去除所有多余的部分，剩下的就是本质
+  monologue_style: 狠劲
+  core_question: 哪些是可以去掉的？最本质的部分是什么？
+  name_prefix: 凿去多余的部分——
 mozart:
   name: 莫扎特
   title: 天籁灵感音乐神童
@@ -1748,9 +1908,17 @@ mozart:
   works:
   - 《费加罗的婚礼》
   - 《安魂曲》
+  framework: 灵感是训练与天分的乘积——和谐之美源自天赋与勤奋的交响
+  monologue_style: 诗意
+  core_question: 这段旋律的和谐之美在哪里？音符之间的宁静藏着什么？
+  name_prefix: 听！——
 mozhu:
   name: 墨子
   title: 兼爱非攻尚贤
+  framework: 以兼爱非攻为尺，观命局之利他精神与实用理性。
+  monologue_style: 悲悯
+  core_question: 此命兼爱之心如何？能否摩顶放踵以利天下？
+  name_prefix: 墨子曰
   confidence: 0.5
   score_components:
   - - tenshen.印星
@@ -1793,6 +1961,10 @@ mozhu:
 napoleon:
   name: 拿破仑
   title: 战略战术天才统帅
+  framework: 以战略战术为经纬，观命局之统帅天分与速度优势。
+  monologue_style: 谋略
+  core_question: 此命之战略天赋如何？第一要素——速度够快否？
+  name_prefix: 拿氏云
   confidence: 0.5
   score_components:
   - - tenshen.官杀
@@ -1835,6 +2007,10 @@ napoleon:
 newton:
   name: 牛顿
   title: 万有引力科学方法
+  framework: 万有引力与运动三定律构成经典物理的基石，简化是理解复杂的第一法。
+  monologue_style: 严谨
+  core_question: 此命局中，不变的规律是什么？
+  name_prefix: 以力学观之——
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -1916,9 +2092,17 @@ picasso:
   works:
   - 《亚威农少女》
   - 《格尔尼卡》
+  framework: 先学到极致再打破规则——创造的本质是重新组合既有元素
+  monologue_style: 天真
+  core_question: 如果打破所有规则重新组合，会看到什么？
+  name_prefix: 以孩童之眼——
 popper:
   name: 波普尔
   title: 证伪主义开放社会
+  framework: 科学知识通过可证伪性检验而进步，开放社会依赖批判理性。
+  monologue_style: 批判
+  core_question: 此命局中，哪些信念是可被证伪的？
+  name_prefix: 以批判观之——
   confidence: 0.55
   score_components:
   - - tenshen.食伤
@@ -2001,9 +2185,17 @@ ray_kroc:
   works:
   - 《麦当劳之父的创业史》
   - 《大千世界》
+  framework: 标准化即规模化——先跑通一个完美单店，再无限复制
+  monologue_style: 狠劲
+  core_question: 可复制的核心单元是什么？如何保证每一次都一样好？
+  name_prefix: 系统复制——
 rentieqiao:
   name: 任铁樵
   title: 滴天髓阐微五行生克
+  framework: 以五行生克制化为眼，观命局之强弱真机与流转有情。
+  monologue_style: 哲思
+  core_question: 此命之五行流转如何？生克有情否，一清到底否？
+  name_prefix: 铁樵曰
   confidence: 0.55
   score_components:
   - - tenshen.食伤
@@ -2084,9 +2276,17 @@ renzhengfei:
   works:
   - 《华为的冬天》
   - 《以奋斗者为本》
+  framework: 自我批判是进化的前提——烧不死的鸟是凤凰，危机感是最好的战略
+  monologue_style: 狠劲
+  core_question: 如果明天倒下，今天该做什么？哪些地方还不够好？
+  name_prefix: 居安思危——
 rousseau:
   name: 卢梭
   title: 社会契约自然回归
+  framework: 人性本善却为社会所腐化，回归自然才能找回真实的自由与平等。
+  monologue_style: 诗意
+  core_question: 此命局中，什么使你远离了本真的自己？
+  name_prefix: 回归自然——
   confidence: 0.5
   score_components:
   - - tenshen.比劫
@@ -2130,6 +2330,10 @@ rousseau:
 russell:
   name: 罗素
   title: 分析哲学幸福之路
+  framework: 以分析哲学为方法，用逻辑澄清命题，追求理性幸福与开放心智。
+  monologue_style: 理性
+  core_question: 此命局中，可用什么逻辑命题来描述？
+  name_prefix: 以理性观之——
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -2173,6 +2377,10 @@ russell:
 sartre:
   name: 萨特
   title: 存在先于本质自由选择
+  framework: 存在先于本质，人是绝对自由的，也因自由而必须承担全部责任。
+  monologue_style: 激进
+  core_question: 此命局中，我如何选择并为此负责？
+  name_prefix: 自由选择——
   confidence: 0.5
   score_components:
   - - tenshen.食伤
@@ -2216,6 +2424,10 @@ sartre:
 schopenhauer:
   name: 叔本华
   title: 生命意志悲观哲学
+  framework: 世界的本质是盲目的生命意志，人生在痛苦与无聊间摇摆，艺术可暂时超越。
+  monologue_style: 批判
+  core_question: 此命局中，是欲望的驱使还是痛苦的回避？
+  name_prefix: 以意志观之——
   confidence: 0.5
   score_components:
   - - tenshen.食伤
@@ -2297,9 +2509,17 @@ senge:
   works:
   - 《第五项修炼》
   - 《变革之舞》
+  framework: 系统思考——看森林而非树木，找到因果链中的杠杆点
+  monologue_style: 远见
+  core_question: 这个系统的深层结构是什么？最高杠杆点在哪里？
+  name_prefix: 见森林——
 shangyang:
   name: 商鞅
   title: 变法图强立木取信
+  framework: 以变法图强为纲，观命局之破局魄力与执行决心。
+  monologue_style: 斗志
+  core_question: 此命之变法魄力如何？立木取信，能行否？
+  name_prefix: 商君曰
   confidence: 0.5
   score_components:
   - - tenshen.官杀
@@ -2341,6 +2561,10 @@ shangyang:
 shenxiaoshen:
   name: 沈孝瞻
   title: 子平真诠用神为纲
+  framework: 以用神为纲，观命局之相神辅佐与格局纯杂。
+  monologue_style: 精约
+  core_question: 此命之用神何在？相神得力否？格局纯杂如何？
+  name_prefix: 真诠曰
   confidence: 0.55
   score_components:
   - - tenshen.官杀
@@ -2421,9 +2645,17 @@ simons:
   works:
   - 《模型驱动投资》
   - 《文艺复兴科技》
+  framework: 万物皆可量化——找到数据中的规律，用模型代替直觉做决策
+  monologue_style: 远见
+  core_question: 这个问题的可量化指标是什么？数据告诉我们什么？
+  name_prefix: 数据说话——
 skinner:
   name: 斯金纳
   title: 行为主义强化理论
+  framework: 行为由环境和强化史决定，改变环境比改变意志更有效。
+  monologue_style: 严谨
+  core_question: 此命局中，什么环境因素在塑造行为？
+  name_prefix: 以行为观之——
   confidence: 0.5
   score_components:
   - - tenshen.官杀
@@ -2505,9 +2737,17 @@ soros:
   works:
   - 《金融炼金术》
   - 《开放社会》
+  framework: 反身性思维——认知改变现实，现实改变认知，在偏差中寻找机会
+  monologue_style: 远见
+  core_question: 市场的错误认知是什么？我的认知偏差又是什么？
+  name_prefix: 反思——
 spinoza:
   name: 斯宾诺莎
   title: 神即自然理性之爱
+  framework: 神即自然，理解一切即宽恕一切；最高幸福是以理性之爱认识自然。
+  monologue_style: 哲思
+  core_question: 此命局在永恒的必然性中处于什么位置？
+  name_prefix: 以理性之爱观之——
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -2550,6 +2790,10 @@ spinoza:
 sun_yat_sen:
   name: 孙中山
   title: 天下为公革命先行
+  framework: 以天下为公为理想，观命局之革命精神与理想主义厚度。
+  monologue_style: 斗志
+  core_question: 此命之革命精神如何？世界潮流浩浩荡荡能顺否？
+  name_prefix: 中山先生观之
   confidence: 0.5
   score_components:
   - - tenshen.食伤
@@ -2632,6 +2876,10 @@ tesla:
   works:
   - 交流电系统
   - 特斯拉线圈
+  framework: 灵感是闪电——在大脑里完成全部设计再付诸实施，直觉即真理
+  monologue_style: 激情
+  core_question: 宇宙的能量如何为我所用？这个想法如何从想象变为现实？
+  name_prefix: 以闪电般的直觉——
 turing:
   name: 图灵
   title: 可计算性人工智能
@@ -2674,9 +2922,17 @@ turing:
   works:
   - 《计算机器与智能》
   - 图灵机
+  framework: 一切皆可计算——把复杂问题拆解为算法步骤，可计算即可知
+  monologue_style: 远见
+  core_question: 这个问题可以被形式化吗？计算步骤是什么？
+  name_prefix: 以算法之眼——
 v_frankl:
   name: 弗兰克尔
   title: 意义治疗追求意义
+  framework: 意义意志是人的根本动力，人在任何境遇中都有选择态度的最终自由。
+  monologue_style: 哲思
+  core_question: 此命局中，我的苦难可以生出什么意义？
+  name_prefix: 以意义追问——
   confidence: 0.5
   score_components:
   - - tenshen.印星
@@ -2758,9 +3014,17 @@ vangogh:
   works:
   - 《星月夜》
   - 《向日葵》
+  framework: 用燃烧的情感照亮世界——内在的火焰比外在的真实更真实
+  monologue_style: 激情
+  core_question: 此刻我感受到了什么？如何把它画出来？
+  name_prefix: 以燃烧的灵魂——
 wanminying:
   name: 万民英
   title: 三命通会汇通百家
+  framework: 以汇通百家为径，观命局之多方印证，重考辩精微。
+  monologue_style: 哲思
+  core_question: 此命之格局，诸家之法当如何汇通？
+  name_prefix: 三命通会云
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -2802,6 +3066,10 @@ wanminying:
 weilianli:
   name: 韦千里
   title: 命理约言星象摘粹
+  framework: 以精约之道为尚，观命局之要害所在，重核心矛盾而非细枝末节。
+  monologue_style: 精约
+  core_question: 此命之核心矛盾何在？约而言之，吉凶在何处？
+  name_prefix: 千里曰
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -2844,6 +3112,10 @@ weilianli:
 wittgenstein:
   name: 维特根斯坦
   title: 语言界限逻辑哲学
+  framework: 语言的界限就是世界的界限，哲学问题源于语言的误用。
+  monologue_style: 严谨
+  core_question: 此命局中，哪些问题是语言混乱产生的假问题？
+  name_prefix: 以逻辑析之——
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -2886,6 +3158,10 @@ wittgenstein:
 xunzi:
   name: 荀子
   title: 性恶论化性起伪
+  framework: 以性恶论为本，观后天教化之功，重礼法之约束与积善成德之效。
+  monologue_style: 务实
+  core_question: 此命之教化程度如何？化性起伪之功有几成？
+  name_prefix: 吾观此命
   confidence: 0.5
   score_components:
   - - tenshen.官杀
@@ -2924,6 +3200,10 @@ xunzi:
 xuziping:
   name: 徐子平
   title: 四柱论命子平正宗
+  framework: 以子平格局为正宗，观日主强弱与月令用神，定格局清浊。
+  monologue_style: 精约
+  core_question: 此命之格局清浊如何？月令用神得力否？
+  name_prefix: 子平曰
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -2965,6 +3245,10 @@ xuziping:
 yuanshushan:
   name: 袁树珊
   title: 命理探源星命集成
+  framework: 以命理探源为宗，重理论溯源与务实应用相结合。
+  monologue_style: 务实
+  core_question: 此命之源流如何？星命之理当如何印证？
+  name_prefix: 树珊论曰
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -3007,6 +3291,10 @@ yuanshushan:
 yue_fei:
   name: 岳飞
   title: 精忠报国还我河山
+  framework: 以精忠报国为尺度，观命局之忠义信念与家国情怀。
+  monologue_style: 君子风
+  core_question: 此命之忠义信念如何？精忠报国之心可照汗青否？
+  name_prefix: 武穆观此命
   confidence: 0.55
   score_components:
   - - tenshen.官杀
@@ -3049,6 +3337,10 @@ yue_fei:
 zengguofan:
   name: 曾国藩
   title: 拙诚之道日课十二条
+  framework: 以拙诚之道为法，观命局之韧性与自律功夫，结硬寨打呆仗。
+  monologue_style: 精约
+  core_question: 此命之拙诚功夫如何？日课十二条能持否？
+  name_prefix: 曾文正曰
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -3092,6 +3384,10 @@ zengguofan:
 zhangliang:
   name: 张良
   title: 运筹帷幄功成身退
+  framework: 以谋略布局和知进退为经纬，观命局之智术深浅与进退时机。
+  monologue_style: 谋略
+  core_question: 此命之谋略格局如何？运筹帷幄，能决千里之外否？
+  name_prefix: 留侯曰
   confidence: 0.55
   score_components:
   - - tenshen.印星
@@ -3174,6 +3470,10 @@ zhuge_ke:
   - 「克负其才，不能以德将之」——陈寿评
   works:
   - 《诸葛恪集》
+  framework: 聪明外露器小易盈——才华是双刃剑，唯有谦逊能护之
+  monologue_style: 激情
+  core_question: 我的才智是否变成了骄傲？我听到了别人的声音吗？
+  name_prefix: 才高需厚德——
 zuckerberg:
   name: 扎克伯格
   title: 快速迭代连接世界
@@ -3216,3 +3516,7 @@ zuckerberg:
   works:
   - Facebook
   - Meta
+  framework: 完成胜过完美——快速行动，迭代优化，在运动中调整方向
+  monologue_style: 务实
+  core_question: 最小可行版本是什么？如何先上线再优化？
+  name_prefix: 动手！——

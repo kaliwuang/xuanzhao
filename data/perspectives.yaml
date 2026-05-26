@@ -1,0 +1,2762 @@
+adler:
+  name: 阿德勒
+  title: 自卑超越目的论
+  confidence: 0.55
+  score_components:
+  - - tenshen.比劫
+    - 6
+  - - tenshen.官杀
+    - 5
+  - - tenshen.食伤
+    - 4
+  boost_dayun: true
+  dimensions:
+  - name: 自卑超越
+    components:
+    - - tenshen.比劫
+      - 8
+    - - tenshen.官杀
+      - 6
+  - name: 社会兴趣
+    components:
+    - - tenshen.比劫
+      - 8
+    - - wuxing.火
+      - 4
+  - name: 目的导向
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.官杀
+      - 4
+  insights:
+    high:
+    - 自卑是超越的动力——你有化劣势为优势的潜力
+    - 所有烦恼都来自人际关系但也都在人际关系中解决
+    mid:
+    - 自卑感中等——适当的不满足是进步的动力
+  warnings: []
+  advice:
+  - 重要的不是你有什么而是你怎么用——目的论看未来
+  summary_high: 自卑即动力——超越型人格
+  summary_low: 自卑感待转化——接纳然后行动
+bennis:
+  name: 本尼斯
+  title: 领导力大师成为自己
+  confidence: 0.5
+  score_components:
+  - - tenshen.比劫
+    - 6
+  - - tenshen.食伤
+    - 5
+  - - tenshen.官杀
+    - 5
+  boost_dayun: true
+  dimensions:
+  - name: 自我认知
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.比劫
+      - 5
+  - name: 领导力
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.比劫
+      - 6
+  insights:
+    high:
+    - 领导力首先是成为自己——你有自我一致性
+    - 管理者做对事领导者做对的事
+    mid:
+    - 领导力在成长——以身作则是最重要的领导行为
+  warnings: []
+  advice:
+  - 成为自己意味着知道自己的价值观并坚守它
+  summary_high: 成为自己——领导力的本质
+  summary_low: 自我认知待深化
+bezos:
+  name: 贝佐斯
+  title: 长期主义飞轮效应
+  confidence: 0.55
+  score_components:
+  - - tenshen.财星
+    - 6
+  - - tenshen.印星
+    - 5
+  - - tenshen.食伤
+    - 4
+  boost_dayun: true
+  dimensions:
+  - name: 长期思维
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.财星
+      - 6
+  - name: 顾客导向
+    components:
+    - - tenshen.财星
+      - 8
+    - - tenshen.食伤
+      - 5
+  - name: 创新冒险
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.财星
+      - 4
+  insights:
+    high:
+    - 长期主义的坚守者——贝佐斯会说'今天还是第一天'
+    - 飞轮效应的核心是每个环节互相推动
+    mid:
+    - 长期主义意识中等——可拉长思考的时间尺度
+  warnings: []
+  advice:
+  - 思考未来十年不变的是什么——然后all in
+  summary_high: 长期主义——飞轮在转动
+  summary_low: 长期思维待建立——从十年视角看今天
+bohr:
+  name: 玻尔
+  title: 互补原理哥本哈根
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 6
+  - - tenshen.印星
+    - 6
+  - - wuxing.水
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 互补思维
+    components:
+    - - tenshen.食伤
+      - 8
+    - - wuxing.水
+      - 6
+  - name: 量子直觉
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.食伤
+      - 5
+  insights:
+    high:
+    - 两种相反的观点可以同时为真——互补原理的智慧
+    - 对立不是矛盾是不同侧面的真实
+    mid:
+    - 黑与白之间——你能看到灰色地带
+  warnings: []
+  advice:
+  - 一个深刻的真理的反面可能是一个更深刻的真理
+  summary_high: 互补思维——容纳对立
+  summary_low: 对立的统一尚待理解
+branson:
+  name: 布兰森
+  title: 品牌冒险生活态度
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 7
+  - - tenshen.比劫
+    - 6
+  - - tenshen.财星
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 冒险精神
+    components:
+    - - tenshen.食伤
+      - 10
+    - - wuxing.火
+      - 5
+  - name: 品牌直觉
+    components:
+    - - tenshen.财星
+      - 8
+    - - tenshen.食伤
+      - 5
+  insights:
+    high:
+    - 品牌即人格——你有一种让人记住你的天赋
+    - 生活就是一场冒险——把乐趣放在第一位
+    mid:
+    - 冒险精神中等——偶尔跳出舒适区
+  warnings: []
+  advice:
+  - 把生活当作一场实验——如果失败了就成为一个有趣的故事
+  summary_high: 冒险品牌——生活即实验
+  summary_low: 冒险精神待释放
+caesar:
+  name: 凯撒
+  title: 我来我见我征服
+  confidence: 0.55
+  score_components:
+  - - tenshen.官杀
+    - 8
+  - - tenshen.比劫
+    - 6
+  - - tenshen.财星
+    - 3
+  boost_chong: true
+  dimensions:
+  - name: 行动力
+    components:
+    - - tenshen.官杀
+      - 10
+    - - tenshen.比劫
+      - 8
+  - name: 决策决断
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.财星
+      - 5
+  insights:
+    high:
+    - 行动胜于空谈——跨过卢比孔河的决心
+    - 决策力是你最锋利的剑
+    mid:
+    - 行动力中等——想到了就去做
+  warnings: []
+  advice:
+  - 赌博不是策略——凯撒的'来见赢'次序是对的
+  summary_high: 征服者——行动决断
+  summary_low: 行动力待爆发
+camus:
+  name: 加缪
+  title: 荒谬哲学西西弗斯
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 6
+  - - tenshen.比劫
+    - 5
+  - - tenshen.官杀
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 荒谬感知
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.官杀
+      - 6
+  - name: 反抗精神
+    components:
+    - - tenshen.比劫
+      - 8
+    - - tenshen.食伤
+      - 5
+  insights:
+    high:
+    - 必须想象西西弗斯是幸福的——在重复中找到意义
+    - 没有出路但可以选择态度
+    mid:
+    - 荒谬感若隐若现——在无意义中创造意义
+  warnings: []
+  advice:
+  - 推石头上山——行动本身就是对荒谬的反抗
+  summary_high: 荒谬的清醒者——西西弗式的勇气
+  summary_low: 在无意义中寻找意义
+chentuan:
+  name: 陈抟
+  title: 无极图说先天易学
+  confidence: 0.5
+  score_components:
+  - - tenshen.印星
+    - 5
+  - - wuxing.水
+    - 6
+  - - wuxing.木
+    - 4
+  boost_he: true
+  dimensions:
+  - name: 先天境界
+    components:
+    - - wuxing.水
+      - 10
+    - - tenshen.印星
+      - 6
+  - name: 睡功无为
+    components:
+    - - wuxing.木
+      - 8
+    - - wuxing.水
+      - 5
+  insights:
+    high:
+    - 先天之象已现——无极而太极
+    - 希夷先生之睡功——无为而无不为
+    mid:
+    - 山水有清音——静中可悟道
+  warnings: []
+  advice:
+  - 睡足然后悟——不要在疲惫时做重大决定
+  summary_high: 先天境界——山水有灵
+  summary_low: 静中可悟——尚需澄怀
+churchill:
+  name: 丘吉尔
+  title: 至暗时刻绝不投降
+  confidence: 0.55
+  score_components:
+  - - tenshen.官杀
+    - 7
+  - - tenshen.比劫
+    - 6
+  - - tenshen.食伤
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 坚韧不拔
+    components:
+    - - tenshen.官杀
+      - 10
+    - - tenshen.比劫
+      - 6
+  - name: 雄辩口才
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.官杀
+      - 5
+  insights:
+    high:
+    - Never never never give up——你有在至暗时刻坚持的勇气
+    - 语言是力量的武器
+    mid:
+    - 坚韧之心——面对逆境不轻言放弃
+  warnings: []
+  advice:
+  - 在看不到希望的时刻坚持本身就是胜利
+  summary_high: 永不投降——至暗时刻的勇气
+  summary_low: 坚韧心待磨炼
+collins:
+  name: 柯林斯
+  title: 从优秀到卓越飞轮
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 6
+  - - tenshen.官杀
+    - 5
+  - - tenshen.财星
+    - 4
+  boost_dayun: true
+  dimensions:
+  - name: 刺猬理念
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.官杀
+      - 5
+  - name: 飞轮积累
+    components:
+    - - tenshen.财星
+      - 8
+    - - tenshen.比劫
+      - 5
+  insights:
+    high:
+    - 刺猬理念的三环——找到你热爱擅长又有经济回报的交集
+    - 飞轮效应的每一圈都很小但累积惊人
+    mid:
+    - 从优秀到卓越的路径——持续积累
+  warnings: []
+  advice:
+  - 找到你的刺猬理念——三环交叉的那个点
+  summary_high: 飞轮积累——从优秀到卓越
+  summary_low: 刺猬理念待寻找——三环交集的点
+daliotest:
+  name: 达利欧
+  title: 原则体系极度透明
+  confidence: 0.55
+  score_components:
+  - - tenshen.官杀
+    - 6
+  - - tenshen.印星
+    - 6
+  - - tenshen.财星
+    - 4
+  boost_dayun: true
+  dimensions:
+  - name: 原则体系
+    components:
+    - - tenshen.官杀
+      - 10
+    - - tenshen.印星
+      - 6
+  - name: 极度求真
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.官杀
+      - 5
+  insights:
+    high:
+    - 原则驱动的人生——你有建立决策系统的天赋
+    - 痛苦+反思=进步
+    mid:
+    - 原则意识中等——可开始建立自己的决策原则
+  warnings: []
+  advice:
+  - 把你做过的每个重要决策记录下来——提炼出可重复的原则
+  summary_high: 原则驱动——极度求真
+  summary_low: 原则待建立——从反思中提炼
+darwin:
+  name: 达尔文
+  title: 进化论适者生存
+  confidence: 0.55
+  score_components:
+  - - tenshen.食伤
+    - 6
+  - - tenshen.印星
+    - 5
+  - - wuxing.木
+    - 5
+  boost_chong: true
+  dimensions:
+  - name: 观察归纳
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.印星
+      - 6
+  - name: 适应能力
+    components:
+    - - wuxing.木
+      - 8
+    - - tenshen.比劫
+      - 5
+  insights:
+    high:
+    - 不是最强的物种生存下来而是最适应的——你有适应性优势
+    - 演化没有方向但有趋势
+    mid:
+    - 适应性中等——变化中求生存
+  warnings: []
+  advice:
+  - 在变化中找到自己的生态位——不要跟所有人挤同一个赛道
+  summary_high: 适者生存——适应力是最大的优势
+  summary_low: 适应中——找到差异化优势
+davinci:
+  name: 达芬奇
+  title: 文艺复兴通才跨界
+  confidence: 0.55
+  score_components:
+  - - tenshen.食伤
+    - 8
+  - - tenshen.印星
+    - 7
+  - - wuxing.火
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 跨界融合
+    components:
+    - - tenshen.食伤
+      - 10
+    - - tenshen.印星
+      - 6
+  - name: 好奇心
+    components:
+    - - tenshen.食伤
+      - 8
+    - - wuxing.火
+      - 6
+  insights:
+    high:
+    - 好奇心是创造之源——你对世界有无尽的好奇
+    - 跨界是创新的最佳路径
+    mid:
+    - 好奇心是你的燃料——保持'为什么'的习惯
+  warnings: []
+  advice:
+  - 像达芬奇一样保持一本笔记——记录所有观察和想法
+  summary_high: 跨界通才——好奇心驱动
+  summary_low: 好奇心尚存——多跨一跨
+descartes:
+  name: 笛卡尔
+  title: 我思故我在
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 8
+  - - wuxing.金
+    - 4
+  - - tenshen.食伤
+    - 3
+  boost_yongshen: true
+  dimensions:
+  - name: 理性
+    components:
+    - - tenshen.印星
+      - 12
+    - - wuxing.金
+      - 4
+  - name: 怀疑精神
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.印星
+      - 6
+  insights:
+    high:
+    - 我思故我在——理性之光耀眼
+    - 系统性怀疑是通向真理的第一步
+    mid:
+    - 理性中等——需要更多的思考训练
+  warnings: []
+  advice:
+  - 怀疑一切可怀疑之物，直到找到不可怀疑的根基
+  summary_high: 理性主义——我思故我在
+  summary_low: 理性待提升——多思辨
+drucker:
+  name: 德鲁克
+  title: 目标管理知识社会
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 7
+  - - tenshen.官杀
+    - 5
+  - - tenshen.财星
+    - 3
+  boost_dayun: true
+  dimensions:
+  - name: 目标管理
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.印星
+      - 6
+  - name: 知识贡献
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.食伤
+      - 5
+  insights:
+    high:
+    - 管理就是正确地做事——你有目标导向的特质
+    - 知识工作者的产出不是数量而是质量
+    mid:
+    - 管理意识中等——先学会管理自己
+  warnings: []
+  advice:
+  - 先管理好自己才能管理他人——卓有成效的管理从自我开始
+  summary_high: 目标导向——知识与效率
+  summary_low: 自我管理可提升
+einstein:
+  name: 爱因斯坦
+  title: 相对论宇宙宗教感
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 7
+  - - tenshen.食伤
+    - 6
+  - - wuxing.水
+    - 3
+  boost_dayun: true
+  dimensions:
+  - name: 想象力
+    components:
+    - - tenshen.食伤
+      - 10
+    - - wuxing.火
+      - 4
+  - name: 宇宙感
+    components:
+    - - tenshen.印星
+      - 8
+    - - wuxing.水
+      - 6
+  - name: 坚持
+    components:
+    - - tenshen.官杀
+      - 6
+    - - tenshen.比劫
+      - 5
+  insights:
+    high:
+    - 想象力比知识更重要——你看到了别人看不到的联系
+    - 宇宙宗教感——对世界奥秘的敬畏
+    mid:
+    - 对未知的好奇心是你的财富
+  warnings: []
+  advice:
+  - 保持好奇——不要只问'是什么'要问'为什么是这样'
+  summary_high: 想象驱动——看见隐藏的联系
+  summary_low: 好奇尚存——多问为什么
+fanli:
+  name: 范蠡
+  title: 三迁成名商圣之道
+  confidence: 0.55
+  score_components:
+  - - tenshen.财星
+    - 6
+  - - tenshen.食伤
+    - 5
+  - - wuxing.水
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 商道
+    components:
+    - - tenshen.财星
+      - 12
+  - name: 知时
+    components:
+    - - wuxing.水
+      - 8
+    - - dayun_phase
+      - 3
+  insights:
+    high:
+    - 三致千金三散千金——对财富有通透的理解
+    - 飞鸟尽良弓藏——知道什么时候该走
+    mid:
+    - 商圣之道待实践——旱则资舟水则资车
+  warnings: []
+  advice:
+  - 贵出如粪土贱取如珠玉——逆周期布局
+  summary_high: 商圣格局——知聚知散
+  summary_low: 商道可修——需在实战中悟
+foucault:
+  name: 福柯
+  title: 权力微观知识考古
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 6
+  - - tenshen.官杀
+    - 7
+  - - tenshen.印星
+    - 3
+  boost_chong: true
+  dimensions:
+  - name: 权力洞察
+    components:
+    - - tenshen.官杀
+      - 10
+    - - tenshen.食伤
+      - 6
+  - name: 知识考古
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.食伤
+      - 5
+  insights:
+    high:
+    - 权力无处不在——你敏锐地感知到规则背后的力量
+    - 知识即权力——话语体系的洞察者
+    mid:
+    - 对权力的敏感度中等
+  warnings: []
+  advice:
+  - 不要只看到权力的压迫面——权力也可以是生产性的
+  summary_high: 权力洞察——看破世间规则
+  summary_low: 权力意识待觉醒
+galileo:
+  name: 伽利略
+  title: 实验科学日心说
+  confidence: 0.55
+  score_components:
+  - - tenshen.食伤
+    - 7
+  - - tenshen.印星
+    - 6
+  - - tenshen.官杀
+    - 3
+  boost_chong: true
+  dimensions:
+  - name: 实验精神
+    components:
+    - - tenshen.食伤
+      - 10
+    - - tenshen.印星
+      - 5
+  - name: 挑战权威
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.官杀
+      - 5
+  insights:
+    high:
+    - 真理在实验中——亲自验证不轻信权威
+    - 但它确实在转动——坚持自己看到的事实
+    mid:
+    - 实验精神尚可——更多地动手验证
+  warnings: []
+  advice:
+  - 亲自验证——不要因为大家都这么说就信了
+  summary_high: 实验求真——动手验证一切
+  summary_low: 实验精神待加强
+gates:
+  name: 盖茨
+  title: 专注核心改变世界
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 7
+  - - tenshen.官杀
+    - 5
+  - - tenshen.财星
+    - 4
+  boost_yongshen: true
+  dimensions:
+  - name: 深度专注
+    components:
+    - - tenshen.印星
+      - 10
+    - - tenshen.官杀
+      - 5
+  - name: 系统思维
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.财星
+      - 5
+  insights:
+    high:
+    - 专注一件事做到世界最好——微软式的成功
+    - 系统思考——看到全局而非局部
+    mid:
+    - 专注力在形成——找到值得深耕的领域
+  warnings: []
+  advice:
+  - 找一个能影响十亿人的问题然后专注解决它
+  summary_high: 深度专注——系统思维
+  summary_low: 专注力待培养
+guanzhong:
+  name: 管仲
+  title: 通货积财富国强兵
+  confidence: 0.5
+  score_components:
+  - - tenshen.财星
+    - 7
+  - - tenshen.官杀
+    - 4
+  - - tenshen.食伤
+    - 3
+  boost_dayun: true
+  dimensions:
+  - name: 经世济民
+    components:
+    - - tenshen.财星
+      - 12
+  - name: 权变智慧
+    components:
+    - - tenshen.食伤
+      - 10
+    - - tenshen.财星
+      - 4
+  insights:
+    high:
+    - 经世济民之才——知与取予是最高智慧
+    - 仓廪实则知礼节
+    mid:
+    - 财经头脑中等——可在资源配置上提升
+  warnings: []
+  advice:
+  - 善因祸而为福转败而为功——把危机变成转机
+  summary_high: 经世之才——通货积财是长项
+  summary_low: 经世意识一般——需培养经济头脑
+hamel:
+  name: 哈默尔
+  title: 核心竞争力战略意图
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 6
+  - - tenshen.比劫
+    - 5
+  - - tenshen.财星
+    - 4
+  boost_yongshen: true
+  dimensions:
+  - name: 核心竞争力
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.比劫
+      - 5
+  - name: 战略意图
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.财星
+      - 5
+  insights:
+    high:
+    - 核心竞争力的识别——你的长板远比短板重要
+    - 战略意图是目标也是方向感
+    mid:
+    - 核心能力在形成——聚焦比发散更重要
+  warnings: []
+  advice:
+  - 找到别人很难复制你的那项能力——那才是真正的护城河
+  summary_high: 核心能力——聚焦长板
+  summary_low: 核心竞争力待打造
+hanfei:
+  name: 韩非子
+  title: 法术势集大成
+  confidence: 0.55
+  score_components:
+  - - tenshen.官杀
+    - 8
+  - - tenshen.财星
+    - 4
+  - - tenshen.印星
+    - 2
+  boost_chong: true
+  dimensions:
+  - name: 法度
+    components:
+    - - tenshen.官杀
+      - 12
+  - name: 权术
+    components:
+    - - tenshen.财星
+      - 10
+    - - tenshen.官杀
+      - 4
+  - name: 时势
+    components:
+    - - dayun_phase
+      - 3
+  insights:
+    high:
+    - 法术势俱备——管理天赋突出
+    - 循法而治不期而善
+    mid:
+    - 法治意识中等——需要更系统的规则思维
+  warnings: []
+  advice:
+  - 故治民无常唯治为法——建立自己的决策系统
+  summary_high: 法术势兼备——有治事之才
+  summary_low: 法治思维待强化——需建立规则体系
+hawking:
+  name: 霍金
+  title: 黑洞辐射时空简史
+  confidence: 0.5
+  score_components:
+  - - tenshen.印星
+    - 7
+  - - tenshen.食伤
+    - 6
+  - - wuxing.水
+    - 4
+  boost_dayun: true
+  dimensions:
+  - name: 宇宙视野
+    components:
+    - - tenshen.印星
+      - 8
+    - - wuxing.水
+      - 6
+  - name: 不屈意志
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.比劫
+      - 6
+  insights:
+    high:
+    - 即使被禁锢在轮椅上思想也可以遨游宇宙——精神的力量
+    - 记住要仰望星空不要只看脚下
+    mid:
+    - 探索精神——可以瞭望更远
+  warnings: []
+  advice:
+  - 记住仰望星空——从大尺度看小烦恼
+  summary_high: 仰望星空——思想的自由
+  summary_low: 视野待开阔
+hegel:
+  name: 黑格尔
+  title: 辩证法绝对精神
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 7
+  - - tenshen.食伤
+    - 6
+  - - wuxing.水
+    - 3
+  boost_chong: true
+  dimensions:
+  - name: 辩证思维
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.印星
+      - 6
+    - - wuxing.水
+      - 3
+  - name: 绝对精神
+    components:
+    - - tenshen.印星
+      - 10
+    - - tenshen.官杀
+      - 4
+  insights:
+    high:
+    - 正反合的思维——矛盾是你进步的动力
+    - 凡是现实的都是合乎理性的
+    mid:
+    - 辩证思维一般——可从对立中找统一
+  warnings: []
+  advice:
+  - 从矛盾中寻找更高层次的统一——冲突不是终点是过程
+  summary_high: 辩证思维——正反合中前进
+  summary_low: 思辨待深化
+heidegger:
+  name: 海德格尔
+  title: 向死而生此在哲学
+  confidence: 0.5
+  score_components:
+  - - tenshen.印星
+    - 6
+  - - tenshen.官杀
+    - 5
+  - - wuxing.水
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 此在
+    components:
+    - - tenshen.印星
+      - 8
+    - - daymaster.support_ratio
+      - 5
+  - name: 向死而生
+    components:
+    - - tenshen.官杀
+      - 8
+    - - wuxing.水
+      - 6
+  insights:
+    high:
+    - 向死而生——对生命有限性的清醒认知
+    - 人诗意地栖居在大地上
+    mid:
+    - 此在意识——活在当下的觉知
+  warnings: []
+  advice:
+  - 意识到生命的有限才能活出真正的自己
+  summary_high: 向死而生——活出本真
+  summary_low: 此在中寻找本真
+hume:
+  name: 休谟
+  title: 经验主义怀疑论
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 6
+  - - tenshen.印星
+    - 5
+  - - wuxing.火
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 经验
+    components:
+    - - tenshen.食伤
+      - 10
+    - - tenshen.财星
+      - 4
+  - name: 怀疑
+    components:
+    - - tenshen.食伤
+      - 8
+    - - wuxing.火
+      - 5
+  insights:
+    high:
+    - 习惯是人生的伟大指南——经验让你务实
+    - 温和的怀疑是智慧的起点
+    mid:
+    - 经验积累中等——多经历方能多见识
+  warnings: []
+  advice:
+  - 不要轻信因果关系——相关性不等于因果
+  summary_high: 经验主义——习惯为人生指南
+  summary_low: 经验待丰富——多体验多反思
+kierkegaard:
+  name: 克尔凯郭尔
+  title: 存在主义信仰飞跃
+  confidence: 0.5
+  score_components:
+  - - tenshen.印星
+    - 6
+  - - tenshen.官杀
+    - 5
+  - - wuxing.水
+    - 5
+  boost_dayun: true
+  dimensions:
+  - name: 信仰飞跃
+    components:
+    - - tenshen.印星
+      - 8
+    - - wuxing.水
+      - 6
+  - name: 个体存在
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.比劫
+      - 5
+  insights:
+    high:
+    - 信仰的飞跃需要勇气——理性到非理性的一跃
+    - 人群即是虚妄——个体才真实
+    mid:
+    - 个体意识待深化——在人群中找到自己
+  warnings: []
+  advice:
+  - 审美→伦理→宗教——人生的三个阶段螺旋上升
+  summary_high: 信仰的勇气——个体存在优先
+  summary_low: 个体意识待独立
+kongzi:
+  name: 孔子
+  title: 仁义礼智信
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 6
+  - - tenshen.官杀
+    - 4
+  - - daymaster.support_ratio
+    - 2
+  boost_dayun: true
+  boost_yongshen: true
+  dimensions:
+  - name: 仁义
+    components:
+    - - tenshen.印星
+      - 10
+    - - wuxing.木
+      - 2
+  - name: 礼法
+    components:
+    - - tenshen.官杀
+      - 10
+    - - wuxing.金
+      - 2
+  - name: 中庸
+    components:
+    - - daymaster.support_ratio
+      - 3
+  insights:
+    high:
+    - 仁义礼智信俱备——近者悦，远者来
+    - 印星有力, 学而不厌是君子的底色
+    mid:
+    - 修养之路漫漫——朝闻道夕死可矣
+    - 礼法观念中等，需克己复礼
+    low:
+    - 仁义当前不显——不学诗无以言
+  warnings: []
+  advice:
+  - 学而不思则罔——建立定期复盘的习惯
+  - 己所不欲勿施于人——决策前换位思考
+  summary_high: 仁义礼智信评分较高——君子之风
+  summary_low: 仁义礼智信评分中等——修养可进
+kuhn:
+  name: 库恩
+  title: 范式革命科学结构
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 7
+  - - tenshen.印星
+    - 6
+  - - tenshen.官杀
+    - 3
+  boost_chong: true
+  dimensions:
+  - name: 范式思考
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.印星
+      - 6
+  - name: 革命意识
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.官杀
+      - 5
+  insights:
+    high:
+    - 范式的突破者——不满足于常规科学
+    - 科学革命不是积累而是世界观的转换
+    mid:
+    - 对既有框架有所质疑
+  warnings: []
+  advice:
+  - 打破旧范式之前先充分理解它——知其所以破
+  summary_high: 范式突破——科学革命意识
+  summary_low: 对范式有所觉察
+li_kaifu:
+  name: 李开复
+  title: 创新工场AI赋能
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 7
+  - - tenshen.食伤
+    - 5
+  - - tenshen.比劫
+    - 3
+  boost_dayun: true
+  dimensions:
+  - name: 创新孵化
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.印星
+      - 6
+  - name: 科技赋能
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.食伤
+      - 5
+  insights:
+    high:
+    - 创新的催化剂——你有发现并放大新想法的能力
+    - AI不是取代人是赋能人
+    mid:
+    - 创新意识中等——可以更多地关注前沿
+  warnings: []
+  advice:
+  - 用工具放大你的能力——AI是最好的杠杆
+  summary_high: 创新催化——科技赋能
+  summary_low: 创新意识待激发
+lincoln:
+  name: 林肯
+  title: 民有民治民享
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 6
+  - - tenshen.比劫
+    - 5
+  - - tenshen.官杀
+    - 5
+  boost_he: true
+  dimensions:
+  - name: 包容力
+    components:
+    - - tenshen.比劫
+      - 8
+    - - tenshen.印星
+      - 6
+  - name: 正义感
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.印星
+      - 5
+  insights:
+    high:
+    - 对敌人的仁慈不是软弱而是力量——你有包容的格局
+    - 最好的方式打败敌人是让他成为朋友
+    mid:
+    - 包容与正义——你的道德感
+  warnings: []
+  advice:
+  - 团结能团结的一切力量——大局为重
+  summary_high: 包容格局——团结的力量
+  summary_low: 包容与正义待强化
+lixuzhong:
+  name: 李虚中
+  title: 三柱论命纳音为用
+  confidence: 0.5
+  score_components:
+  - - tenshen.印星
+    - 5
+  - - tenshen.食伤
+    - 5
+  - - wuxing.水
+    - 3
+  boost_yongshen: true
+  dimensions:
+  - name: 纳音格局
+    components:
+    - - tenshen.印星
+      - 8
+    - - wuxing.水
+      - 4
+  - name: 象法灵动
+    components:
+    - - tenshen.食伤
+      - 10
+    - - wuxing.火
+      - 3
+  insights:
+    high:
+    - 纳音有象——格局中藏大器
+    - 三柱论之观其大略
+    mid:
+    - 格局待显——需细察纳音变化
+  warnings: []
+  advice:
+  - 参看年柱纳音与日柱的配合——格局之要在纳音
+  summary_high: 纳音有格局——象法灵动
+  summary_low: 格局待明——需细察其象
+ma_huateng:
+  name: 马化腾
+  title: 产品为王小步快跑
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 6
+  - - tenshen.食伤
+    - 5
+  - - tenshen.财星
+    - 4
+  boost_dayun: true
+  dimensions:
+  - name: 产品直觉
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.印星
+      - 6
+  - name: 用户洞察
+    components:
+    - - tenshen.财星
+      - 8
+    - - tenshen.食伤
+      - 5
+  insights:
+    high:
+    - 小步快跑迭代试错——产品人的基因
+    - 用户体验是一切的核心
+    mid:
+    - 产品思维中等——从用户角度思考
+  warnings: []
+  advice:
+  - 先打磨一个核心功能做到极致再扩展
+  summary_high: 产品思维——小步快跑
+  summary_low: 产品意识可提升
+ma_yun:
+  name: 马云
+  title: 愿景驱动让天下没有难做的生意
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 7
+  - - tenshen.比劫
+    - 5
+  - - tenshen.财星
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 愿景引领
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.比劫
+      - 6
+  - name: 团队凝聚
+    components:
+    - - tenshen.比劫
+      - 8
+    - - tenshen.财星
+      - 5
+  insights:
+    high:
+    - 愿景驱动的力量——相信才能看见
+    - 今天很残酷明天更残酷后天很美好
+    mid:
+    - 愿景感召力中等——先找到你的使命
+  warnings: []
+  advice:
+  - 相信才能看见——愿景不是计划出来的而是相信出来的
+  summary_high: 愿景驱动——相信才能看见
+  summary_low: 使命待寻找
+mandela:
+  name: 曼德拉
+  title: 和解宽容自由之路
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 6
+  - - tenshen.比劫
+    - 6
+  - - tenshen.食伤
+    - 4
+  boost_he: true
+  dimensions:
+  - name: 和解精神
+    components:
+    - - tenshen.比劫
+      - 10
+    - - tenshen.印星
+      - 6
+  - name: 牺牲奉献
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.比劫
+      - 5
+  insights:
+    high:
+    - 和解不是软弱是最高级别的勇敢
+    - 27年牢狱不能摧毁一个人的精神
+    mid:
+    - 宽容——最大的力量是原谅
+  warnings: []
+  advice:
+  - 恨可以成为一种习惯但爱才是更高级的选择
+  summary_high: 和解之力——自由之路
+  summary_low: 宽容心待扩展
+maslow:
+  name: 马斯洛
+  title: 需求层次自我实现
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 6
+  - - tenshen.食伤
+    - 5
+  - - tenshen.比劫
+    - 4
+  boost_dayun: true
+  dimensions:
+  - name: 自我实现
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.印星
+      - 6
+  - name: 高峰体验
+    components:
+    - - tenshen.食伤
+      - 8
+    - - wuxing.火
+      - 5
+  insights:
+    high:
+    - 自我实现的种子——有强烈的成长动力
+    - 高峰体验是你创造力的源泉
+    mid:
+    - 需求层次中正在攀登——先打好基础再追顶峰
+  warnings: []
+  advice:
+  - 先满足底层需求才能追求自我实现——别跳过基础直奔顶峰
+  summary_high: 自我实现——攀登需求之巅
+  summary_low: 攀登进行中——打好基础
+mencius:
+  name: 孟子
+  title: 性善论浩然正气
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 5
+  - - tenshen.比劫
+    - 4
+  - - daymaster.support_ratio
+    - 3
+  boost_dayun: true
+  dimensions:
+  - name: 浩然之气
+    components:
+    - - tenshen.比劫
+      - 10
+    - - daymaster.support_ratio
+      - 3
+  - name: 性善根基
+    components:
+    - - tenshen.印星
+      - 10
+    - - wuxing.水
+      - 2
+  insights:
+    high:
+    - 浩然正气存乎心——不失赤子之心
+    - 生于忧患死于安乐——逆境正是你的土壤
+    mid:
+    - 性善论待验证——可欲之谓善
+  warnings: []
+  advice:
+  - 天将降大任于是人也——把当前的困难当作磨炼
+  summary_high: 浩然之气充沛——性善根基扎实
+  summary_low: 浩然之气待养——需在事上磨炼
+mendeleev:
+  name: 门捷列夫
+  title: 元素周期表科学分类
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 8
+  - - tenshen.官杀
+    - 5
+  - - wuxing.金
+    - 5
+  boost_yongshen: true
+  dimensions:
+  - name: 分类思维
+    components:
+    - - tenshen.印星
+      - 10
+    - - tenshen.官杀
+      - 6
+  - name: 预测能力
+    components:
+    - - tenshen.印星
+      - 8
+    - - wuxing.金
+      - 6
+  insights:
+    high:
+    - 分类是科学的第一步——你善于找规律建体系
+    - 最伟大的科学发现往往来自一个美丽的表格
+    mid:
+    - 分类思维中等——可建立自己的知识体系
+  warnings: []
+  advice:
+  - 给你的知识建一个'元素周期表'——分类是理解的开始
+  summary_high: 分类洞察——建体系找规律
+  summary_low: 体系化思维可建立
+michelangelo:
+  name: 米开朗基罗
+  title: 雕塑艺术极致完美
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 6
+  - - tenshen.官杀
+    - 6
+  - - wuxing.金
+    - 5
+  boost_dayun: true
+  dimensions:
+  - name: 极致追求
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.食伤
+      - 6
+  - name: 雕刻本质
+    components:
+    - - tenshen.食伤
+      - 8
+    - - wuxing.金
+      - 6
+  insights:
+    high:
+    - 雕像本来就在石头里——你的工作是去掉多余的部分
+    - 极致——不是多做了什么而是少做了什么
+    mid:
+    - 追求完美的态度——精益求精
+  warnings: []
+  advice:
+  - 去除不必要的——完美不是添加而是减到极致
+  summary_high: 极致减法——去掉多余部分
+  summary_low: 减法思维可培养
+mozart:
+  name: 莫扎特
+  title: 天籁灵感音乐神童
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 8
+  - - tenshen.印星
+    - 5
+  - - wuxing.水
+    - 5
+  boost_he: true
+  dimensions:
+  - name: 灵感涌现
+    components:
+    - - tenshen.食伤
+      - 10
+    - - wuxing.水
+      - 6
+  - name: 和谐之美
+    components:
+    - - tenshen.印星
+      - 8
+    - - wuxing.火
+      - 5
+  insights:
+    high:
+    - 灵感如泉水般涌出——你有天生的和谐感
+    - 真正的天赋是训练与天分的乘积
+    mid:
+    - 创造力待激活——多接触美好的事物
+  warnings: []
+  advice:
+  - 技巧为灵感服务——先掌握基本功再谈创造
+  summary_high: 灵感天赋——和谐的创造者
+  summary_low: 创造力待培养
+mozhu:
+  name: 墨子
+  title: 兼爱非攻尚贤
+  confidence: 0.5
+  score_components:
+  - - tenshen.印星
+    - 4
+  - - tenshen.比劫
+    - 5
+  - - wuxing.水
+    - 2
+  boost_he: true
+  dimensions:
+  - name: 兼爱
+    components:
+    - - tenshen.比劫
+      - 10
+    - - wuxing.水
+      - 3
+  - name: 非攻
+    components:
+    - - wuxing.水
+      - 6
+    - - tenshen.印星
+      - 5
+  insights:
+    high:
+    - 兼爱之心——有悲天悯人的格局
+    - 尚贤尚同——善于团结各方
+    mid:
+    - 兼爱非攻的理想——在现实中需找到平衡
+  warnings: []
+  advice:
+  - 摩顶放踵利天下——找到你愿意为之付出的事业
+  summary_high: 兼爱非攻——有天下之志
+  summary_low: 兼爱有待发扬——先修身后及人
+napoleon:
+  name: 拿破仑
+  title: 战略战术天才统帅
+  confidence: 0.5
+  score_components:
+  - - tenshen.官杀
+    - 7
+  - - tenshen.食伤
+    - 6
+  - - tenshen.比劫
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 战略视野
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.官杀
+      - 6
+  - name: 统帅力
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.比劫
+      - 6
+  insights:
+    high:
+    - 在战争中第一要素是速度——你有快速决策的能力
+    - 不想当将军的士兵不是好士兵
+    mid:
+    - 战略意识中等——多读历史培养大局观
+  warnings: []
+  advice:
+  - 战略上藐视敌人战术上重视敌人
+  summary_high: 战略统帅——速度即优势
+  summary_low: 战略眼光待培养
+newton:
+  name: 牛顿
+  title: 万有引力科学方法
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 8
+  - - tenshen.官杀
+    - 5
+  - - wuxing.金
+    - 5
+  boost_dayun: true
+  dimensions:
+  - name: 科学推理
+    components:
+    - - tenshen.印星
+      - 10
+    - - wuxing.金
+      - 6
+  - name: 专注力
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.比劫
+      - 4
+  insights:
+    high:
+    - 站在巨人肩膀上的洞察力——善用前人成果
+    - 专注到极致——一个问题追到底
+    mid:
+    - 科学方法中等——可加强系统性思考
+  warnings: []
+  advice:
+  - 面对复杂问题先简化再求解——发现不变的本质
+  summary_high: 科学洞察——万有引力式的穿透力
+  summary_low: 科学方法可提升
+picasso:
+  name: 毕加索
+  title: 立体派打破再创造
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 8
+  - - tenshen.官杀
+    - 5
+  - - wuxing.火
+    - 5
+  boost_chong: true
+  dimensions:
+  - name: 打破规则
+    components:
+    - - tenshen.食伤
+      - 10
+    - - tenshen.官杀
+      - 6
+  - name: 重新组合
+    components:
+    - - tenshen.食伤
+      - 8
+    - - wuxing.火
+      - 6
+  insights:
+    high:
+    - 先用尽毕生的精力学得像大师然后有勇气打破它
+    - 创造不是无中生有而是重新组合
+    mid:
+    - 打破规则需要先理解规则
+  warnings: []
+  advice:
+  - 先学会规则再打破——不懂规则的反叛是混乱
+  summary_high: 打破重构——创造即重组
+  summary_low: 先学规则再打破
+popper:
+  name: 波普尔
+  title: 证伪主义开放社会
+  confidence: 0.55
+  score_components:
+  - - tenshen.食伤
+    - 7
+  - - tenshen.印星
+    - 6
+  - - wuxing.火
+    - 3
+  boost_chong: true
+  dimensions:
+  - name: 批判理性
+    components:
+    - - tenshen.食伤
+      - 10
+    - - tenshen.印星
+      - 6
+  - name: 证伪精神
+    components:
+    - - tenshen.食伤
+      - 8
+    - - wuxing.火
+      - 6
+  insights:
+    high:
+    - 可证伪性才是科学的标志——你天生有批判精神
+    - 开放社会需要开放的头脑
+    mid:
+    - 批判精神中等——要敢于挑战权威
+  warnings: []
+  advice:
+  - 一个好的理论必须能被证伪——追求可检验的结论
+  summary_high: 证伪主义——批判理性
+  summary_low: 批判精神待强化
+ray_kroc:
+  name: 克罗克
+  title: 标准化体系特许经营
+  confidence: 0.5
+  score_components:
+  - - tenshen.官杀
+    - 6
+  - - tenshen.财星
+    - 6
+  - - tenshen.印星
+    - 4
+  boost_dayun: true
+  dimensions:
+  - name: 系统复制
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.财星
+      - 6
+  - name: 质量统一
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.印星
+      - 5
+  insights:
+    high:
+    - 将一件事标准化然后复制——这是规模化思维
+    - 品质的一致性比单次的卓越更重要
+    mid:
+    - 系统化思维中等
+  warnings: []
+  advice:
+  - 先跑通一个成功的单体模型再考虑复制
+  summary_high: 标准复制——规模化的基因
+  summary_low: 系统化意识待建立
+rentieqiao:
+  name: 任铁樵
+  title: 滴天髓阐微五行生克
+  confidence: 0.55
+  score_components:
+  - - tenshen.食伤
+    - 5
+  - - tenshen.印星
+    - 5
+  - - daymaster.support_ratio
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 生克制化
+    components:
+    - - tenshen.食伤
+      - 8
+    - - wuxing.木
+      - 4
+  - name: 强弱真机
+    components:
+    - - daymaster.support_ratio
+      - 6
+    - - tenshen.比劫
+      - 5
+  insights:
+    high:
+    - 五行流转生克有情——滴天髓所谓'一清到底'
+    - 强弱真机在于时——大运流转识进退
+    mid:
+    - 五行生克中正——无大过亦无大功
+  warnings: []
+  advice:
+  - 知强弱识进退——旺者宜泄弱者宜扶
+  summary_high: 五行生克有情
+  summary_low: 生克中正
+renzhengfei:
+  name: 任正非
+  title: 狼性文化自我批判
+  confidence: 0.55
+  score_components:
+  - - tenshen.官杀
+    - 7
+  - - tenshen.比劫
+    - 5
+  - - tenshen.印星
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 危机意识
+    components:
+    - - tenshen.官杀
+      - 10
+    - - wuxing.水
+      - 5
+  - name: 艰苦奋斗
+    components:
+    - - tenshen.比劫
+      - 10
+    - - tenshen.官杀
+      - 5
+  insights:
+    high:
+    - 自我批判是进化的前提——你有这个觉悟
+    - 烧不死的鸟是凤凰——逆境中更强大
+    mid:
+    - 危机意识中等——需要'下一个倒下的是华为'的警觉
+  warnings: []
+  advice:
+  - 自我批判——每天找一个可以改进的点
+  summary_high: 狼性精神——自我批判中进化
+  summary_low: 危机意识待强化
+rousseau:
+  name: 卢梭
+  title: 社会契约自然回归
+  confidence: 0.5
+  score_components:
+  - - tenshen.比劫
+    - 6
+  - - tenshen.食伤
+    - 5
+  - - wuxing.木
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 自然
+    components:
+    - - wuxing.木
+      - 10
+    - - tenshen.比劫
+      - 5
+  - name: 自由
+    components:
+    - - tenshen.食伤
+      - 10
+    - - wuxing.火
+      - 4
+  insights:
+    high:
+    - 人生而自由却无往不在枷锁中——你渴望打破束缚
+    - 回归自然——找到最本真的自己
+    mid:
+    - 对自由的追求中等——需更大勇气
+  warnings: []
+  advice:
+  - 人在共同体中找回真正的自由——独行快众行远
+  summary_high: 自然之子——渴望自由回归本真
+  summary_low: 自由追求待激——内心深处有未发现的力量
+russell:
+  name: 罗素
+  title: 分析哲学幸福之路
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 7
+  - - tenshen.食伤
+    - 5
+  - - wuxing.木
+    - 3
+  boost_dayun: true
+  dimensions:
+  - name: 理性幸福
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.比劫
+      - 5
+  - name: 开放心智
+    components:
+    - - tenshen.食伤
+      - 8
+    - - wuxing.木
+      - 5
+  insights:
+    high:
+    - 幸福来自理性的热情——对知识的热爱和对人的同情
+    - 参差百态乃是幸福本源
+    mid:
+    - 幸福三要素——对爱求知和对苦难的同情
+  warnings: []
+  advice:
+  - 不要因为害怕犯错而不敢思考——错误是通向真理的阶梯
+  summary_high: 理性幸福——热爱知识与同情
+  summary_low: 幸福之路——开放的头脑不设限
+sartre:
+  name: 萨特
+  title: 存在先于本质自由选择
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 7
+  - - tenshen.比劫
+    - 6
+  - - tenshen.官杀
+    - 3
+  boost_chong: true
+  dimensions:
+  - name: 自由
+    components:
+    - - tenshen.食伤
+      - 10
+    - - tenshen.比劫
+      - 8
+  - name: 责任
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.食伤
+      - 5
+  insights:
+    high:
+    - 存在先于本质——你是自己选择的总和
+    - 他人即地狱——但也映照出你自己
+    mid:
+    - 自由是负担——你有选择的恐惧也有选择的权力
+  warnings: []
+  advice:
+  - 你对自己的选择负全责——不选择也是一种选择
+  summary_high: 存在主义——自由即选择
+  summary_low: 选择的自由也是负担
+schopenhauer:
+  name: 叔本华
+  title: 生命意志悲观哲学
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 6
+  - - tenshen.印星
+    - 5
+  - - wuxing.水
+    - 5
+  boost_chong: true
+  dimensions:
+  - name: 意志洞察
+    components:
+    - - tenshen.食伤
+      - 8
+    - - wuxing.水
+      - 6
+  - name: 审美超越
+    components:
+    - - tenshen.印星
+      - 8
+    - - wuxing.金
+      - 4
+  insights:
+    high:
+    - 生命意志的洞察者——看清了世界的底色
+    - 艺术是痛苦的暂时解脱
+    mid:
+    - 悲观主义的反思——也许世界没那么糟
+  warnings: []
+  advice:
+  - 在艺术和审美中找到超越痛苦的路径
+  summary_high: 意志洞察——看清世界的底色
+  summary_low: 悲观视角——需找到超越之路
+senge:
+  name: 圣吉
+  title: 第五项修炼系统思考
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 7
+  - - tenshen.食伤
+    - 6
+  - - wuxing.水
+    - 3
+  boost_he: true
+  dimensions:
+  - name: 系统思考
+    components:
+    - - tenshen.印星
+      - 8
+    - - wuxing.水
+      - 5
+  - name: 心智模式
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.印星
+      - 5
+  insights:
+    high:
+    - 系统思考者——看到因果链而不仅仅是孤立事件
+    - 每个人都是自己心智模式的囚徒
+    mid:
+    - 系统意识中等——可练习从全局看问题
+  warnings: []
+  advice:
+  - 不要解决表面问题——找到问题的根本结构和杠杆点
+  summary_high: 系统思考——洞察因果链
+  summary_low: 系统性思维可培养
+shangyang:
+  name: 商鞅
+  title: 变法图强立木取信
+  confidence: 0.5
+  score_components:
+  - - tenshen.官杀
+    - 7
+  - - tenshen.食伤
+    - 5
+  - - wuxing.火
+    - 3
+  boost_chong: true
+  dimensions:
+  - name: 变法魄力
+    components:
+    - - tenshen.食伤
+      - 10
+    - - tenshen.官杀
+      - 6
+  - name: 执行力
+    components:
+    - - tenshen.官杀
+      - 10
+    - - tenshen.比劫
+      - 4
+  insights:
+    high:
+    - 变法的勇气和不懈的执行力——商君遗风
+    - 治世不一道便国不法古
+    mid:
+    - 改革意识中等——可尝试突破常规
+  warnings: []
+  advice:
+  - 疑行无成疑事无功——想清楚就坚决执行
+  summary_high: 变法魄力足——有破局之力
+  summary_low: 变法决心待激——需先找到必须改变的理由
+shenxiaoshen:
+  name: 沈孝瞻
+  title: 子平真诠用神为纲
+  confidence: 0.55
+  score_components:
+  - - tenshen.官杀
+    - 5
+  - - tenshen.印星
+    - 5
+  - - daymaster.support_ratio
+    - 3
+  boost_yongshen: true
+  dimensions:
+  - name: 用神纯杂
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.印星
+      - 6
+  - name: 相神
+    components:
+    - - tenshen.印星
+      - 8
+    - - daymaster.support_ratio
+      - 4
+  insights:
+    high:
+    - 用神得力格局纯正——真诠所谓'清'字
+    - 相神有力——格局有回旋余地
+    mid:
+    - 用神一般——人生方向需主动校准
+  warnings: []
+  advice:
+  - 用神为体相神为用——找到你的发力点和辅助资源
+  summary_high: 用神得力——格局清纯
+  summary_low: 用神一般——需主动校准方向
+simons:
+  name: 西蒙斯
+  title: 量化投资模型驱动
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 7
+  - - tenshen.食伤
+    - 6
+  - - wuxing.金
+    - 4
+  boost_yongshen: true
+  dimensions:
+  - name: 量化思维
+    components:
+    - - tenshen.印星
+      - 10
+    - - wuxing.金
+      - 6
+  - name: 模型构建
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.印星
+      - 6
+  insights:
+    high:
+    - 用模型理解世界——数据驱动是你的优势
+    - 市场可以预测——只要有足够好的模型
+    mid:
+    - 量化思维中等——可更多依靠数据分析
+  warnings: []
+  advice:
+  - 不要凭感觉做判断——找到可量化指标
+  summary_high: 模型思维——数据驱动
+  summary_low: 量化思维可加强
+skinner:
+  name: 斯金纳
+  title: 行为主义强化理论
+  confidence: 0.5
+  score_components:
+  - - tenshen.官杀
+    - 6
+  - - tenshen.财星
+    - 5
+  - - tenshen.比劫
+    - 4
+  boost_dayun: true
+  dimensions:
+  - name: 环境塑造
+    components:
+    - - tenshen.官杀
+      - 10
+    - - tenshen.财星
+      - 5
+  - name: 强化反馈
+    components:
+    - - tenshen.财星
+      - 8
+    - - tenshen.比劫
+      - 5
+  insights:
+    high:
+    - 环境塑造行为——你善于从外部反馈中学习
+    - 强化塑造习惯——重复是最好的老师
+    mid:
+    - 对反馈敏感度中等——可建立更好的反馈系统
+  warnings: []
+  advice:
+  - 改变环境比改变意志更容易——先优化你的环境
+  summary_high: 行为可塑——善用反馈机制
+  summary_low: 需建立正向反馈循环
+soros:
+  name: 索罗斯
+  title: 反身性原理量子基金
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 6
+  - - tenshen.财星
+    - 6
+  - - wuxing.水
+    - 4
+  boost_chong: true
+  dimensions:
+  - name: 反身性
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.财星
+      - 6
+  - name: 市场洞察
+    components:
+    - - tenshen.财星
+      - 8
+    - - wuxing.水
+      - 5
+  insights:
+    high:
+    - 反身性的洞察——你看到认知与现实互相影响
+    - 市场的错误就是你的机会
+    mid:
+    - 市场敏感度中等——可更多关注认知偏差
+  warnings: []
+  advice:
+  - 识别市场/大众的错误认知——在偏差中寻找机会
+  summary_high: 反身性思维——看穿认知偏差
+  summary_low: 市场洞察可提升
+spinoza:
+  name: 斯宾诺莎
+  title: 神即自然理性之爱
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 7
+  - - wuxing.水
+    - 5
+  - - tenshen.比劫
+    - 3
+  boost_he: true
+  dimensions:
+  - name: 理性之爱
+    components:
+    - - tenshen.印星
+      - 10
+    - - wuxing.水
+      - 5
+  - name: 自然即神
+    components:
+    - - wuxing.水
+      - 8
+    - - tenshen.比劫
+      - 4
+  insights:
+    high:
+    - 对自然的理性之爱——最高的幸福是知
+    - 一切事物都按其本性而努力保持其存在
+    mid:
+    - 理性之爱中等——在大自然中能找到平静
+  warnings: []
+  advice:
+  - 理解一切就是宽恕一切——从宇宙视角看烦恼
+  summary_high: 理性之爱——神即自然
+  summary_low: 自然之爱——山川可以疗愈
+sun_yat_sen:
+  name: 孙中山
+  title: 天下为公革命先行
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 6
+  - - tenshen.比劫
+    - 5
+  - - tenshen.印星
+    - 5
+  boost_chong: true
+  dimensions:
+  - name: 革命精神
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.比劫
+      - 6
+  - name: 理想主义
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.食伤
+      - 5
+  insights:
+    high:
+    - 天下为公——有远大的理想和奉献精神
+    - 革命尚未成功同志仍需努力
+    mid:
+    - 理想主义——心中有更美好的蓝图
+  warnings: []
+  advice:
+  - 理想需要脚踏实地——一边仰望星空一边修路
+  summary_high: 革命理想——天下为公
+  summary_low: 理想在心中——路在脚下
+tesla:
+  name: 特斯拉
+  title: 交流电力自由能源
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 7
+  - - tenshen.印星
+    - 5
+  - - wuxing.火
+    - 6
+  boost_chong: true
+  dimensions:
+  - name: 直觉创造
+    components:
+    - - tenshen.食伤
+      - 10
+    - - wuxing.火
+      - 6
+  - name: 执念专注
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.印星
+      - 5
+  insights:
+    high:
+    - 灵感的闪电——你的直觉有穿透力
+    - 为人类愿景而活的纯粹
+    mid:
+    - 创造力在觉醒——灵感需要记录
+  warnings: []
+  advice:
+  - 灵感来的时候抓住它——随身记下每一个想法
+  summary_high: 直觉之火——灵感的闪电
+  summary_low: 创造力待释放
+turing:
+  name: 图灵
+  title: 可计算性人工智能
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 7
+  - - tenshen.食伤
+    - 6
+  - - wuxing.金
+    - 5
+  boost_yongshen: true
+  dimensions:
+  - name: 抽象思维
+    components:
+    - - tenshen.印星
+      - 10
+    - - wuxing.金
+      - 6
+  - name: 模式识别
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.印星
+      - 5
+  insights:
+    high:
+    - 可计算思维——你能把复杂问题拆解为算法
+    - 图灵测试的本质不是机器像人而是人像机器
+    mid:
+    - 抽象思维一般——可练习结构化思考
+  warnings: []
+  advice:
+  - 把大问题拆成小步骤——一个算法解决一类问题
+  summary_high: 算法思维——拆解一切
+  summary_low: 结构化思考可培养
+v_frankl:
+  name: 弗兰克尔
+  title: 意义治疗追求意义
+  confidence: 0.5
+  score_components:
+  - - tenshen.印星
+    - 6
+  - - tenshen.官杀
+    - 6
+  - - wuxing.水
+    - 3
+  boost_chong: true
+  dimensions:
+  - name: 意义寻求
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.官杀
+      - 6
+  - name: 态度自由
+    components:
+    - - tenshen.官杀
+      - 8
+    - - wuxing.水
+      - 5
+  insights:
+    high:
+    - 在任何境遇中选择自己的态度——这是最后的自由
+    - 找到了'为什么'就能忍受'怎么办'
+    mid:
+    - 对意义的追寻是人的根本动力
+  warnings: []
+  advice:
+  - 意义不是找到的而是创造的——去做值得做的事
+  summary_high: 意义疗法——态度自由
+  summary_low: 意义待发现——行动即意义
+vangogh:
+  name: 梵高
+  title: 燃烧灵魂印象派
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 8
+  - - wuxing.火
+    - 7
+  - - tenshen.比劫
+    - 3
+  boost_chong: true
+  dimensions:
+  - name: 情感表达
+    components:
+    - - tenshen.食伤
+      - 10
+    - - wuxing.火
+      - 8
+  - name: 独特视角
+    components:
+    - - tenshen.食伤
+      - 8
+    - - tenshen.比劫
+      - 5
+  insights:
+    high:
+    - 用燃烧自己的方式照亮世界——你的情感表达炽热而真实
+    - 不被理解是天才的宿命
+    mid:
+    - 表达欲在燃烧——找到出口释放它
+  warnings: []
+  advice:
+  - 把你的情感放进创作中——真实是最有力量的
+  summary_high: 燃烧的灵魂——情感即艺术
+  summary_low: 表达欲待释放
+wanminying:
+  name: 万民英
+  title: 三命通会汇通百家
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 6
+  - - tenshen.食伤
+    - 5
+  - - wuxing.水
+    - 2
+  boost_dayun: true
+  dimensions:
+  - name: 汇通
+    components:
+    - - tenshen.印星
+      - 10
+    - - tenshen.食伤
+      - 6
+  - name: 考证
+    components:
+    - - tenshen.印星
+      - 8
+    - - wuxing.金
+      - 4
+  insights:
+    high:
+    - 汇通百家之识——有贯通之力
+    - 考辨精微不惑于异说
+    mid:
+    - 博览之功待积累
+  warnings: []
+  advice:
+  - 广博而后精专——先开阔视野再选定方向
+  summary_high: 汇通之功——识见广博
+  summary_low: 博学之功待积累
+weilianli:
+  name: 韦千里
+  title: 命理约言星象摘粹
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 5
+  - - tenshen.食伤
+    - 4
+  - - wuxing.金
+    - 4
+  boost_yongshen: true
+  dimensions:
+  - name: 精约
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.食伤
+      - 6
+  - name: 星象
+    components:
+    - - wuxing.金
+      - 8
+    - - tenshen.印星
+      - 4
+  insights:
+    high:
+    - 命理精要一览无余——约言中的
+    - 星象有秩——吉凶有象
+    mid:
+    - 摘粹之功待深入
+  warnings: []
+  advice:
+  - 抓住核心矛盾比追逐所有细节更重要
+  summary_high: 精约之识——要害处一针见血
+  summary_low: 精华待萃取
+wittgenstein:
+  name: 维特根斯坦
+  title: 语言界限逻辑哲学
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 8
+  - - tenshen.食伤
+    - 5
+  - - wuxing.金
+    - 5
+  boost_yongshen: true
+  dimensions:
+  - name: 语言分析
+    components:
+    - - tenshen.印星
+      - 8
+    - - wuxing.金
+      - 8
+  - name: 逻辑清晰
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.官杀
+      - 4
+  insights:
+    high:
+    - 语言的界限就是世界的界限——思考清晰表达精准
+    - 对于不可说的要保持沉默
+    mid:
+    - 逻辑思维中等——可提升表达的精确性
+  warnings: []
+  advice:
+  - 理清概念比解决问题更重要——问题往往来自概念的混乱
+  summary_high: 语言逻辑——思维精准
+  summary_low: 逻辑思维可提升
+xunzi:
+  name: 荀子
+  title: 性恶论化性起伪
+  confidence: 0.5
+  score_components:
+  - - tenshen.官杀
+    - 6
+  - - tenshen.印星
+    - 5
+  - - tenshen.财星
+    - 2
+  boost_dayun: true
+  dimensions:
+  - name: 礼法约束
+    components:
+    - - tenshen.官杀
+      - 12
+  - name: 后天教化
+    components:
+    - - tenshen.印星
+      - 12
+  insights:
+    high:
+    - 化性起伪之功——后天教化效果显著
+    - 青出于蓝而胜于蓝——你的潜力在持续学习中
+    mid:
+    - 积善成德——功到自然成
+  warnings: []
+  advice:
+  - 不积跬步无以至千里——每天进步1%
+  summary_high: 教化之功显著——化性起伪有成
+  summary_low: 教化之功待深化——继续积善成德
+xuziping:
+  name: 徐子平
+  title: 四柱论命子平正宗
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 5
+  - - tenshen.官杀
+    - 4
+  - - daymaster.support_ratio
+    - 4
+  boost_yongshen: true
+  dimensions:
+  - name: 子平法度
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.印星
+      - 6
+  - name: 格局清浊
+    components:
+    - - daymaster.support_ratio
+      - 5
+    - - tenshen.印星
+      - 5
+  insights:
+    high:
+    - 子平格局清明——财官印食各有归处
+    - 以日主为君以月令为纲——格局有成
+    mid:
+    - 格局中正——无大破亦无大成
+  warnings: []
+  advice:
+  - 看格局先看月令——月令定格局之真假
+  summary_high: 子平格局清正
+  summary_low: 格局中正
+yuanshushan:
+  name: 袁树珊
+  title: 命理探源星命集成
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 6
+  - - tenshen.财星
+    - 4
+  - - wuxing.水
+    - 3
+  boost_dayun: true
+  dimensions:
+  - name: 探源
+    components:
+    - - tenshen.印星
+      - 10
+    - - wuxing.水
+      - 5
+  - name: 务实
+    components:
+    - - tenshen.财星
+      - 8
+    - - tenshen.官杀
+      - 4
+  insights:
+    high:
+    - 溯源清本命理明晰——求实精神可嘉
+    - 星命集成——理论与实践兼顾
+    mid:
+    - 探源之功待继续——深入方能浅出
+  warnings: []
+  advice:
+  - 理论的尽头是实践——命理不脱人事
+  summary_high: 探源有功——务实求本
+  summary_low: 本源尚待深究
+yue_fei:
+  name: 岳飞
+  title: 精忠报国还我河山
+  confidence: 0.55
+  score_components:
+  - - tenshen.官杀
+    - 6
+  - - tenshen.比劫
+    - 6
+  - - tenshen.印星
+    - 5
+  boost_dayun: true
+  dimensions:
+  - name: 忠诚信念
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.印星
+      - 6
+  - name: 家国情怀
+    components:
+    - - tenshen.比劫
+      - 8
+    - - tenshen.印星
+      - 5
+  insights:
+    high:
+    - 精忠报国——有超越个人的使命和信念
+    - 三十功名尘与土八千里路云和月
+    mid:
+    - 信念感很强——需要一个值得奋斗的目标
+  warnings: []
+  advice:
+  - 找到你愿意为之付出一切的事业——信念是最好的动力
+  summary_high: 精忠报国——信念驱动
+  summary_low: 信念待明确
+zengguofan:
+  name: 曾国藩
+  title: 拙诚之道日课十二条
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 7
+  - - tenshen.官杀
+    - 4
+  - - tenshen.比劫
+    - 3
+  boost_dayun: true
+  dimensions:
+  - name: 拙诚
+    components:
+    - - tenshen.印星
+      - 10
+    - - tenshen.比劫
+      - 5
+  - name: 自律
+    components:
+    - - tenshen.官杀
+      - 8
+    - - tenshen.印星
+      - 5
+  insights:
+    high:
+    - 拙诚之道——最笨的方法往往是最快的
+    - 结硬寨打呆仗——稳扎稳打是你的风格
+    mid:
+    - 韧性中等——尚需磨炼定力
+  warnings: []
+  advice:
+  - 尚拙——不要追求捷径，下笨功夫才是真捷径
+  summary_high: 拙诚之道——结硬寨打呆仗
+  summary_low: 拙诚待修——尚需日课之功
+zhangliang:
+  name: 张良
+  title: 运筹帷幄功成身退
+  confidence: 0.55
+  score_components:
+  - - tenshen.印星
+    - 6
+  - - tenshen.食伤
+    - 5
+  - - wuxing.水
+    - 3
+  boost_dayun: true
+  dimensions:
+  - name: 谋略
+    components:
+    - - tenshen.印星
+      - 8
+    - - tenshen.食伤
+      - 6
+  - name: 知进退
+    components:
+    - - wuxing.水
+      - 8
+    - - tenshen.印星
+      - 4
+  insights:
+    high:
+    - 运筹帷幄之中决胜千里之外——智谋过人
+    - 功成身退的智慧——知止不殆
+    mid:
+    - 谋略中等——多算才能胜少算
+  warnings: []
+  advice:
+  - 谋定后动——做决定前至少想三个方案
+  summary_high: 谋略过人——善布局知进退
+  summary_low: 谋略可提升——多算胜少算
+zhuge_ke:
+  name: 诸葛恪
+  title: 聪明外露器小易盈
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 7
+  - - tenshen.印星
+    - 4
+  - - tenshen.官杀
+    - 4
+  boost_dayun: true
+  dimensions:
+  - name: 才智外显
+    components:
+    - - tenshen.食伤
+      - 10
+    - - tenshen.比劫
+      - 4
+  - name: 谦逊内敛
+    components:
+    - - tenshen.印星
+      - 8
+    - - wuxing.水
+      - 5
+  insights:
+    high:
+    - 聪明至极但需警惕——器小易盈
+    - 才华横溢的人最大的敌人是自己
+    mid:
+    - 才智外显——适当的谦逊是保护色
+  warnings:
+  - field: tenshen.印星
+    threshold: 2
+    msg: 智有余而德不足——不可恃才傲物
+  advice:
+  - 才高者更需厚德载物——才华越大谦逊越重要
+  summary_high: 才智外显——谦逊是护城河
+  summary_low: 才智中正——不盈不亏
+zuckerberg:
+  name: 扎克伯格
+  title: 快速迭代连接世界
+  confidence: 0.5
+  score_components:
+  - - tenshen.食伤
+    - 7
+  - - tenshen.比劫
+    - 5
+  - - tenshen.财星
+    - 4
+  boost_dayun: true
+  dimensions:
+  - name: 执行力
+    components:
+    - - tenshen.比劫
+      - 8
+    - - tenshen.食伤
+      - 6
+  - name: 连接力
+    components:
+    - - tenshen.比劫
+      - 8
+    - - tenshen.财星
+      - 5
+  insights:
+    high:
+    - 快速行动迭代优化——move fast and break things
+    - 连接他人的能力是你的杠杆
+    mid:
+    - 执行力中等——从小处着手快速迭代
+  warnings: []
+  advice:
+  - 完成胜过完美——先上线再优化
+  summary_high: 高效执行——快速迭代
+  summary_low: 执行力可加速——先做再完善

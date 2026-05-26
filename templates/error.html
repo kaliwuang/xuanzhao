@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玄照 · 错误</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'PingFang SC','Microsoft YaHei',sans-serif}
+body{background:#0a0a0f;color:#c0c0cc;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.error-box{text-align:center;padding:2rem;max-width:400px}
+.error-box h1{font-size:3rem;color:#e07050;margin-bottom:1rem}
+.error-box p{font-size:1rem;color:#808090;margin-bottom:1.5rem;line-height:1.6}
+.error-box .btn{display:inline-block;padding:0.6rem 1.5rem;background:rgba(80,80,200,.3);border:1px solid rgba(80,80,200,.3);border-radius:20px;color:#a0a0e0;text-decoration:none;font-size:0.9rem}
+.error-box .btn:hover{background:rgba(80,80,200,.4)}
+</style>
+</head>
+<body>
+<div class="error-box">
+  <h1>{{ status_code }}</h1>
+  <p>{{ detail }}</p>
+  <a href="/" class="btn">返回首页</a>
+</div>
+</body>
+</html>

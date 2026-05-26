@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "xuanzhao"
+version = "1.4.0"
+description = "玄照 · XuanZhao — 玄学群体智能预测系统"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "kaliwuang"}]
+requires-python = ">=3.10"
+dependencies = [
+    "lunar-python>=1.4.8",
+    "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+web = ["fastapi>=0.110", "uvicorn>=0.29", "jinja2>=3.1", "aiofiles>=23"]
+astro = ["pyswisseph>=2.10"]
+dev = ["pytest>=8", "pytest-cov>=5"]
+
+[project.urls]
+Homepage = "https://github.com/kaliwuang/xuanzhao"
+Repository = "https://github.com/kaliwuang/xuanzhao"
+
+[tool.setuptools]
+packages = {find = {where = ["."]}}
+include-package-data = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+markers = [
+    "unit: Tests that run quickly without external dependencies.",
+    "integration: Tests that verify end-to-end behavior with real data.",
+]

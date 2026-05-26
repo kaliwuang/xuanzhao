@@ -1,5 +1,11 @@
 # 玄照 · XuanZhao
 
+[![CI](https://github.com/kaliwuang/xuanzhao/actions/workflows/ci.yml/badge.svg)](https://github.com/kaliwuang/xuanzhao/actions/workflows/ci.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Version](https://img.shields.io/badge/version-1.4.0-blue)](https://github.com/kaliwuang/xuanzhao)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](https://github.com/kaliwuang/xuanzhao/pulls)
+
 > 玄学为体，照见为用  
 > **七术排盘 × 40+ 视角交叉印证 = 新一代群体智能预测系统**
 
@@ -248,3 +254,7 @@ xuanzhao/
 ## 许可证
 
 MIT
+
+---
+
+[English Version](README_EN.md) | [中文版本](README.md)

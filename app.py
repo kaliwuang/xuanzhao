@@ -7,9 +7,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 import uvicorn
 
 # 导入引擎
@@ -44,248 +45,11 @@ except ImportError:
     DEEP_OK = False
 
 app = FastAPI(title="玄照 · 玄学辩论台", version="2.0.0")
+templates = Jinja2Templates(directory="templates")
 
 # ==========================================
-# 辩论台 HTML
+# 辩论台 HTML (moved to templates/index.html)
 # ==========================================
-DEBATE_HTML = r"""<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>玄照 · 玄学辩论台</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'PingFang SC','Microsoft YaHei',sans-serif}
-body{background:#0a0a0f;color:#c0c0cc;min-height:100vh;display:flex;flex-direction:column}
-.header{background:linear-gradient(135deg,#1a1a2e,#16213e);padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
-.header h1{font-size:18px;color:#e8e8f0;letter-spacing:2px;font-weight:400}
-.header span{color:#7c7c8a;font-size:12px;margin-left:12px}
-.bazi-bar{background:rgba(20,20,40,.8);padding:10px 16px;display:flex;flex-wrap:wrap;gap:6px;font-size:13px;border-bottom:1px solid rgba(255,255,255,.05)}
-.bazi-bar .tag{background:rgba(100,100,200,.15);border:1px solid rgba(100,100,200,.25);padding:2px 10px;border-radius:12px;color:#9090c0;font-size:11px}
-.bazi-bar .tag.highlight{background:rgba(200,150,50,.15);border-color:rgba(200,150,50,.3);color:#c0a050}
-.debate-stage{flex:1;overflow-y:auto;padding:12px 16px;scroll-behavior:smooth}
-.message{margin-bottom:14px;animation:fadeIn .3s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.message .header-line{display:flex;align-items:center;gap:8px;margin-bottom:4px}
-.message .badge{font-size:10px;padding:1px 8px;border-radius:8px;font-weight:500}
-.message .name{font-size:13px;color:#d0d0e0;font-weight:500}
-.message .title{font-size:11px;color:#707080}
-.message .content{font-size:13px;line-height:1.6;color:#c0c0cc;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.04);margin-left:0;border-left:2px solid rgba(100,100,200,.2)}
-.message .content .quote{color:#808090;font-style:italic;margin-top:6px;font-size:12px}
-
-.faction-orthodox .badge{background:rgba(60,120,200,.3);color:#80b0e0}
-.faction-orthodox .content{border-left-color:#3c78c8}
-.faction-daoist .badge{background:rgba(60,180,120,.3);color:#80d0a0}
-.faction-daoist .content{border-left-color:#3cb478}
-.faction-prophet .badge{background:rgba(200,60,60,.3);color:#e08080}
-.faction-prophet .content{border-left-color:#c83c3c}
-.faction-alchemy .badge{background:rgba(200,150,50,.3);color:#e0b050}
-.faction-alchemy .content{border-left-color:#c89632}
-.faction-witchcraft .badge{background:rgba(150,60,200,.3);color:#b080d0}
-.faction-witchcraft .content{border-left-color:#963cc8}
-.faction-western .badge{background:rgba(60,160,200,.3);color:#70c0e0}
-.faction-western .content{border-left-color:#3ca0c8}
-.faction-rational .badge{background:rgba(140,140,160,.3);color:#a0a0b0}
-.faction-rational .content{border-left-color:#8c8ca0}
-
-.system-msg{text-align:center;color:#606070;font-size:12px;margin:16px 0;letter-spacing:1px}
-.rebuttal{background:rgba(200,150,50,.06);border-radius:8px;padding:10px 14px;margin:10px 0 14px 24px;border:1px solid rgba(200,150,50,.12)}
-.rebuttal .re-label{font-size:11px;color:#c0a050;margin-bottom:6px}
-.rebuttal .re-content{font-size:12px;line-height:1.5;color:#a0a0b0}
-.input-bar{background:#12121a;border-top:1px solid rgba(255,255,255,.06);padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom));display:flex;gap:8px}
-.input-bar input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:10px 16px;color:#ccc;font-size:14px;outline:none}
-.input-bar input:focus{border-color:rgba(80,80,200,.4)}
-.input-bar button{background:rgba(80,80,200,.3);border:1px solid rgba(80,80,200,.3);border-radius:20px;padding:10px 20px;color:#a0a0e0;font-size:14px;cursor:pointer;white-space:nowrap}
-.input-bar button:hover{background:rgba(80,80,200,.4)}
-.input-bar button:disabled{opacity:.4;cursor:not-allowed}
-.typing{color:#606070;font-size:12px;margin:8px 0 8px 24px;animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
-</style>
-</head>
-<body>
-
-<div class="header">
-  <h1>玄照 · 玄学辩论台 <span>108位人物 × 7大阵营</span></h1>
-</div>
-
-<div class="bazi-bar" id="baziBar">
-  <span>加载命盘...</span>
-</div>
-
-<div class="debate-stage" id="debateStage">
-  <div class="system-msg">欢迎来到玄学辩论台——输入你的问题，108位玄学人物当场辩论</div>
-</div>
-
-<div class="input-bar">
-  <input type="text" id="questionInput" placeholder="输入问题，如：此人适合做什么？" onkeydown="if(event.key==='Enter')askQuestion()">
-  <button id="askBtn" onclick="askQuestion()">发问</button>
-</div>
-
-<script>
-let currentDestiny = null;
-let currentAnalytics = null;
-let debateHistory = [];
-let isLoading = false;
-
-// 阵营颜色映射
-const FACTION_META = {
-  "orthodox": {"name": "玄学正宗", "color": "#3c78c8"},
-  "daoist": {"name": "道家自然", "color": "#3cb478"},
-  "prophet": {"name": "预言警示", "color": "#c83c3c"},
-  "alchemy": {"name": "炼金转化", "color": "#c89632"},
-  "witchcraft": {"name": "巫术萨满", "color": "#963cc8"},
-  "western": {"name": "西方神秘", "color": "#3ca0c8"},
-  "rational": {"name": "理性研究", "color": "#8c8ca0"},
-};
-
-async function init() {
-  // 加载命盘
-  try {
-    const r = await fetch("/api/analyze?deep=shallow");
-    const data = await r.json();
-    currentDestiny = data;
-    
-    // 更新八字信息栏
-    const ba = data.bazi?.bazi || {};
-    const dm = data.bazi?.day_master || {};
-    const features = data.features || [];
-    const bar = document.getElementById("baziBar");
-    const baziStr = [ba.year, ba.month, ba.day, ba.time].filter(Boolean).join(" ");
-    let html = `<span>${baziStr}</span>`;
-    if (dm.gan) html += `<span class="tag highlight">日主${dm.gan}${dm.wuxing}</span>`;
-    features.forEach(f => {
-      const short = f.length > 16 ? f.slice(0, 16) + "…" : f;
-      html += `<span class="tag">${short}</span>`;
-    });
-    bar.innerHTML = html;
-    
-    // 加载辩论引擎
-    await loadAnalytics();
-  } catch(e) {
-    document.getElementById("baziBar").innerHTML = `<span style="color:#e08080">❌ 命盘加载失败</span>`;
-  }
-}
-
-async function loadAnalytics() {
-  const r = await fetch("/api/analytics");
-  const d = await r.json();
-  currentAnalytics = d;
-}
-
-async function askQuestion() {
-  if (isLoading) return;
-  const input = document.getElementById("questionInput");
-  const question = input.value.trim();
-  if (!question) return;
-  
-  isLoading = true;
-  document.getElementById("askBtn").disabled = true;
-  
-  // 显示用户问题
-  addSystemMsg("你问：" + question);
-  
-  // 清空输入
-  input.value = "";
-  
-  try {
-    const r = await fetch("/api/debate/ask", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({question: question})
-    });
-    const data = await r.json();
-    
-    // 显示第一轮：各阵营立论
-    addSystemMsg("── 各派立论 ──");
-    if (data.round1) {
-      for (const speech of data.round1) {
-        addMessage(speech.faction, speech.name, speech.title, speech.text, speech.catchphrase);
-        await sleep(200);
-      }
-    }
-    
-    // 显示驳论
-    if (data.round2 && data.round2.length > 0) {
-      addSystemMsg("── 观点交锋 ──");
-      for (const ex of data.round2) {
-        addRebuttal(ex.from, ex.to, ex.text);
-        await sleep(150);
-      }
-    }
-    
-    // 显示总结
-    if (data.summary) {
-      addSystemMsg("── 小结 ──");
-      addSummary(data.summary);
-    }
-    
-  } catch(e) {
-    addSystemMsg("❌ 辩论出错: " + e.message);
-  }
-  
-  isLoading = false;
-  document.getElementById("askBtn").disabled = false;
-  
-  // 滚动到底部
-  const stage = document.getElementById("debateStage");
-  stage.scrollTop = stage.scrollHeight;
-}
-
-function addMessage(faction, name, title, text, catchphrase) {
-  const stage = document.getElementById("debateStage");
-  const div = document.createElement("div");
-  div.className = "message faction-" + faction;
-  
-  const facName = FACTION_META[faction]?.name || faction;
-  const color = FACTION_META[faction]?.color || "#888";
-  
-  div.innerHTML = \`
-    <div class="header-line">
-      <span class="badge" style="background:\${color}33;color:\${color}">\${facName}</span>
-      <span class="name">\${name}</span>
-      <span class="title">\${title}</span>
-    </div>
-    <div class="content">
-      \${text.replace(/\\n/g, "<br>")}
-      \${catchphrase ? '<div class="quote">⚡ ' + catchphrase + '</div>' : ''}
-    </div>
-  \`;
-  stage.appendChild(div);
-}
-
-function addRebuttal(from, to, text) {
-  const stage = document.getElementById("debateStage");
-  const div = document.createElement("div");
-  div.className = "rebuttal";
-  div.innerHTML = \`
-    <div class="re-label">⚡ \${from} → \${to}</div>
-    <div class="re-content">\${text.replace(/\\n/g, "<br>")}</div>
-  \`;
-  stage.appendChild(div);
-}
-
-function addSystemMsg(text) {
-  const stage = document.getElementById("debateStage");
-  const div = document.createElement("div");
-  div.className = "system-msg";
-  div.textContent = text;
-  stage.appendChild(div);
-}
-
-function addSummary(text) {
-  const stage = document.getElementById("debateStage");
-  const div = document.createElement("div");
-  div.style.cssText = "background:rgba(80,80,160,.1);border:1px solid rgba(80,80,160,.2);border-radius:8px;padding:12px 16px;margin:12px 0;font-size:12px;line-height:1.6;color:#b0b0c0";
-  div.innerHTML = text.replace(/\\n/g, "<br>");
-  stage.appendChild(div);
-}
-
-function sleep(ms) {return new Promise(r => setTimeout(r, ms))}
-
-init();
-</script>
-</body>
-</html>"""
 
 
 # ==========================================
@@ -304,8 +68,8 @@ def _load_debate_data():
 
 
 @app.get("/api/debate", response_class=HTMLResponse)
-async def debate_page():
-    return DEBATE_HTML
+async def debate_page(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 @app.get("/api/analytics")
@@ -460,12 +224,12 @@ if frontend_dir.exists():
     app.mount("/static", StaticFiles(directory=str(frontend_dir)), name="frontend")
 
 @app.get("/", response_class=HTMLResponse)
-async def root():
-    # 重定向到辩论台
+async def root(request: Request):
+    # 如果 frontend/index.html 存在，使用 result.html 模板；否则使用辩论台
     index_path = frontend_dir / "index.html"
     if index_path.exists():
         return index_path.read_text(encoding="utf-8")
-    return DEBATE_HTML
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 @app.get("/api/analyze")

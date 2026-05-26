@@ -371,4 +371,20 @@ class Perspective(ABC):
         if f["liuyao_str"]:
             p3 = f"此外，{f['liuyao_str']}，卦象在此可作为辅助印证。"
         
-        return f"{p1}\n\n{p2}\n\n{p3}"
+        # 加入名言引用（从模板视角配置的quotes字段）
+        quote_text = ""
+        if hasattr(self, '_cfg') and self._cfg.get("quotes"):
+            qs = self._cfg["quotes"]
+            if qs:
+                quote_text = f"\n\n如我所言：「{qs[0]}」"
+                if len(qs) > 1:
+                    quote_text += f"\n又如：「{qs[1]}」"
+        
+        # 加入著作引用
+        works_text = ""
+        if hasattr(self, '_cfg') and self._cfg.get("works"):
+            ws = self._cfg["works"][:2]
+            if ws:
+                works_text = f"\n\n上述论断，可参阅{'、'.join(ws)}以知其详。"
+        
+        return f"{p1}\n\n{p2}\n\n{p3}{quote_text}{works_text}"

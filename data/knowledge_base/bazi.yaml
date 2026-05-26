@@ -1,0 +1,630 @@
+# 八字命理知识库 — 玄照(XuanZhao)项目
+# 来源：《八字理论精华宝典》OCR精读至P294 + 多源综合
+# 更新日期: 2026-05-26
+# 用途: 108视角辩论引擎知识参考
+
+bazi:
+  metadata:
+    source: "《八字理论精华宝典》+《子平真诠》+《滴天髓》+《渊海子平》综合"
+    progress: "P295/647 (已完成45%)"
+    total_knowledge_points: 98
+
+  # ========== 一、核心概念 ==========
+  core:
+    five_elements:  # 五行
+      wood:
+        element: 木
+        season: 春
+        direction: 东
+        color: 青/绿
+        organs: 肝胆/目
+        personality: 仁慈/正直/生长
+        star: 岁星(木星)
+        taste: 酸
+        life: 长生在亥,帝旺在卯,墓在未
+      fire:
+        element: 火
+        season: 夏
+        direction: 南
+        color: 红/赤
+        organs: 心脏/小肠/目
+        personality: 礼/热情/明亮
+        star: 荧惑(火星)
+        taste: 苦
+        life: 长生在寅,帝旺在午,墓在戌
+      earth:
+        element: 土
+        season: 季夏(四季末)
+        direction: 中
+        color: 黄/棕
+        organs: 脾胃/口
+        personality: 信/稳重/包容
+        star: 镇星(土星)
+        taste: 甘
+        life: 长生在申,帝旺在子,墓在辰
+      metal:
+        element: 金
+        season: 秋
+        direction: 西
+        color: 白
+        organs: 肺/大肠/鼻
+        personality: 义/果断/肃杀
+        star: 太白(金星)
+        taste: 辛
+        life: 长生在巳,帝旺在酉,墓在丑
+      water:
+        element: 水
+        season: 冬
+        direction: 北
+        color: 黑/蓝
+        organs: 肾/膀胱/耳
+        personality: 智/柔韧/流动
+        star: 辰星(水星)
+        taste: 咸
+        life: 长生在申,帝旺在子,墓在辰
+
+    ten_gods:  # 十神
+      - name: 正官
+        code: zhengguan
+        relation: 克我者阴阳异
+        meaning: 正职/官运/名誉/纪律
+        positive: 正直/负责/稳重
+        negative: 保守/压力/约束
+        health: 肝胆(木克土)
+        empty: 男性不受益于好上司,女性丈夫调职/分居/婚缘不佳
+      
+      - name: 七杀
+        code: qisha
+        relation: 克我者阴阳同
+        meaning: 权力/威严/竞争/压力
+        positive: 魄力/执行力/开创
+        negative: 冲动/暴躁/多灾
+        health: 肝胆/筋骨
+        empty: 军政界权旁落,性格好勇斗狠或畏首畏尾
+      
+      - name: 正财
+        code: zhengcai
+        relation: 我克者阴阳异
+        meaning: 稳定收入/正妻/固定资产
+        positive: 务实/节俭/稳定
+        negative: 吝啬/短视/固执
+        health: 脾胃/消化
+        empty: 与父无缘,成年易婚变,因欺诈损失财物,注意肠病
+      
+      - name: 偏财
+        code: piancai
+        relation: 我克者阴阳同
+        meaning: 横财/投资/父亲/情人
+        positive: 豪爽/灵活/社交
+        negative: 挥霍/好色/不稳定
+        health: 脾胃/胰腺
+        empty: 与父无缘,性不耐静,色情之象,与祖父/岳父不合
+      
+      - name: 正印
+        code: zhengyin
+        relation: 生我者阴阳异
+        meaning: 学识/文凭/长辈/庇护
+        positive: 聪明/稳重/贵人
+        negative: 依赖/迂腐/保守
+        health: 肠胃/消化系统
+        empty: 与母亲无缘,离乡,毁约背信,考试运不好
+      
+      - name: 偏印
+        code: pianyin
+        relation: 生我者阴阳同
+        meaning: 特殊技能/偏才/继母
+        positive: 独特/敏锐/创造力
+        negative: 孤僻/古怪/不合群
+        health: 神经系统/消化
+        empty: 爱幻想/反省,不眠/精神衰弱,心浮气躁
+      
+      - name: 比肩
+        code: bijian
+        relation: 同我者阴阳同
+        meaning: 兄弟/朋友/同辈/竞争
+        positive: 独立/自信/合作
+        negative: 固执/竞争/耗财
+        health: 脾胃/四肢
+        empty: 谋职/创业受阻多磨,服务业自由职业能有成就
+      
+      - name: 劫财
+        code: jiecai
+        relation: 同我者阴阳异
+        meaning: 朋友/兄弟姐妹/合作
+        positive: 义气/活跃/社交
+        negative: 争财/破财/好斗
+        health: 脾胃/肌肉
+        empty: 狡诈
+      
+      - name: 食神
+        code: shishen
+        relation: 我生者阴阳同
+        meaning: 才华/享受/口福/子女
+        positive: 温和/艺术/创造力
+        negative: 懒散/放纵/空想
+        health: 胰腺/消化
+        empty: 空亡不详(原文未详细记载)
+      
+      - name: 伤官
+        code: shangguan
+        relation: 我生者阴阳异
+        meaning: 才华/叛逆/创新/口舌
+        positive: 聪明/才华/创新
+        negative: 傲慢/刻薄/犯上
+        health: 肺/呼吸系统
+        empty: 空亡不详(原文未详细记载)
+
+    twelve_longevity:  # 十二长生
+      - name: 长生
+        order: 1
+        meaning: 出生/开始/萌芽
+        state: 最吉之一
+        note: 犹如婴儿出世,万事开始
+      - name: 沐浴
+        order: 2
+        meaning: 洗礼/桃花/天真
+        state: 中性偏吉
+        note: 犹如婴儿洗澡,桃花之地
+      - name: 冠带
+        order: 3
+        meaning: 成长/学习/准备
+        state: 吉
+        note: 犹如成人礼,学业有成
+      - name: 临官
+        order: 4
+        meaning: 任职/发展/工作
+        state: 大吉
+        note: 犹如做官,事业有成
+      - name: 帝旺
+        order: 5
+        meaning: 顶峰/极盛/成功
+        state: 最旺
+        note: 犹如帝王,达到顶峰
+      - name: 衰
+        order: 6
+        meaning: 衰退/减弱/退行
+        state: 凶
+        note: 盛极而衰
+      - name: 病
+        order: 7
+        meaning: 生病/衰退/问题
+        state: 凶
+        note: 犹如生病,能量不足
+      - name: 死
+        order: 8
+        meaning: 死亡/结束/停滞
+        state: 大凶
+        note: 犹如死亡,事物终结
+      - name: 墓
+        order: 9
+        meaning: 墓库/收藏/积蓄
+        state: 中性
+        note: 犹如入墓,积蓄能量
+      - name: 绝
+        order: 10
+        meaning: 灭绝/消失/极端
+        state: 大凶
+        note: 犹如灭绝,彻底消失
+      - name: 胎
+        order: 11
+        meaning: 受胎/萌芽/酝酿
+        state: 吉
+        note: 犹如怀孕,新的开始
+      - name: 养
+        order: 12
+        meaning: 养育/培养/成长
+        state: 吉
+        note: 犹如养育,积蓄力量
+
+    nayin_relationships:  # 纳音长生十二宫
+      metal:
+        changsheng: 巳
+        diwang: 酉
+        mu: 丑
+      wood:
+        changsheng: 亥
+        diwang: 卯
+        mu: 未
+      water:
+        changsheng: 申
+        diwang: 子
+        mu: 辰
+      fire:
+        changsheng: 寅
+        diwang: 午
+        mu: 戌
+      earth:
+        changsheng: 申
+        diwang: 子
+        mu: 辰
+
+  # ========== 二、空亡体系 (P145-153) ==========
+  empty_death:
+    theory:
+      definition: "地支遇旬空为空亡,六十甲子每旬有两个地支为空"
+      rule1: "空亡地支遇六合不为空"
+      rule2: "空亡逢冲以吉论,纳音相生更好"
+      rule3: "空亡的五行不起旺衰平衡作用,有视作无"
+      rule4: "大运空而流年不空"
+      rule5: "空亡逢同类型相冲极凶(天干相同地支相冲)"
+      rule6: "空亡逢六合不论空,其年平顺"
+
+    ten_gods:  # 十神空亡详解
+      zhengcai:
+        summary: "与父无缘,成年易婚变"
+        details:
+          - "因欺诈/盗贼蒙受财物损失"
+          - "注意肠病"
+          - "阳日生与妻缘分终尽(死或离)"
+          - "阴日生则在情人身上发生"
+          - "节俭者变挥霍,经济崩溃"
+          - "好运也平白放过"
+      piancai:
+        summary: "与父无缘,性不耐静"
+        details:
+          - "色情之象"
+          - "与祖父/岳父不合"
+          - "多走动或职业需走动者吉"
+      zhengyin:
+        summary: "与母亲/祖国无缘,离乡或出国"
+        details:
+          - "与母亲生离死别"
+          - "待人处事出错/毁约/背信"
+          - "横刀夺爱"
+          - "个性蒙昧/肤浅/草率"
+          - "考试运不好,名誉受损"
+      pianyin:
+        summary: "爱幻想/反省,有时迷惘/逃避现实"
+        details:
+          - "想停止工作"
+          - "身体不眠/精神衰弱"
+          - "与母亲/继母/养母无缘"
+          - "心浮气躁/轻举妄动/随波逐浪"
+          - "动中破财,入不敷出"
+          - "演艺工作者名气如昙花一现"
+      zhengguan:
+        summary: "男性不受益于好上司/儿女问题"
+        details:
+          - "女性丈夫调职/分居/婚缘不佳"
+      qisha:
+        summary: "军政界权旁落"
+        details:
+          - "常人可免受困境/病痛之苦"
+          - "性格好勇斗狠或畏首畏尾"
+      bijian:
+        summary: "谋职/创业受阻多磨"
+        details:
+          - "服务业/自由职业能有成就"
+      jiecai:
+        summary: "狡诈"
+      jianlu:
+        summary: "虚名虚利,学而无成,一生破散"
+      liuhai:
+        summary: "横死"
+      taohua:
+        summary: "情缘困扰/情祸/感情失落"
+      guiren:
+        summary: "演艺人员/歌星/舞女/文艺创作者"
+
+    swap_analysis:  # 空亡互换
+      year_dayun: "年柱与大运互换空亡:多不利长亲(祖坟多空败)"
+      month_dayun: "月柱和大运互换空亡:女和丈夫不利,男命父母兄弟不利"
+      day_dayun: "生日与大运互换空亡:主配偶不利"
+      hour_dayun: "时柱与大运互换空亡:主子女不利"
+      year_liunian: "流年与大运互换空亡:测这一年一事无成"
+
+    shen_sha_empty:  # 神煞空亡
+      huagai: "聪明/脱俗/为僧道学者/诗人/画家"
+      wangshen: "多好阿谀奉承,多靠文笔起家,家中有夭亡横死之人,有失落感"
+      jiesha: "狡诈"
+      guche_gua_su: "日月支坐孤虚或空亡多自己独处,性格孤僻,喜欢一人睡"
+
+    life_stages:  # 生命阶段空亡论
+      age_0_15:
+        summary: "发育不良/学习退步/品行恶劣/离家出走/被绑票"
+        caution: "忌正印落空亡"
+      age_15_30:
+        summary: "求学/深造/成家/立业阶段,若能渡过考验将来必成大人物"
+        caution: "忌正官落空亡"
+      age_30_50:
+        summary: "家庭/事业/儿女最重要阶段"
+        caution: "忌财/官落空亡,不宜生子/变动事业/祖坟风水"
+      age_50_100:
+        summary: "健康寿命最重要,人生已定型"
+        note: "反而不忌空亡"
+
+  # ========== 三、调候用神 (P163-187) ==========
+  tiaohou:
+    theory: "每个日干在十二个月令下需要不同的调候用神,分四层:四柱/格局/月令/大运"
+    
+    jia_mu:  # 甲日主
+      months:
+        寅: [丙, 癸]
+        卯: [庚, 丙, 丁]
+        辰: [庚, 壬]
+        巳: [癸, 庚, 丁]
+        午: [癸]
+        未: [癸, 庚, 丁]
+        申: [丙, 丁, 壬]
+        酉: [甲, 癸]
+        戌: [辛, 壬]
+        亥: [庚, 丙, 丁]
+        子: [丙]
+        丑: [丙]
+    
+    yi_mu:  # 乙日主
+      months:
+        寅: [丙]
+        卯: [丙, 癸]
+        辰: [丙, 癸, 戊]
+        巳: [癸]
+        午: [癸]
+        未: [癸, 丙]
+        申: [丙, 癸]
+        酉: [辛]
+        戌: [癸, 辛]
+        亥: [丙, 戊]
+        子: [丙]
+        丑: [丙]
+    
+    bing_huo:  # 丙日主
+      months:
+        寅: [壬, 庚]
+        卯: [庚, 己]
+        辰: [壬, 甲]
+        巳: [壬, 庚]
+        午: [癸]
+        未: [癸, 庚]
+        申: [壬, 戊]
+        酉: [壬, 癸]
+        戌: [甲, 壬]
+        亥: [壬, 甲]
+        子: [壬, 戊]
+        丑: [壬, 甲]
+    
+    ding_huo:  # 丁日主
+      months:
+        寅: [甲, 庚]
+        卯: [庚, 甲]
+        辰: [庚, 癸]
+        巳: [甲, 壬, 庚]
+        午: [癸]
+        未: [癸, 庚]
+        申: [甲, 壬, 庚]
+        酉: [壬, 癸]
+        戌: [甲, 壬]
+        亥: [甲, 壬]
+        子: [甲, 壬]
+        丑: [甲, 壬]
+    
+    wu_tu:  # 戊日主
+      months:
+        寅: [丙, 甲, 癸]
+        卯: [丙, 癸]
+        辰: [丙, 癸]
+        巳: [丙, 癸, 庚]
+        午: [丙, 癸]
+        未: [癸, 丙]
+        申: [丙, 甲, 癸]
+        酉: [丙, 癸]
+        戌: [甲, 癸]
+        亥: [丙, 甲, 癸]
+        子: [丙, 甲, 癸]
+        丑: [丙, 甲, 癸]
+    
+    ji_tu:  # 己日主
+      months:
+        寅: [丙, 甲, 癸]
+        卯: [甲, 癸]
+        辰: [丙, 癸]
+        巳: [癸, 丙]
+        午: [癸, 丙]
+        未: [癸, 丙]
+        申: [癸, 丙]
+        酉: [癸, 丙]
+        戌: [甲, 癸, 丙]
+        亥: [甲, 丙]
+        子: [甲, 丙]
+        丑: [甲, 丙]
+    
+    geng_jin:  # 庚日主
+      months:
+        寅: [丙, 甲]
+        卯: [丁, 甲]
+        辰: [丁, 甲]
+        巳: [壬, 丙, 戊]
+        午: [壬]
+        未: [丁, 甲]
+        申: [丁, 甲]
+        酉: [丁, 丙]
+        戌: [甲, 壬]
+        亥: [甲, 丙]
+        子: [壬, 丙]
+        丑: [丙, 己]
+    
+    xin_jin:  # 辛日主
+      months:
+        寅: [壬, 庚]
+        卯: [丁, 甲]
+        辰: [丁, 甲]
+        巳: [壬, 辛, 丙]
+        午: [壬, 辛]
+        未: [丁, 甲]
+        申: [壬, 辛, 丁]
+        酉: [壬, 辛]
+        戌: [壬, 辛]
+        亥: [壬, 辛]
+        子: [壬, 辛]
+        丑: [壬, 辛]
+    
+    ren_shui:  # 壬日主
+      months:
+        寅: [庚, 丙]
+        卯: [戊, 辛]
+        辰: [丙, 辛]
+        巳: [庚, 辛]
+        午: [庚, 辛, 壬]
+        未: [庚, 辛, 壬]
+        申: [庚, 丙, 丁]
+        酉: [庚, 辛]
+        戌: [庚, 辛, 壬]
+        亥: [庚, 壬]
+        子: [庚, 辛]
+        丑: [庚, 辛]
+    
+    gui_shui:  # 癸日主
+      months:
+        寅: [丙, 庚]
+        卯: [辛]
+        辰: [丙, 辛]
+        巳: [辛, 丙]
+        午: [庚, 辛, 壬]
+        未: [庚, 辛, 壬]
+        申: [庚, 辛]
+        酉: [辛, 丙]
+        戌: [辛, 壬]
+        亥: [辛, 丙]
+        子: [辛, 丙]
+        丑: [辛, 丙]
+
+    quick_rules:  # 速记口诀
+      - "甲生寒月(亥子丑)用丙戊庚"
+      - "乙生暖月(巳午未)用丙丁癸"
+      - "丙生燥月(巳午未)用壬庚癸"
+      - "丁生寒月用甲庚壬"
+      - "戊己生寒月用丙甲癸"
+      - "庚辛生暖月用壬癸辛"
+      - "壬癸生暖月用庚辛丙"
+
+  # ========== 四、大运体系 ==========
+  dayun:
+    rule_male: "阳男顺排/阴男逆排"
+    rule_female: "阳女逆排/阴女顺排"
+    start_age: "以五行局定起运年龄"
+    
+    jin_bu_huan:  # 金不换大运（精选）
+      jia_ri:
+        - month: 寅月
+          dayun: [丙寅, 丁卯, 戊辰, 己巳, 庚午, 辛未]
+          comment: "初运木火通明"
+        - month: 午月
+          dayun: [辛未, 壬申, 癸酉, 甲戌, 乙亥, 丙子]
+          comment: "火炎土燥需水济"
+      yi_ri:
+        - month: 卯月
+          dayun: [庚辰, 辛巳, 壬午, 癸未, 甲申, 乙酉]
+          comment: "乙木春生喜火暖"
+      bing_ri:
+        - month: 午月
+          dayun: [丙申, 丁酉, 戊戌, 己亥, 庚子, 辛丑]
+          comment: "夏火炎炎水为用"
+      ding_ri:
+        - month: 寅月
+          dayun: [庚寅, 辛卯, 壬辰, 癸巳, 甲午, 乙未]
+          comment: "春灯之火甲庚为用"
+
+  # ========== 五、拱局/暗带 (P148-162) ==========
+  gong_ju:
+    definition: "两支夹出中间一字,如子午夹出巳丑"
+    rule: "子午卯酉(其中一支为拱)"
+    cha_fa: "月令为主,查年月日时支"
+    meaning: "暗中助力/不完全的力量/背后支撑"
+
+  an_dai:
+    definition: "60组暗带关系,每个日柱暗带两个相关地支"
+    meaning: "间接影响/隐藏的关系"
+
+  # ========== 六、十神组合判断 ==========
+  ten_god_combinations:
+    shang_guan_jian_zhengguan:
+      effect: "伤官见官,为祸百端"
+      condition: "女命尤其不利婚姻"
+    shang_guan_pei_zhengyin:
+      effect: "伤官配印,贵不可言"
+      condition: "需身强印旺"
+    shi_sheng_pei_qisha:
+      effect: "食神制杀,英雄独压万人"
+      condition: "需食神有力"
+    qisha_you_zhi:
+      effect: "七杀有制化为权"
+      condition: "制化得宜"
+    yin_xing_duo_wang:
+      effect: "印星多旺,母慈灭子"
+      condition: "需比劫流通"
+    cai_xing_dang_ling:
+      effect: "财星当令,食伤生之"
+      condition: "富贵之基"
+    bi_jie_duo_wang:
+      effect: "比劫多旺,父寿不长"
+      condition: "需财星有护"
+
+  # ========== 七、疾病对应 ==========
+  health_mapping:
+    gan: 木(肝胆/目)
+    xin: 火(心脏/小肠/目)
+    pi: 土(脾胃/口)
+    fei: 金(肺/大肠/鼻)
+    shen: 水(肾/膀胱/耳)
+    
+    ten_god_disease:
+      zhengyin_empty: "肠胃不适,消化系统问题"
+      qisha_ke_shen: "意外伤害,筋骨损伤"
+      shang_guan_jian_guan: "精神压力,失眠"
+      cai_xing_shou_ke: "脾胃失调"
+
+  # ========== 八、行业分类 ==========
+  industry:
+    metal: ["金融", "证券", "银行", "五金", "珠宝", "矿业", "医疗", "律师", "汽车"]
+    water: ["贸易", "商业", "水产", "物流", "旅游", "网络", "IT", "广告", "社交"]
+    wood: ["教育", "文化", "学术", "出版", "纺织", "造纸", "园林", "服装", "医药"]
+    fire: ["能源", "电力", "照明", "燃气", "石油", "化妆品", "餐饮", "娱乐", "演艺"]
+    earth: ["建筑", "房地产", "农业", "仓储", "政府", "陶瓷", "矿产", "地产"]
+
+  # ========== 九、断语精华 ==========
+  formulas:
+    # 父母诀
+    parent:
+      - "全阴克父,全阳克母"
+      - "比劫重重父早亡"
+      - "年月空亡父母不全"
+      - "月令伤官父母不全"
+    
+    # 婚姻诀
+    marriage:
+      - "配偶星在墓库=克自己或绿自己"
+      - "官杀被合=二次婚"
+      - "偏才多好色多妻妾"
+      - "官杀混杂=官情人同时在场"
+      - "日时无配偶星=分床睡/聚少离多"
+      - "配偶宫空/星空/星入墓=同性恋倾向"
+    
+    # 子女诀
+    children:
+      - "时柱印枭全=女命子女无缘"
+      - "食伤自刑:精神问题/堕胎/孩子有问题"
+      - "子息宫与羊刃合=曾有流产"
+    
+    # 病伤诀
+    health_quick:
+      - "年头月胸日腹时脚"
+      - "禄临空亡或被伤=不见血光必遭秧"
+    
+    # 天克地冲
+    chong_years:
+      - "年月冲=15岁前一劫"
+      - "月日冲=16-32岁"
+      - "日时冲=33-50岁"
+    
+    # 地理诀
+    geography:
+      - "寅午戌=庙宇/大树"
+      - "巳=路"
+      - "亥子=河流"
+      - "双巳=两路交汇处"
+    
+    # 好色情断
+    lust:
+      - "水旺=肾功能好欲望强"
+      - "身旺劫旺男命好色"
+      - "食伤坐沐浴=直播/擦边"
+      - "金水旺无印无官杀=无底线"

@@ -19,37 +19,40 @@ class Munger(Perspective):
         dm = a["daymaster"]
         ts = a["tenshen"]
         
-        # 芒格式：先看坑
+        # 芒格式：先看坑（Inversion — "Invert, always invert"）
         pitfalls = []
         if not f['th'].get('yongshen'):
-            pitfalls.append("调候用神不显——容易在不适合自己的方向上死磕")
+            pitfalls.append("调候用神不显——容易在不适合自己的方向上死磕。『Invert, always invert』——先排除会让你完蛋的路")
         if f["chong"]:
-            pitfalls.append(f"{f['chong'][0]}——内耗是最大成本，得花时间处理内在矛盾")
+            pitfalls.append(f"{f['chong'][0]}——内耗是最大成本。芒格说『All I want to know is where I'm going to die, so I'll never go there』——先避开这个冲突")
         if ts.get("财星", 0) == 0 and ts.get("食伤", 0) == 0:
-            pitfalls.append("财星食伤皆不显——对市场/外部环境的感知力偏弱")
+            pitfalls.append("财星食伤皆不显——对市场/外部环境的感知力偏弱。『I'd rather be generally right than precisely wrong』——感知方向比精确数据更重要")
         if dm.get("strength") == "身弱" and ts.get("印星", 0) == 0:
-            pitfalls.append("身弱无印——'自我'的边界不够清晰，容易被外界带偏")
+            pitfalls.append("身弱无印——『自我』边界不清晰，容易被外界带偏。这是Lollapalooza效应的土壤：多种偏误叠加形成恶性循环")
         
         if pitfalls:
-            p1 = f"逆向思考：先不看这个命局能做什么，先看它容易在哪摔跤。我发现了{len(pitfalls)}个潜在陷阱："
+            p1 = f"逆向思考（Inversion）：先不看这个命局能做什么，先看它容易在哪摔跤。\n「Invert, always invert」——Jacob说的，我照做。\n我发现了{len(pitfalls)}个潜在陷阱："
             for p in pitfalls:
                 p1 += f"\n- {p}"
+            # Lollapalooza check
+            if len(pitfalls) >= 3:
+                p1 += "\n\n⚠️ 多重陷阱叠加，这就是芒格说的Lollapalooza效应——多个偏误同时作用、相互强化。遇到这种情况，最佳策略是：什么都别做。"
         else:
-            p1 = "逆向检查没有发现明显陷阱——命局结构合理，但这本身也是一种风险：没有明显问题的人往往对问题缺乏警觉。"
+            p1 = "逆向检查没有发现明显陷阱——命局结构合理。但这本身就是一种风险：没有明显问题的人往往对问题缺乏警觉。\n『The big money is not in the buying and selling, but in the waiting.』"
         
         p2 = ""
         if ts.get("印星", 0) >= 1:
-            p2 = f"好在印星显现有{ts['印星']}处——学习能力是你的护城河。芒格说的'多学科思维模型'，印星就是你的工具箱。"
+            p2 = f"好，现在来看你的多元思维模型工具箱（Latticework of Mental Models）。印星显现有{ts['印星']}处——这就是你的跨学科工具箱。\n『You must have a latticework of models in your head』——学科越多，盲区越少。印星是你从不同学科提取模型的能力。"
         else:
-            p2 = "印星不显——缺少天然的'学习习惯'。这不是致命伤，但意味着你需要刻意建立知识框架。"
+            p2 = "印星不显——缺少天然的『学习习惯』。芒格说『The best way to get what you want is to deserve what you want』——先去建立一个跨学科的知识框架，你配得上更好的判断力。"
         
         p3 = ""
         if f["dayun"].get("ganzhi"):
             d = f["dayun"]
             if d.get('gan_wuxing','') == dm.get('wuxing','') or d.get('zhi_wuxing','') == dm.get('wuxing',''):
-                p3 = f"当前{f['dayun_str']}——这个运帮身，是少犯错、多积累的好时机。芒格说一辈子只需做对几次关键决策就够了。"
+                p3 = f"当前{f['dayun_str']}——这个运帮身，是少犯错、多积累的好时机。芒格一辈子只做了几个重大决策：See's Candy、可口可乐、Costco、BYD。\n『It is remarkable how much long-term advantage we have gotten by trying to be consistently not stupid, instead of trying to be very intelligent.』"
             else:
-                p3 = f"当前{f['dayun_str']}——运势不帮身，更要慢下来少犯错。记住：不做什么比做什么重要。"
+                p3 = f"当前{f['dayun_str']}——运势不帮身，更要慢下来、少犯错。逆向思考的应用：不问『怎么变好』，问『怎么确保不变得更差』，然后避开那些路。\n『All I want to know is where I'm going to die, so I'll never go there.』"
         
         return f"{p1}\n\n{p2}\n\n{p3}"
     def analyze(self, data: dict, a: dict) -> dict:

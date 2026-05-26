@@ -19,21 +19,22 @@ class Taleb(Perspective):
         dm = a["daymaster"]
         ts = a["tenshen"]
         
-        p1 = f"用反脆弱思维来压力测试这个命盘。日主{f['dm_str']}，五行{f['strongest']}最旺、{f['weakest']}最弱。这告诉我两件事：一是你有明确的脆弱面——{f['weakest']}的不足是你的阿喀琉斯之踵；二是你的抗压机制——{f['strongest']}是你的冗余储备。"
+        # 塔勒布式压力测试：反脆弱 + 杠铃策略 + Skin in the Game + Via Negativa
+        p1 = f"用反脆弱思维来压力测试这个命盘。日主{f['dm_str']}，五行{f['strongest']}最旺、{f['weakest']}最弱。\n\n这告诉我两件事：一是你有明确的脆弱面——{f['weakest']}的不足是你的阿喀琉斯之踵。脆弱的东西经不起波动——这是第一性原理。二是你的抗压机制——{f['strongest']}是你的冗余储备。但注意：储备 ≠ 反脆弱。有储备只说明你扛得住波动，不代表你能从中获益。\n\n『Don't cross a river if it's four feet deep on average』——均值是骗人的，尾部才是真实的。"
         
         chong_taleb = ""
         if f["chong"]:
-            chong_taleb = f"命局有{f['chong'][0]}——我喜欢这个。冲象意味着系统在波动中可能实现跃迁。大多数人害怕不确定性，但反脆弱系统的特点恰恰是：越冲击，越强大。"
+            chong_taleb = f"命局有{f['chong'][0]}——我喜欢这个。冲象意味着系统在波动中可能实现跃迁，这就是反脆弱的核心：从混乱中获利。\n\n大多数人害怕不确定性。但反脆弱系统的特点恰恰是：越冲击，越强大。用杠铃策略来解释：一端是稳定的、抵抗波动的——你的{f['strongest']}所代表的领域；另一端是暴露于极端风险中的——你的冲象所在的位置。中间地带是最危险的，OK?\n\n你的命局暗示了一种结构：既要有安全垫，又要有高曝光的实验位。"
         else:
-            chong_taleb = "命局无冲——稳定是好的，但稳定也是一种脆弱。因为没有经过压力测试的系统，你不知道它什么时候会突然崩溃。"
+            chong_taleb = f"命局无冲——稳定是好的，但稳定也是一种脆弱（fragile）。因为没有经过压力测试的系统，你不知道它什么时候会突然崩溃。\n\n这就是火鸡问题：火鸡在被杀前的1000天里每天都被喂食，每一天都在强化『世界是安全的』信念。直到感恩节。\n\n考虑Via Negativa——减法优先。不问『该加什么』，问『该去掉什么』。去除制造脆弱性的因素，比增加新的保护层更有效。"
         
         strategy = ""
         if ts.get("七杀", 0) >= 1 or ts.get("官杀", 0) >= 1:
-            strategy = "七杀透干——你的命局自带压力测试仪。过度补偿策略：在七杀所代表的领域主动加码，让压力成为你的训练场。"
+            strategy = f"七杀透干（{ts.get('七杀',0)+ts.get('官杀',0)}处）——你的命局自带压力测试仪。\n\n反脆弱策略：在七杀所代表的领域主动加码，让压力成为你的训练场——就像硬拉训练，单次最大重量尝试比重复多组更有效。\n\n但记住Skin in the Game原则：你必须在这些决策中承担真实后果。没有Skin in the Game的决策者天然倾向于制造脆弱性，因为他们与反馈回路隔绝。"
         elif ts.get("印星", 0) >= 2:
-            strategy = "印星厚重——你有足够的缓冲区。但注意：缓冲区不是护城河，真正的反脆弱来自从错误中获利，而不是躲在安全区。"
+            strategy = f"印星厚重（{ts['印星']}处）——你有足够的缓冲区。\n\n但注意：缓冲区不是护城河。真正的反脆弱来自从错误中获利，而不是躲在安全区。\n\n『If you have to keep telling people you are antifragile, you are not antifragile.』\n\n印星是你的冗余（redundancy），但冗余只是第一步。下一步是把冗余变成凸性（convexity）——让不利时有限、有利时无限。"
         else:
-            strategy = "中庸之局——没有突出优势，也没有致命弱点。在这种情况下，巴菲特的建议反而更有用：用冗余对抗黑天鹅。"
+            strategy = "中庸之局——没有突出优势，也没有致命弱点。\n\n在这种情况下，最优策略是杠铃策略（Barbell Strategy）：\n- 90%的资源放在极度安全的领域（你的五行中最稳的元素）\n- 10%放在极度冒险但上行无限的领域（你的冲象或七杀位置）\n- 彻底避开中间地带——中等风险是最危险的，看似安全，实则在积累隐性的尾部风险\n\n『Complex systems don't need to be understood. They just need to be tamed.』"
         
         return f"{p1}\n\n{chong_taleb}\n\n{strategy}"
     def analyze(self, data: dict, a: dict) -> dict:

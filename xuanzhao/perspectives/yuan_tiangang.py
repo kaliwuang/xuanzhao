@@ -17,10 +17,24 @@ class YuanTiangang(Perspective):
         f = _fmt_bazi_data(a)
         dm = a["daymaster"]
         
+        # 称骨歌风格——先论骨重
+        weight_bonus = ""
+        dm_strength = dm.get('strength','?')
+        if dm_strength == "身强":
+            weight_bonus = "骨重气足，命如泰山之稳。"
+        elif dm_strength == "身弱":
+            weight_bonus = "骨轻气浮，命如秋叶之薄，然不足为忧。"
+        else:
+            weight_bonus = "骨相中和，不偏不倚，自在人间。"
+        
         p1 = (
-            f"老夫以骨相法推此命。日主{f['dm_str']}，{dm.get('strength','?')}之格。"
+            f"老夫袁天罡，以骨相法推此命。"
+            f"日主{f['dm_str']}，{dm_strength}之格。"
             f"五行{f['strongest']}旺而{f['weakest']}弱，"
-            f"此乃{'烈焰外显' if f['strongest'] == '火' else '刚锐外露' if f['strongest'] == '金' else '内秀其中' if f['strongest'] in ('水','木') else '厚德载物'}之相。"
+            f"此乃{'烈焰外显' if f['strongest'] == '火' else '刚锐外露' if f['strongest'] == '金' else '内秀其中' if f['strongest'] in ('水','木') else '厚德载物'}之相。\n\n"
+            f"{weight_bonus}\n"
+            f"「称骨歌云：一世荣华事事通，不须劳碌自亨通」——"
+            f"然此命之轻重，不在骨相而在行运。"
         )
         
         dayun_text = ""
@@ -28,16 +42,29 @@ class YuanTiangang(Perspective):
             d = f["dayun"]
             y = d.get("year_index", 0)
             seg_quality = "黄金期" if 2 <= y <= 5 else "初入期" if y <= 2 else "尾段期"
-            dayun_text = (
-                f"当前行{f['dayun_str']}，正值此运{seg_quality}。"
-                f"{f['dayun_str'].split('运')[0]}气{'助身，顺风顺水' if d.get('gan_wuxing','')==f['dm_wx'] else '非助身之气，需谨慎行事'}。"
-            )
+            help_phase = d.get('gan_wuxing','') == f['dm_wx'] or d.get('zhi_wuxing','') == f['dm_wx']
+            if help_phase:
+                dayun_text = (
+                    f"当前行{f['dayun_str']}，正值此运{seg_quality}。\n"
+                    f"「推背图第四十三象：君非君，臣非臣」——"
+                    f"此运{seg_quality}，天地之气助身而行，顺风顺水。"
+                )
+            else:
+                dayun_text = (
+                    f"当前行{f['dayun_str']}，正值此运{seg_quality}。\n"
+                    f"「称骨歌曰：此命生来运不通，奔波劳碌一场空」——"
+                    f"然老夫以为，{seg_quality}非助身之气，更需谨慎。"
+                )
         else:
-            dayun_text = "大运尚未开启，如璞玉未琢。少年之运，奠基为重。"
+            dayun_text = (
+                "大运尚未开启，如璞玉未琢。\n"
+                "「推背图开篇：茫茫天地，不知所止」——"
+                "少年之运，奠基为重，不可妄动。"
+            )
         
         mm_text = ""
         if f["liuyao_str"]:
-            mm_text = f" 老夫再观{f['liuyao_str']}卦象，{'与骨相相合' if '合' in str(f['combos']) else '以卦象印证骨相之论'}。"
+            mm_text = f" 老夫再观{f['liuyao_str']}卦象，{'与骨相相合，正如推背图所预言' if '合' in str(f['combos']) else '以卦象印证骨相之论'}。"
         
         return f"{p1}\n\n{dayun_text}{mm_text}"
     

@@ -18,11 +18,16 @@ class ZhugeLiang(Perspective):
         liuyao = f.get("liuyao_str", "")
         planets = "; ".join(f.get("planet_refs", []))
         
+        # 出师表风格开篇
         p1 = (
-            f"臣观此命盘，如临隆中论天下大势。日主{f['dm_str']}坐于{f['dm_wx']}，"
+            f"臣亮言：臣观此命盘，如临隆中论天下大势。"
+            f"日主{f['dm_str']}坐于{f['dm_wx']}，"
             f"五行之中{f['strongest']}气最盛、{f['weakest']}气最弱，"
             f"恰似曹孙刘三方之势——各有根基，各有不足。"
-            f"调候用神{f['yongshen_str']}，此乃天时，如借得东风便有成事之基。"
+            f"调候用神{f['yongshen_str']}，此乃天时，"
+            f"如借得东风便有成事之基。"
+            f"「非淡泊无以明志，非宁静无以致远」——"
+            f"此命之格局，不在今日之强弱，而在持守之道。"
         )
         
         chong_text = ""
@@ -31,24 +36,45 @@ class ZhugeLiang(Perspective):
                 f"然观其命局有{f['chong'][0]}，此事非坦途。"
                 "冲者，荆州之争也——不可不争，不可恋战。"
                 "先取荆州为家、再图益州成业，此臣之策。"
+                "「鞠躬尽瘁，死而后已」——"
+                "此命若遇大冲大克之年，正是鞠躬尽瘁之时，"
+                "成败在此一举。"
             )
         else:
-            chong_text = "命局无冲，根基稳固，如成都已定，可徐徐图之。"
+            chong_text = (
+                "命局无冲，根基稳固，如成都已定，可徐徐图之。"
+                "然臣诚恐「受命以来，夙夜忧叹」——"
+                "无冲之局虽稳，亦恐懈怠，不可不察。"
+            )
         
         dayun_text = ""
         if f["dayun"].get("ganzhi"):
             d = f["dayun"]
-            dayun_text = (
-                f"当前{f['dayun_str']}，{'所行与日主同气，此乃借势之时' if d.get('gan_wuxing','')==f['dm_wx'] or d.get('zhi_wuxing','')==f['dm_wx'] else '此运非帮身之运，当以守为主、以逸待劳'}。"
-            )
+            help_phase = d.get('gan_wuxing','') == f['dm_wx'] or d.get('zhi_wuxing','') == f['dm_wx']
+            if help_phase:
+                dayun_text = (
+                    f"当前{f['dayun_str']}，所行与日主同气，此乃借势之时。"
+                    "臣观天象，此运如赤壁之战——风势已备，只待发兵。"
+                    "「此诚危急存亡之秋也」——转折点就在当前，不可错失。"
+                )
+            else:
+                dayun_text = (
+                    f"当前{f['dayun_str']}，此运非帮身之运，当以守为主、以逸待劳。"
+                    "「苟全性命于乱世，不求闻达于诸侯」——"
+                    "退守之时，正是积蓄之力。"
+                )
         else:
-            dayun_text = "大运未动，如隆中未出——当务之急是等待时机。"
+            dayun_text = (
+                "大运未动，如隆中未出——当务之急是等待时机。"
+                "「先帝创业未半而中道崩殂」——"
+                "时机未至时贸然行动，最是危险。"
+            )
         
         mm_text = ""
         if f["liuyao_str"]:
-            mm_text = f"兼观{f['liuyao_str']}，{'与命盘相合，多算者胜' if '合' in f['liuyao_str'] else '卦象提醒——此命不可轻举妄动'}。"
+            mm_text = f"兼观{f['liuyao_str']}，{'与命盘相合，多算者胜' if '合' in f['liuyao_str'] else '卦象提醒——此命不可轻举妄动'}。臣尝以八阵图推演，{'合则势成' if '合' in f['liuyao_str'] else '冲则需以奇制胜'}。"
         if planets:
-            mm_text += f" 西学观星亦有印证：{planets}。天象地命，合而观之。"
+            mm_text += f" 西学观星亦有印证：{planets}。天象地命，合而观之，臣敢言：「凡事如是，难可逆见」。"
         
         return f"{p1}\n\n{chong_text}\n\n{dayun_text}{' ' + mm_text if mm_text else ''}"
     
